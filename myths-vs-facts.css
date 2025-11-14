@@ -1,0 +1,325 @@
+/* =====================================
+   Saheli | Myths vs Facts Page Styles
+   ===================================== */
+
+/* 🌺 Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600&display=swap');
+
+:root {
+  --bg-color: #f6efe6;
+  --primary-color: #e67c94;
+  --accent-color: #fbb6ce;
+  --text-dark: #333;
+  --text-light: #fff;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* 🌸 Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--text-light);
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 8px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-family: 'Playfair Display', serif;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar ul li {
+  margin-left: 1.5rem;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: var(--primary-color);
+}
+
+/* 🌼 Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #ffe6eb, #f6efe6);
+  padding: 4rem 6%;
+  flex-wrap: wrap;
+  border-radius: 0 0 40px 40px;
+}
+
+.hero-text {
+  flex: 1 1 45%;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  color: #444;
+  max-width: 500px;
+}
+
+.hero-image {
+  flex: 1 1 45%;
+  height: 260px;
+  background: url('https://cdn.pixabay.com/photo/2016/11/19/14/00/period-1834597_1280.jpg') center/cover no-repeat;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+/* 💫 Myths vs Facts Section */
+.myth-grid {
+  padding: 4rem 6%;
+  text-align: center;
+}
+
+.myth-grid h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 2rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+}
+
+/* 🩷 Flip Cards */
+.card {
+  perspective: 1000px;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  text-align: center;
+  transform-style: preserve-3d;
+  transition: transform 0.7s;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px var(--shadow);
+  background: var(--text-light);
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  transition: background 0.3s;
+}
+
+.card-front {
+  background: #ffe9f0;
+}
+
+.card-back {
+  background: #fef6f9;
+  transform: rotateY(180deg);
+}
+
+/* Card Texts & Icons */
+.card i {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 0.7rem;
+}
+
+.card h3 {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+/* Tooltip for "Did You Know?" */
+.tooltip {
+  position: fixed;
+  background: var(--primary-color);
+  color: var(--text-light);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 8px var(--shadow);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 999;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 🌷 Awareness Section */
+.awareness {
+  padding: 4rem 10%;
+  text-align: center;
+  background: #fffaf9;
+  border-radius: 30px;
+  margin: 3rem 6%;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.awareness h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1rem;
+}
+
+.awareness p {
+  color: #444;
+  font-size: 1.05rem;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* 🌺 Footer */
+footer {
+  background: var(--primary-color);
+  color: var(--text-light);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  margin-top: 3rem;
+}
+
+/* 🌼 Scroll & Hover Animations */
+.card:hover {
+  transform: scale(1.04);
+  transition: 0.3s;
+  box-shadow: 0 10px 20px var(--shadow);
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-animate] {
+  opacity: 0;
+}
+
+[data-animate].in-view {
+  animation: fadeUp 1s forwards;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    margin-bottom: 2rem;
+  }
+}
+/* ==========================
+   Tooltip styling
+   ========================== */
+.tooltip {
+  position: fixed;
+  background: #fff7fb;
+  color: #333;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  max-width: 280px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  border-left: 5px solid var(--primary-color);
+}
+
+.tooltip.visible {
+  opacity: 0;
+  transform: translateY(0);
+}
+
+/* optional small triangle pointer */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 25px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #fff7fb transparent;
+}
+
+/* ensure cards hover over tooltip properly */
+.card {
+  position: relative;
+  z-index: 1;
+}

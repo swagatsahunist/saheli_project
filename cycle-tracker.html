@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cycle Tracker 2.0 | Saheli</title>
+
+  <!-- Chart.js for graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="cycle-tracker.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="glass-nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">🌸 Saheli</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a class="active" href="cycle-tracker.html">Cycle Tracker</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="remedies.html">Remedies</a>
+        <a href="myths-vs-facts.html">Myths</a>
+        <a href="doctor.html">Doctor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- TOP DASHBOARD -->
+    <section class="dashboard">
+      <div class="phase-card glass">
+        <div class="phase-ring" id="phaseRing">
+          <div class="phase-ring-center">
+            <div id="phaseDay">--</div>
+            <small>Day</small>
+          </div>
+        </div>
+        <div class="phase-meta">
+          <h2 id="phaseName">—</h2>
+          <p class="muted" id="phaseLine">Set your last period and cycle length below.</p>
+          <div class="badges">
+            <span class="badge" id="nextPeriodBadge">Next period — —</span>
+            <span class="badge" id="ovBadge">Ovulation — —</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat glass">
+          <div class="stat-kpi" id="healthScore">—</div>
+          <div class="stat-label">Cycle Health Score</div>
+        </div>
+        <div class="stat glass">
+          <div class="stat-kpi" id="avgEnergy">—</div>
+          <div class="stat-label">Avg Energy (last 14 days)</div>
+        </div>
+        <div class="stat glass">
+          <div class="stat-kpi" id="streak">—</div>
+          <div class="stat-label">Logging Streak</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS + QUICK INPUT -->
+    <section class="settings glass">
+      <form id="settingsForm">
+        <label>
+          Last Period Start
+          <input type="date" id="lastPeriod" required>
+        </label>
+        <label>
+          Average Cycle Length (days)
+          <input type="number" id="cycleLength" min="21" max="60" value="28" required>
+        </label>
+        <button class="btn" id="saveSettings" type="submit">Save & Update</button>
+        <button class="btn ghost" id="addPeriodStart" type="button" title="Adds this date to history">Add to History</button>
+      </form>
+      <div class="settings-note">
+        Tip: Save once. The tracker will color the calendar and personalize insights. Sakhi Coach will also adapt automatically.
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <section class="tabs">
+      <div class="tab-bar glass">
+        <button class="tab active" data-tab="cal">📅 Calendar</button>
+        <button class="tab" data-tab="logs">📝 Logs</button>
+        <button class="tab" data-tab="analytics">📊 Analytics</button>
+        <button class="tab" data-tab="history">🗂️ History</button>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="tab-panel show" id="tab-cal">
+        <div class="cal-head">
+          <button class="icon-btn" id="prevMonth" aria-label="Previous month">‹</button>
+          <h3 id="monthLabel">—</h3>
+          <button class="icon-btn" id="nextMonth" aria-label="Next month">›</button>
+        </div>
+        <div class="legend">
+          <span class="chip menstrual">Menstrual</span>
+          <span class="chip fertile">Fertile</span>
+          <span class="chip ovulation">Ovulation</span>
+          <span class="chip luteal">Luteal</span>
+          <span class="chip follicular">Follicular</span>
+          <span class="chip today">Today</span>
+        </div>
+        <div class="calendar glass" id="calendar"></div>
+      </div>
+
+      <!-- LOGS -->
+      <div class="tab-panel" id="tab-logs">
+        <div class="log-form glass">
+          <h3>Add Daily Log</h3>
+          <form id="logForm">
+            <label>
+              Date
+              <input type="date" id="logDate" required>
+            </label>
+            <label>
+              Mood
+              <select id="logMood">
+                <option value="Happy">Happy</option>
+                <option value="Calm">Calm</option>
+                <option value="Normal" selected>Normal</option>
+                <option value="Irritable">Irritable</option>
+                <option value="Sad">Sad</option>
+              </select>
+            </label>
+            <label>
+              Energy
+              <select id="logEnergy">
+                <option value="3">High</option>
+                <option value="2" selected>Normal</option>
+                <option value="1">Low</option>
+              </select>
+            </label>
+            <label>
+              Flow
+              <select id="logFlow">
+                <option>None</option>
+                <option>Light</option>
+                <option selected>Moderate</option>
+                <option>Heavy</option>
+              </select>
+            </label>
+            <label class="full">
+              Notes
+              <textarea id="logNotes" rows="2" placeholder="e.g., cramps mild, slept 7h"></textarea>
+            </label>
+            <div class="actions">
+              <button class="btn" type="submit">Save Log</button>
+              <button class="btn ghost" type="button" id="clearLogs">Clear All Logs</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="logs-list glass" id="logsList">
+          <h3>Recent Logs</h3>
+          <div id="logsContainer"></div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div class="tab-panel" id="tab-analytics">
+        <div class="charts-grid">
+          <div class="chart-card glass">
+            <h3>Mood vs Energy (last 30 entries)</h3>
+            <canvas id="moodEnergyChart"></canvas>
+          </div>
+          <div class="chart-card glass">
+            <h3>Cycle Length History</h3>
+            <canvas id="cycleLenChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="tab-panel" id="tab-history">
+        <div class="history glass">
+          <h3>Period Starts (saved)</h3>
+          <div id="historyList"></div>
+          <div class="actions">
+            <button class="btn ghost" id="clearHistory">Clear History</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer glass">
+    <p>© <span id="year"></span> Saheli | Empowering Women with Knowledge</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="cycle-tracker.js"></script>
+</body>
+</html>

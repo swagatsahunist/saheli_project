@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Saheli</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand"><span class="brand-logo">🌸</span><span class="brand-name">Saheli</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="cycle-tracker.html">Cycle Tracker</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="remedies.html">Remedies</a>
+        <a href="myths-vs-facts.html">Myths</a>
+        <a href="doctor.html">Doctor</a>
+        <a href="about.html" class="active">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text" data-animate>
+        <h1>We’re Saheli — your health companion</h1>
+        <p>Saheli is more than just a period tracker. It’s a movement to empower women with knowledge, comfort, and connection — so every cycle feels supported, not stressful.</p>
+      </div>
+      <div class="hero-img" data-animate>
+        <div class="image-placeholder circle-shape">
+          <div class="image-note">
+            add an image
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission container">
+    <div class="mission-text" data-animate>
+      <h2>Our Mission</h2>
+      <p>To normalize conversations around menstrual health and provide accurate, compassionate, and personalized support — blending technology with empathy.</p>
+    </div>
+
+    <div class="mission-highlights" data-animate>
+      <div class="highlight">
+        <i class="bi bi-heart"></i>
+        <h3>Care</h3>
+        <p>Every design and feature comes from real stories and experiences.</p>
+      </div>
+      <div class="highlight">
+        <i class="bi bi-lightbulb"></i>
+        <h3>Knowledge</h3>
+        <p>We provide factual, science-backed insights to empower decision-making.</p>
+      </div>
+      <div class="highlight">
+        <i class="bi bi-people"></i>
+        <h3>Community</h3>
+        <p>Creating a safe digital space for women to connect and learn together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE / JOURNEY -->
+  <section class="journey">
+    <div class="container">
+      <h2 data-animate>Our Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item" data-animate>
+          <div class="tl-content">
+            <h3>2023 — The Idea Blooms 🌷</h3>
+            <p>Saheli began as a small project to help track menstrual cycles with empathy.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-animate>
+          <div class="tl-content">
+            <h3>2024 — From Code to Care 💻</h3>
+            <p>We evolved into a complete wellness platform — adding doctor connect, nutrition, and remedies.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-animate>
+          <div class="tl-content">
+            <h3>2025 — Empowering Every User 💪</h3>
+            <p>Our mission continues — building smarter insights and expanding Saheli globally.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team container">
+    <h2 data-animate>Meet Our Team</h2>
+    <p class="sub" data-animate>Dedicated creators, developers, and health advocates behind Saheli.</p>
+    <div class="team-grid" data-animate>
+      <div class="team-card">
+        <div class="image-placeholder circle-shape">
+          <div class="image-note">
+            <!--<img src="images/swagat.jpg" alt="profile pic" /> -->
+          </div>
+        </div>
+        <h3>Swagat Sahu</h3>
+        <p>Backend Developer</p>
+        <div class="socials">
+          <a href="#"><i class="bi bi-github"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="image-placeholder circle-shape">
+          <div class="image-note">Add: Team member photo</div>
+        </div>
+        <h3>Ipsita Kumari Samantara</h3>
+        <p>UI/UX Designer</p>
+        <div class="socials">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-dribbble"></i></a>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="image-placeholder circle-shape">
+          <div class="image-note">Add: Team member photo</div>
+        </div>
+        <h3>Arpita Pradhan</h3>
+        <p>Frontend Developer</p>
+        <div class="socials">
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / QUOTE -->
+  <section class="cta">
+    <div class="container" data-animate>
+      <blockquote>
+        “Empowered women empower the world — and self-awareness is the first step.”
+      </blockquote>
+      <a href="cycle-tracker.html" class="btn primary">Start Tracking Your Cycle</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 Saheli | Made with ❤️ for women’s wellness</p>
+  </footer>
+
+  <script src="about.js"></script>
+</body>
+</html>

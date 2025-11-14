@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Consultation | Saheli</title>
+  <link rel="stylesheet" href="doctor.css" />
+</head>
+<body>
+  <header class="glass-nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">Saheli</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="tracker.html">Cycle Tracker</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="myths.html">Myths vs Facts</a>
+        <a href="remedies.html">Remedies</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-carousel">
+      <div class="slide active">
+        <img src="images/doctor-hero1.jpg" alt="Doctors" />
+        <div class="hero-text">
+          <h1>Find the Right Specialist for You</h1>
+          <p>Get connected with trusted professionals who understand women’s health.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="images/doctor-hero2.jpg" alt="Consult Online" />
+        <div class="hero-text">
+          <h1>Consult Comfortably from Your Home</h1>
+          <p>Book appointments and talk to doctors in your preferred language.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="images/doctor-hero3.jpg" alt="Care Team" />
+        <div class="hero-text">
+          <h1>Care That Listens to You</h1>
+          <p>Our experts ensure a confidential and personalized experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters container">
+    <h2>Find Your Doctor</h2>
+    <div class="filter-grid">
+      <div>
+        <label for="language">Language</label>
+        <select id="language">
+          <option value="all">All</option>
+          <option value="English">English</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Bengali">Bengali</option>
+          <option value="Tamil">Tamil</option>
+          <option value="Marathi">Marathi</option>
+        </select>
+      </div>
+      <div>
+        <label for="speciality">Specialization</label>
+        <select id="speciality">
+          <option value="all">All</option>
+          <option value="Gynecologist">Gynecologist</option>
+          <option value="Nutritionist">Nutritionist</option>
+          <option value="Psychologist">Psychologist</option>
+          <option value="General Physician">General Physician</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Doctor Cards -->
+  <section class="doctors container" id="doctorList"></section>
+
+  <!-- Contact Modal -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3 id="modalName"></h3>
+      <p id="modalSpeciality"></p>
+      <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+      <p><strong>Phone:</strong> <span id="modalPhone"></span></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Saheli — Empowering Women’s Health</p>
+  </footer>
+
+  <script src="doctor.js"></script>
+</body>
+</html>

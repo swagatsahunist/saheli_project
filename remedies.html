@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Remedies — Saheli</title>
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="remedies.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="mainNav" class="nav">
+    <div class="nav-inner container">
+      <a class="brand" href="index.html"><span class="brand-logo">🌸</span><span class="brand-name">Saheli</span></a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="cycle-tracker.html">Cycle Tracker</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="remedies.html" class="active">Remedies</a>
+        <a href="myths-vs-facts.html">Myths</a>
+        <a href="doctor.html">Doctor</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-hero">
+    <div class="hero-grid container">
+      <div class="hero-text" data-animate>
+        <h1>Find Comfort — Remedies that actually help</h1>
+        <p class="lead">Natural tips, quick relief tactics and gentle rituals to help ease period symptoms — curated with care and energy.</p>
+        <div class="hero-ctas">
+          <button id="scrollToRemedies" class="btn primary">Explore Remedies</button>
+          <a href="#quick-tips" class="btn ghost">Quick Relief Tips</a>
+        </div>
+      </div>
+
+      <div class="hero-art" data-animate>
+        <img src="images/remedy-hero.png" alt="Woman relaxing with tea and compress" style="width:100%; max-width:450px; border-radius:25px; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+      </div>
+    </div>
+
+    <!-- Gradient divider -->
+    <div class="wavy-divider"></div>
+  </section>
+
+  <main class="container main-grid">
+
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories" aria-labelledby="catTitle">
+      <h2 id="catTitle">Remedy Categories</h2>
+      <p class="sub">Tap a card to learn quick actions and view examples.</p>
+
+      <div class="category-grid" data-animate>
+        <button class="cat-card" data-cat="home" data-title="Home Remedies">
+          <img src="images/home-remedy.jpg" alt="Home remedies" style="width:100%; height:160px; object-fit:cover; border-radius:20px; margin-bottom:10px;">
+          <h3>Home Remedies</h3>
+          <p>Warm compresses, ginger & light movement.</p>
+        </button>
+
+        <button class="cat-card" data-cat="yoga" data-title="Yoga & Breathing">
+          <img src="images/yoga-remedy.jpg" alt="Yoga for relief" style="width:100%; height:160px; object-fit:cover; border-radius:20px; margin-bottom:10px;">
+          <h3>Yoga & Breathing</h3>
+          <p>Gentle stretches and breathwork for calm.</p>
+        </button>
+
+        <button class="cat-card" data-cat="tea" data-title="Herbal Teas">
+          <img src="images/herbal-tea.jpg" alt="Herbal tea" style="width:100%; height:160px; object-fit:cover; border-radius:20px; margin-bottom:10px;">
+          <h3>Herbal Teas</h3>
+          <p>Chamomile, ginger and fennel for comfort.</p>
+        </button>
+
+        <button class="cat-card" data-cat="self" data-title="Self-Care Rituals">
+          <img src="images/self-care.jpg" alt="Self care rituals" style="width:100%; height:160px; object-fit:cover; border-radius:20px; margin-bottom:10px;">
+          <h3>Self-care Rituals</h3>
+          <p>Ritual baths, rest, and mindful journaling.</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- REMEDIES GRID -->
+    <section id="remedies" class="remedies-section" aria-labelledby="remTitle">
+      <h2 id="remTitle">Handpicked Remedies</h2>
+      <p class="sub">Practical and gentle practices to try today.</p>
+
+      <div class="remedy-grid" id="remedyGrid">
+
+        <!-- Card 1 -->
+        <article class="remedy-card" data-id="1" data-animate>
+          <div class="remedy-media">
+            <img src="images/warm-compress.jpg" alt="Warm compress" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Warm Compress</h3>
+            <p class="short">Apply heat to the lower abdomen to relieve cramps.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> Use a hot water bottle or heating pad for 15–20 minutes. Repeat as needed.</p>
+              <p><strong>Why:</strong> Heat relaxes uterine muscles and eases blood flow.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="remedy-card" data-id="2" data-animate>
+          <div class="remedy-media">
+            <img src="images/yoga-stretch.jpg" alt="Gentle yoga stretch" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Gentle Yoga</h3>
+            <p class="short">Try child's pose, cat-cow and supine twists to ease tension.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> 10–15 minutes of gentle poses focusing on breath.</p>
+              <p><strong>Why:</strong> Increases blood flow, reduces stress hormones, eases discomfort.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="remedy-card" data-id="3" data-animate>
+          <div class="remedy-media">
+            <img src="images/chamomile-tea.jpg" alt="Chamomile tea" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Chamomile Tea</h3>
+            <p class="short">A warm cup of chamomile can soothe cramps and help sleep.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> Steep 1 tsp dried chamomile for 5–7 min. Drink warm.</p>
+              <p><strong>Why:</strong> Anti-inflammatory and relaxing properties support comfort.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="remedy-card" data-id="4" data-animate>
+          <div class="remedy-media">
+            <img src="images/hydration.jpg" alt="Hydration" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Hydration & Electrolytes</h3>
+            <p class="short">Keep fluids up to reduce bloating and headaches.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> Drink water, coconut water, or mild electrolyte drinks.</p>
+              <p><strong>Why:</strong> Proper hydration reduces bloating and supports energy.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="remedy-card" data-id="5" data-animate>
+          <div class="remedy-media">
+            <img src="images/magnesium-foods.jpg" alt="Magnesium rich foods" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Magnesium-Rich Snacks</h3>
+            <p class="short">Almonds, dark chocolate and bananas can ease muscle tension.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> Include a small serving (handful) daily during symptoms.</p>
+              <p><strong>Why:</strong> Magnesium supports muscle relaxation and mood.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="remedy-card" data-id="6" data-animate>
+          <div class="remedy-media">
+            <img src="images/fennel-tea.jpg" alt="Fennel infusion" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Fennel Infusion</h3>
+            <p class="short">Fennel tea can reduce cramps and digestive upset.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> Crush 1 tsp fennel seeds, steep 5–7 min.</p>
+              <p><strong>Why:</strong> Antispasmodic properties help soothe cramps.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="remedy-card" data-id="7" data-animate>
+          <div class="remedy-media">
+            <img src="images/rest-nap.jpg" alt="Rest and nap" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Rest & Short Naps</h3>
+            <p class="short">Short naps can aid recovery and reduce pain sensitivity.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> 20–30 minute naps when needed; keep it gentle.</p>
+              <p><strong>Why:</strong> Rest lowers cortisol and can reduce symptom severity.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="remedy-card" data-id="8" data-animate>
+          <div class="remedy-media">
+            <img src="images/lavender-aroma.jpg" alt="Lavender aromatherapy" style="width:100%; height:180px; object-fit:cover; border-radius:20px;">
+          </div>
+          <div class="remedy-body">
+            <h3>Aromatherapy (Lavender)</h3>
+            <p class="short">A few drops of lavender oil can reduce perceived pain and stress.</p>
+            <div class="actions">
+              <button class="btn small expand">Learn More</button>
+              <button class="btn small outline log">Log Symptom</button>
+            </div>
+            <div class="remedy-more" aria-hidden="true">
+              <p><strong>How:</strong> Diffuse or apply diluted oil to wrists; avoid direct skin contact undiluted.</p>
+              <p><strong>Why:</strong> Calming scent supports relaxation and sleep quality.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- QUICK TIPS -->
+    <section id="quick-tips" class="tips">
+      <h3>Quick Relief Tips</h3>
+      <div class="tips-scroll">
+        <div class="tip">Warm compress for 15 minutes</div>
+        <div class="tip">Sip warm ginger tea</div>
+        <div class="tip">Move gently — short walk or stretch</div>
+        <div class="tip">Hydrate with coconut water</div>
+        <div class="tip">Try deep breathing for 5 mins</div>
+      </div>
+    </section>
+
+    <!-- SUGGEST REMEDY -->
+    <section class="suggest">
+      <h3>Suggest a Remedy</h3>
+      <p>Have a natural tip we should include? Share it below — saved locally for review.</p>
+      <form id="suggestForm" class="suggest-form">
+        <input id="sName" type="text" placeholder="Your name (optional)" />
+        <input id="sTitle" type="text" placeholder="Remedy title (e.g. 'Turmeric milk')" required />
+        <textarea id="sDetails" rows="4" placeholder="Describe the remedy and how to use it" required></textarea>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Submit Suggestion</button>
+        </div>
+        <p id="suggestMsg" class="muted"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- MODAL & BACK TO TOP -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-panel" role="document">
+      <button class="modal-close" aria-label="Close modal">✕</button>
+      <div id="modalContent"></div>
+      <div id="modalFooter" class="modal-footer"></div>
+    </div>
+  </div>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="remedies.js"></script>
+</body>
+</html>

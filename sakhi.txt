@@ -1,0 +1,360 @@
+(function () {
+  function ready(fn){ 
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  ready(function initSakhi() {
+    let btn = document.getElementById('sakhi');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'sakhi';
+      btn.setAttribute('aria-label', 'Open Sakhi');
+      btn.textContent = '💬';
+      document.body.appendChild(btn);
+    }
+
+    let panel = document.querySelector('.sakhi-panel');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.className = 'sakhi-panel';
+      panel.innerHTML = `
+        <div class="sakhi-header">
+          <div class="sakhi-title">🌸 Sakhi <span class="sakhi-badge" id="sakhiPhaseBadge"></span></div>
+          <button class="sakhi-close" aria-label="Close">✕</button>
+        </div>
+        <div class="sakhi-body">
+          <div id="sakhiGreeting" class="sakhi-mini"></div>
+          <div id="sakhiTips"></div>
+          <div class="sakhi-actions">
+            <button class="sakhi-btn primary" id="sakhiLogSymptom">Log symptom</button>
+            <button class="sakhi-btn" id="sakhiTodayMeal">Today’s meal tip</button>
+            <button class="sakhi-btn" id="sakhiBreath">5-min breathe</button>
+          </div>
+          <div class="sakhi-streak"><i>🔥</i> <span id="sakhiStreakText">Streak: 0</span></div>
+        </div>`;
+      document.body.appendChild(panel);
+    }
+
+    const badge   = panel.querySelector('#sakhiPhaseBadge');
+    const greetEl = panel.querySelector('#sakhiGreeting');
+    const tipsWrap= panel.querySelector('#sakhiTips');
+    const closeBtn= panel.querySelector('.sakhi-close');
+
+    function openPanel(){
+      panel.style.display = 'block';
+      panel.classList.add('open');
+      console.log('Sakhi: panel open');
+    }
+    function closePanel(){
+      panel.style.display = 'none';
+      panel.classList.remove('open');
+      console.log('Sakhi: panel close');
+    }
+
+    // expose for console testing
+    window.openSakhiPanel = openPanel;
+
+    // Normal button listeners
+    btn.addEventListener('click', function(e){
+      console.log('Sakhi: button click (bubble)');
+      openPanel();
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    });
+
+    // Document-level capture fallback:
+    // If something sits on top of the button, detect clicks within the button's rect and open.
+    document.addEventListener('click', function(e){
+      try{
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX, y = e.clientY;
+        const inside = x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+        if (inside) {
+          console.log('Sakhi: document-capture intercepted within button rect');
+          openPanel();
+          e.preventDefault();
+          e.stopPropagation();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+      }catch(_){}
+    }, true); // capture
+
+    closeBtn.addEventListener('click', function(e){
+      closePanel();
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    });
+
+    // helpers
+    function load(key, fallback){
+      try { return JSON.parse(localStorage.getItem(key) || 'null') || fallback; }
+      catch(e){ return fallback; }
+    }
+
+    function inferPhase(){
+      const cyc = load('saheli_cycle', null);
+      if(!cyc) return { phase:'Unknown', dayInCycle:null };
+      const last = new Date(cyc.lastPeriod);
+      const len = Number(cyc.cycleLength || 28);
+      if (isNaN(last.getTime()) || len < 21 || len > 60) return { phase:'Unknown', dayInCycle:null };
+      const today = new Date();
+      const diff = Math.floor((today - last)/(1000*60*60*24));
+      const day = ((diff % len) + len) % len;
+      let phase = 'Follicular';
+      if (day >= 0 && day < 5) phase = 'Menstrual';
+      else if (day >= len-19 && day < len-13) phase = 'Fertile';
+      else if (day === len-14) phase = 'Ovulation';
+      else if (day > len-14) phase = 'Luteal';
+      return { phase, dayInCycle: day+1 };
+    }
+
+    function picksForPhase(phase){
+      const baseTips = {
+        Menstrual: ['Warm compress for 15–20 min.','Iron + Vit-C (palak + orange).','Short nap & gentle stretching.'],
+        Follicular: ['Plan a focused task in peak hours.','Protein breakfast to fuel energy.','Light cardio or a brisk walk.'],
+        Ovulation: ['High-energy day—schedule a key call.','Hydrate well; add electrolytes.','Omega-3 (salmon/flax) for recovery.'],
+        Fertile: ['Prioritize sleep; moderate caffeine.','Zinc & protein (seeds + lentils).','5-min breathwork for calm focus.'],
+        Luteal: ['Magnesium foods (oats, dark choc, almonds).','Lower-intensity workouts; longer warm-ups.','Wind-down routine 1 hour before bed.']
+      };
+      return baseTips[phase] || ['Set your last period in the Tracker to personalize tips.'];
+    }
+
+    function render(){
+      const user = load('saheli_user', null);
+      const {phase, dayInCycle} = inferPhase();
+      badge.textContent = (phase!=='Unknown') ? `${phase}${dayInCycle?` • Day ${dayInCycle}`:''}` : 'Personalize in Tracker';
+      greetEl.textContent = `Hi${user?.name?`, ${user.name}`:''}! I’ve got a few gentle, phase-aware ideas for today.`;
+      tipsWrap.innerHTML = picksForPhase(phase).map(t=>`<div class="sakhi-tip">• ${t}</div>`).join('');
+      updateStreak();
+    }
+
+    // actions
+    panel.querySelector('#sakhiLogSymptom').addEventListener('click', ()=>{
+      const modal = document.getElementById('symptomModal');
+      if (modal){ modal.style.display='flex'; }
+      else alert('Open the Cycle Tracker to log today’s symptom.');
+      bumpStreak();
+    });
+    panel.querySelector('#sakhiTodayMeal').addEventListener('click', ()=>{ window.location.href = 'nutrition.html'; });
+    panel.querySelector('#sakhiBreath').addEventListener('click', ()=>{
+      alert('Box breathing: Inhale 4s • Hold 4s • Exhale 6s • Repeat 10 times.');
+      bumpStreak();
+    });
+
+    // streak
+    function streakKey(){ const d = new Date(); return `saheli_streak_${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}`; }
+    function bumpStreak(){ const k = streakKey(); if (!localStorage.getItem(k)) localStorage.setItem(k,'1'); updateStreak(); }
+    function updateStreak(){
+      let streak = 0; const now = new Date();
+      for(let i=0;i<365;i++){
+        const dt = new Date(now); dt.setDate(now.getDate()-i);
+        const k = `saheli_streak_${dt.getFullYear()}_${dt.getMonth()+1}_${dt.getDate()}`;
+        if (localStorage.getItem(k)) streak++; else break;
+      }
+      const el = document.getElementById('sakhiStreakText'); if (el) el.textContent = `Streak: ${streak}`;
+    }
+
+    document.addEventListener('visibilitychange', ()=>{ if (!document.hidden) render(); });
+    render();
+    console.log('%cSakhi loaded ✓','color:#e15b84;font-weight:700;');
+    /* === Sakhi Assistant inline mount (adds chat UI + demo brain) === */
+(function(){
+  if (window._sakhiChatMounted) return; // avoid duplicates
+  function later(fn){ if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  later(() => {
+    const panel = document.querySelector('.sakhi-panel');
+    const body  = panel?.querySelector('.sakhi-body');
+    if (!panel || !body) { console.warn('Sakhi Assistant: panel/body not found'); return; }
+
+    // build chat UI
+    const chatWrap = document.createElement('div');
+    chatWrap.className = 'sakhi-chat';
+    chatWrap.innerHTML = `
+      <div class="sakhi-chat-header">
+        <div class="sakhi-tabs">
+          <button class="sakhi-tab active" data-tab="coach">Coach</button>
+          <button class="sakhi-tab" data-tab="chat">Chat</button>
+        </div>
+        <div class="sakhi-voice">
+          <button class="sakhi-tts" title="Speak reply">🔈</button>
+          <button class="sakhi-stt" title="Voice input">🎤</button>
+        </div>
+      </div>
+      <div class="sakhi-chat-body" id="sakhiChatBody"></div>
+      <div class="sakhi-chat-input">
+        <textarea id="sakhiUserInput" rows="1" placeholder="Ask Sakhi anything… (e.g., 'Explain Saheli project')"></textarea>
+        <button id="sakhiSendBtn" class="sakhi-send">Send</button>
+      </div>
+    `;
+    body.appendChild(chatWrap);
+    window._sakhiChatMounted = true;
+
+    // elements
+    const chatBody = chatWrap.querySelector('#sakhiChatBody');
+    const input    = chatWrap.querySelector('#sakhiUserInput');
+    const sendBtn  = chatWrap.querySelector('#sakhiSendBtn');
+    const tabs     = chatWrap.querySelectorAll('.sakhi-tab');
+    const ttsBtn   = chatWrap.querySelector('.sakhi-tts');
+    const sttBtn   = chatWrap.querySelector('.sakhi-stt');
+
+    // small helpers
+    const LS_KEY='saheli_chat_history';
+    const load = (k,f)=>{ try{return JSON.parse(localStorage.getItem(k)||'null')||f;}catch(_){return f;} };
+    const saveHist = (h)=> localStorage.setItem(LS_KEY, JSON.stringify(h.slice(-200)));
+    const sanitize = s=> String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    const scrollBottom = ()=> chatBody.scrollTop = chatBody.scrollHeight;
+    const renderBubble = (role,text)=>{ const b=document.createElement('div'); b.className=`sakhi-bubble ${role}`; b.innerHTML=sanitize(text).replace(/\n/g,'<br>'); chatBody.appendChild(b); };
+
+    let history = load(LS_KEY, []);
+    let lastAssistantText = '';
+
+    function pushAssistant(t){ lastAssistantText=t; renderBubble('assistant',t); history.push({role:'assistant',content:t}); saveHist(history); scrollBottom(); }
+    function pushUser(t){ renderBubble('user',t); history.push({role:'user',content:t}); saveHist(history); scrollBottom(); }
+
+    // seeds
+    function renderCoachStrip(list){
+      const strip = document.createElement('div');
+      strip.className = 'sakhi-suggests';
+      strip.innerHTML = list.map(t=>`<button class="sakhi-suggest">${sanitize(t)}</button>`).join('');
+      chatBody.querySelectorAll('.sakhi-suggests').forEach(x=>x.remove());
+      chatBody.appendChild(strip);
+      strip.querySelectorAll('.sakhi-suggest').forEach(b=> b.addEventListener('click',()=>{ input.value=b.textContent; onSend(); }));
+      scrollBottom();
+    }
+    function seedCoach(){ renderCoachStrip(['Explain Saheli project','Which phase am I in?','Meal idea for today','Quick remedy for cramps','How to use the tracker?']); }
+    function seedChat(){ renderCoachStrip(['Tell me a myth vs fact','Doctor options for Hindi','Tips in Luteal phase','Improve sleep this week']); }
+
+    if (history.length===0){ pushAssistant("Hi! I’m Sakhi — your cycle-aware coach. Ask me about nutrition, remedies, phases, or “Explain the Saheli project”."); seedCoach(); }
+    else { history.forEach(m=>renderBubble(m.role,m.content)); scrollBottom(); }
+
+    // tab switch
+    tabs.forEach(t=> t.addEventListener('click', ()=>{
+      tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active');
+      if (t.dataset.tab==='coach') seedCoach(); else seedChat();
+    }));
+
+    // TTS
+    ttsBtn.addEventListener('click', ()=>{
+      if (!lastAssistantText) return;
+      try{ const u=new SpeechSynthesisUtterance(lastAssistantText); u.rate=1.02; u.pitch=1.05; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(_){}
+    });
+
+    // STT
+    let sttActive=false, recog=null;
+    sttBtn.addEventListener('click',()=>{
+      if (sttActive){ try{recog&&recog.stop();}catch(_){ } return; }
+      const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+      if (!SR){ alert('Speech recognition not supported in this browser.'); return; }
+      recog=new SR(); recog.lang='en-IN'; recog.interimResults=false;
+      recog.onstart=()=>{ sttActive=true; sttBtn.textContent='🛑'; };
+      recog.onend=()=>{ sttActive=false; sttBtn.textContent='🎤'; };
+      recog.onresult=(e)=>{ const text=e.results[0][0].transcript; input.value=text; onSend(); };
+      recog.start();
+    });
+
+    // send
+    sendBtn.addEventListener('click', onSend);
+    input.addEventListener('keydown', (e)=>{ if (e.key==='Enter' && !e.shiftKey){ e.preventDefault(); onSend(); } });
+
+    // demo “brain”
+    async function onSend(){
+      const text=input.value.trim(); if(!text) return;
+      input.value=''; pushUser(text);
+
+      const typing=document.createElement('div'); typing.className='sakhi-typing'; typing.innerHTML='<span></span><span></span><span></span>'; chatBody.appendChild(typing); scrollBottom();
+      try{
+        const reply = await demoBrain(text);
+        typing.remove(); pushAssistant(reply);
+      }catch(err){ typing.remove(); pushAssistant('Hmm, I hit a snag. Try asking about phases, nutrition, remedies, or the Saheli project.'); console.error(err); }
+    }
+
+    function getPhase(){
+      const cyc = load('saheli_cycle', null);
+      if(!cyc) return {phase:'Unknown', dayInCycle:null};
+      const last=new Date(cyc.lastPeriod); const len=Number(cyc.cycleLength||28);
+      if (isNaN(last.getTime())||len<21||len>60) return {phase:'Unknown', dayInCycle:null};
+      const today=new Date(); const diff=Math.floor((today-last)/(1000*60*60*24)); const day=((diff%len)+len)%len;
+      let phase='Follicular';
+      if (day>=0 && day<5) phase='Menstrual';
+      else if (day>=len-19 && day<len-13) phase='Fertile';
+      else if (day===len-14) phase='Ovulation';
+      else if (day>len-14) phase='Luteal';
+      return {phase, dayInCycle:day+1};
+    }
+    const bold = s=> s?`**${s}**`:'today';
+
+    function suggestMeal(phase){
+      const map={ Menstrual:"prioritize **iron + vitamin C** (palak + citrus) and **magnesium** (oats, almonds).",
+                  Follicular:"lean proteins + greens + fresh fruits; rising energy — balanced carbs help.",
+                  Ovulation:"add **omega-3** (fish/flax), hydrate well, keep **protein** high.",
+                  Fertile:"**zinc & protein** (pumpkin seeds, lentils), steady hydration, whole grains.",
+                  Luteal:"**magnesium** (dark chocolate, nuts, oats), complex carbs; reduce salt/caffeine." };
+      return map[phase] || "set your tracker for personalized suggestions, or balance carbs + protein + greens today.";
+    }
+    function suggestRemedy(phase){
+      const base={ Menstrual:"**Warm compress** 15–20 mins, gentle stretches, ginger/chamomile tea, magnesium snacks.",
+                   Follicular:"Light cardio, hydration, and protein breakfasts; short mobility sessions.",
+                   Ovulation:"Hydrate, add omega-3, short cool-down after workouts.",
+                   Fertile:"Prioritize sleep, 5-min box breathing, moderate caffeine.",
+                   Luteal:"Lower-intensity movement, warm bath, consistent bedtime routine, **magnesium** support." };
+      return (base[phase]||"Try a warm compress, hydration, short walks, and chamomile tea.") + " See **Remedies** for details.";
+    }
+    function explainProject(){
+      return `**Saheli** is a privacy-first menstrual wellness app with:
+• **Cycle Tracker** (phases, ovulation, fertile window, symptom trends)
+• **Nutrition Planner** (phase-based weekly presets, editable, downloadable)
+• **Remedies** (curated, gentle relief with quick how-tos)
+• **Doctor Connect** (filter by language & specialty)
+• **Myths vs Facts** (interactive stigma busters)
+• **Sakhi Coach** (me) — context-aware guidance based on your saved cycle.`;
+    }
+    function howToUseTracker(){
+      return `Open **Cycle Tracker** → set **Last Period Start Date** + **Average Cycle Length** → **Generate Calendar**.
+You’ll see predicted phases/dates, a phase bar chart, and a symptom trend. Once saved, I’ll personalize tips automatically.`;
+    }
+    function mythVsFact(){ return `**Myth**: Exercise should be avoided during periods.\n**Fact**: Light workouts or yoga can reduce cramps and improve mood.`; }
+    function doctorHelp(){ return `Go to **Doctor** → filter by **Language** (e.g., Hindi) & **Specialization**. Click **Contact** to see details.`; }
+
+    async function demoBrain(q){
+      const lc=q.toLowerCase();
+      const {phase, dayInCycle}=getPhase();
+      const user = load('saheli_user', null);
+      const nameSet = lc.match(/my name is\s+([a-z ]{2,30})/i);
+      if (nameSet){ const nm=nameSet[1].trim().replace(/\b\w/g,c=>c.toUpperCase()); localStorage.setItem('saheli_user', JSON.stringify({...(user||{}), name:nm})); return `Nice to meet you, ${nm}! I’ll personalize tips where I can.`; }
+
+      if (lc.includes('which phase')||lc.includes('my phase'))
+        return phase==='Unknown' ? "I can’t tell yet — open Cycle Tracker and set your last period + length." : `You’re likely in **${phase}** (Day ${dayInCycle}). Want nutrition or remedy tips for this phase?`;
+
+      if (lc.includes('meal')||lc.includes('diet')||lc.includes('what should i eat'))
+        return `For ${bold(phase||'today')}: ${suggestMeal(phase)}\n\nOpen **Nutrition** for the full weekly plan.`;
+
+      if (lc.includes('remedy')||lc.includes('cramp')||lc.includes('pain'))
+        return suggestRemedy(phase);
+
+      if (lc.includes('explain saheli')||lc.includes('about saheli')||lc.includes('project'))
+        return explainProject();
+
+      if (lc.includes('how to use') && lc.includes('tracker'))
+        return howToUseTracker();
+
+      if (lc.includes('myth')||lc.includes('fact'))
+        return mythVsFact();
+
+      if (lc.includes('doctor')||lc.includes('consult'))
+        return doctorHelp();
+
+      if (lc.includes('sleep')||lc.includes('stress')||lc.includes('breathe'))
+        return `Try box breathing: inhale 4s, hold 4s, exhale 6s, repeat 10 times. Reduce screens 60 min before bed, keep room cool.`;
+
+      return `I can help with: **cycle phase**, **meal ideas**, **remedies**, **project overview**, **myths vs facts**, and **doctor filters**.
+Try: “Which phase am I in?”, “Meal idea for today”, or “Explain Saheli project”.`;
+    }
+    console.log('Sakhi Assistant (inline) mounted');
+  });
+})();
+
+  });
+})();

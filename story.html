@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Saheli — Story Wall</title>
+    <script src="https://kit.fontawesome.com/a7a0b5a371.js" crossorigin="anonymous"></script>
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Colors and Variables --- */
+        :root {
+            --color-primary: #a10d3a; /* Deep Rose */
+            --color-secondary: #fce7f6; /* Soft Pink Background */
+            --color-accent: #f43f5e; /* Rose 500 */
+            --color-text-dark: #1b2430;
+            --color-text-muted: #6b7280;
+            --color-card-bg: #ffffff;
+            --color-light-bg: #f9fafb;
+            --shadow-primary: 0 10px 30px rgba(161, 13, 58, 0.08);
+        }
+
+        /* --- Base Reset and Typography --- */
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family: 'Inter', system-ui, Arial, sans-serif;
+            background-color: var(--color-light-bg);
+            color: var(--color-text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+        .container{max-width:1150px;margin:0 auto;padding:0 20px}
+        a{color:inherit;text-decoration:none}
+
+        /* --- Animations --- */
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+        .pulse-once { animation: heartPulse 0.3s ease-in-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { opacity: 0; animation: fadeIn 0.5s forwards; }
+
+        /* --- Header --- */
+        header.site-header{
+            display:flex;align-items:center;justify-content:space-between;
+            padding:18px 26px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom:1px solid #f3f4f6;
+            position:sticky;top:0;z-index:30;
+        }
+        .brand{display:flex;gap:12px;align-items:center}
+        .brand .logo{font-size:24px; color: var(--color-primary);}
+        .brand .title{font-family:'Playfair Display',serif;font-weight:600;font-size:20px;color:var(--color-primary)}
+        .brand .sub{font-size:12px;color:var(--color-text-muted)}
+        .site-nav a { padding: 4px 8px; transition: color 0.2s;}
+        .site-nav a:hover { color: var(--color-primary); }
+
+        /* --- Layout: Hero and Grid --- */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        @media (min-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr 400px; }
+        }
+
+        /* --- Card Styles (Base) --- */
+        .card-panel {
+            background-color: var(--color-card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #f3f4f6;
+            box-shadow: var(--shadow-primary);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        /* --- Story Posting Form --- */
+        .story-form h1 { margin: 0 0 8px; color: var(--color-primary); }
+        .story-form p { margin-bottom: 20px; font-size: 14px; color: var(--color-text-muted); }
+        .form-group { display: flex; gap: 12px; margin-bottom: 12px; }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.2);
+        }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        .form-file-label {
+            padding: 10px 14px;
+            border: 1px dashed #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .form-file-label:hover { background-color: #f7f7f7; }
+
+        /* --- Button Styles --- */
+        .btn {
+            cursor: pointer;
+            border: 0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: #fff;
+            box-shadow: 0 8px 15px rgba(161, 13, 58, 0.2);
+        }
+        .btn-primary:hover {
+            background-color: #8f0b35;
+            transform: translateY(-1px);
+        }
+        .btn-search {
+            background-color: #f3f4f6;
+            color: var(--color-text-muted);
+            padding: 12px 16px;
+        }
+        .btn-search:hover { background-color: #e5e7eb; }
+
+        /* --- Story Grid --- */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .story-card {
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--color-card-bg);
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .story-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(161, 13, 58, 0.1); }
+
+        .meta { display: flex; gap: 16px; align-items: center; border-bottom: 1px solid #f3f4f6; padding-bottom: 16px; margin-bottom: 16px; }
+        .avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-secondary); }
+        .meta h3 { margin: 0; font-size: 16px; color: var(--color-text-dark); }
+        .meta small { font-size: 12px; color: var(--color-text-muted); display: block; }
+
+        .story-preview {
+            max-height: 100px;
+            overflow: hidden;
+            position: relative;
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        .story-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, var(--color-card-bg) 10%, rgba(255, 255, 255, 0) 100%);
+        }
+        .readmore {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--color-accent);
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .readmore:hover { color: var(--color-primary); }
+
+        .tags-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .tag-chip {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .tag-chip:hover { background-color: #fccce5; }
+
+        .story-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 16px; padding-top: 16px; border-top: 1px solid #f3f4f6;
+        }
+        .actions { display: flex; gap: 12px; align-items: center; }
+        .like-btn, .comment-btn {
+            background: #fef2f2;
+            color: #ef4444;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex; align-items: center; gap: 6px;
+            transition: background-color 0.2s;
+        }
+        .comment-btn {
+            background: #f3f4f6;
+            color: var(--color-text-muted);
+        }
+        .like-btn:hover { background-color: #fee2e2; }
+        .comment-btn:hover { background-color: #e5e7eb; }
+
+        /* --- Search/Filter Section --- */
+        .search-container { display: flex; gap: 8px; margin-bottom: 20px; }
+        .search-input { flex-grow: 1; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; }
+        .popular-tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        /* --- Modal Styles --- */
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(27, 36, 48, 0.7);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 50;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .modal.open { opacity: 1; pointer-events: all; }
+        .modal-panel {
+            width: 95%; max-width: 800px;
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            color: var(--color-text-dark);
+        }
+        .modal.open .modal-panel { transform: scale(1); }
+        
+        .modal-header {
+            padding: 16px 24px; border-bottom: 1px solid #f3f4f6;
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: var(--color-secondary); border-radius: 12px 12px 0 0;
+        }
+        .modal-header h4 { margin: 0; font-family:'Playfair Display',serif; color: var(--color-primary); font-size: 22px; }
+
+        .modal-content-area { padding: 24px; }
+        .modal-story-block { 
+            background: var(--color-light-bg); 
+            padding: 16px; border-radius: 8px; 
+            max-height: 200px; overflow-y: auto; 
+            margin-bottom: 16px; font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Comments List */
+        .comment-list { 
+            max-height: 300px; overflow-y: auto; 
+            padding: 10px; border: 1px solid #e5e7eb; 
+            border-radius: 8px; 
+            display: flex; flex-direction: column; gap: 10px;
+            margin-top: 10px;
+        }
+        .comment-item { padding: 10px; border-radius: 6px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+        .comment-item b { color: var(--color-primary); font-size: 14px; }
+        .comment-item small { color: var(--color-text-muted); font-size: 10px; margin-left: 10px; }
+
+        /* Nested Comments */
+        .reply-section {
+            padding-left: 15px;
+            border-left: 2px solid #fecdd3;
+            margin-top: 8px;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .reply-item { background: #f9f9f9; padding: 8px; margin-top: 6px; border-radius: 4px; }
+        
+        /* Reply Form Template */
+        #replyFormTemplate .form-input { padding: 8px; font-size: 12px; }
+        #replyFormTemplate .btn-primary { padding: 8px 10px; font-size: 12px; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .site-header { padding: 12px 16px; }
+            .brand .title { font-size: 18px; }
+            .site-nav { display: none; }
+            .container { padding: 0 16px; }
+            .main-layout { grid-template-columns: 1fr; }
+            .story-card { padding: 16px; }
+            .form-group { flex-direction: column; gap: 8px; }
+            .form-file-label { width: 100%; text-align: center; }
+            .stories-grid { gap: 16px; }
+            .story-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .actions { margin-left: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+    <div class="container flex justify-between items-center">
+        <div class="brand">
+            <div class="logo">🩸</div>
+            <div>
+                <div class="title">Saheli — Story Wall</div>
+                <div class="sub">Real experiences, shared safely</div>
+            </div>
+        </div>
+        <nav class="site-nav hidden sm:flex gap-4 items-center text-sm">
+            <a href="index.html" style="color: var(--color-primary); font-weight: 600;">Home</a>
+            <a href="cycle-tracker.html">Tracker</a>
+            <a href="nutrition.html">Nutrition</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="main-layout">
+        
+        <!-- Story Posting Card -->
+        <div class="story-form card-panel">
+            <h1>Stories that teach, heal and inspire</h1>
+            <p>Share your journey to help someone else. Your voice matters.</p>
+
+            <form id="storyForm" autocomplete="off">
+                <div class="form-group">
+                    <input id="name" class="form-input" placeholder="Your name (optional)"/>
+                    <input id="age" type="number" class="form-input" placeholder="Age"/>
+                </div>
+
+                <textarea id="storyText" class="form-textarea" placeholder="Share your story — be honest, kind and helpful... (required)"></textarea>
+                
+                <div class="form-group">
+                    <input id="tagsInput" class="form-input" placeholder="Tags (e.g., first-period, pms, doctor)"/>
+                    <label class="form-file-label" style="flex-shrink: 0;">
+                        <i class="fas fa-camera mr-2"></i> Add Photo (Mock)
+                        <input id="photoInput" type="file" accept="image/*" style="display:none"/>
+                    </label>
+                </div>
+
+                <div style="margin-top: 16px; text-align: right;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; max-width: 250px;">
+                        Post Story Securely
+                    </button>
+                    <div style="font-size: 12px; color: var(--color-text-muted); margin-top: 8px;">Stories are locally stored in your browser.</div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Explore & Search Card -->
+        <div class="card-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h3 style="font-weight: 600; font-size: 18px; margin-bottom: 12px;">Explore and Filter</h3>
+                
+                <div class="search-container">
+                    <input id="searchInput" class="search-input" placeholder="Search text or tags..."/>
+                    <button class="btn btn-search" id="searchBtn">
+                        <i class="fas fa-search">search</i>
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h4 style="font-weight: 600; color: var(--color-text-dark); margin-bottom: 10px;">Popular Tags</h4>
+                <div id="popularTags" class="popular-tags-container">
+                    <!-- Tags rendered here -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Stories Grid -->
+    <section>
+        <div id="loadingIndicator" style="text-align: center; color: var(--color-text-muted); padding: 40px;" class="animate-fade-in hidden">
+            <i class="fas fa-spinner fa-spin" style="font-size: 32px; color: var(--color-accent);"></i>
+            <p style="margin-top: 8px;">Loading stories...</p>
+        </div>
+
+        <div id="storiesGrid" class="stories-grid" aria-live="polite">
+            <!-- Stories will be rendered here -->
+        </div>
+
+        <div id="emptyState" class="card-panel animate-fade-in hidden" style="text-align: center; border: 1px solid var(--color-secondary); margin-top: 30px; color: var(--color-primary); background-color: var(--color-secondary);">
+            <i class="fas fa-heart" style="font-size: 32px; margin-bottom: 12px;"></i>
+            <div style="font-size: 18px; font-weight: 600;">No stories yet — you can be the first to share your journey!</div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer style="background-color: var(--color-primary); color: #fff; padding: 16px; text-align: center; margin-top: 40px;">
+    <p>&copy; <span id="currentYear"></span> Saheli. Dedicated to open conversation.</p>
+</footer>
+
+<!-- Comments & Story Modal -->
+<div id="commentsModal" class="modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 id="modalTitle">Story Details</h4>
+            <button id="closeComments" class="btn" style="background: none; color: var(--color-text-muted); padding: 4px; border-radius: 4px;">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <div class="modal-content-area">
+            <!-- Full Story Content -->
+            <div id="modalStoryBlock" class="modal-story-block"></div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 14px;">
+                <div style="font-weight: 500; color: var(--color-text-muted);">
+                    <strong>Tags: </strong><span id="modalTags" style="color: var(--color-primary); font-weight: 600;"></span>
+                </div>
+                <div id="modalMeta" style="color: var(--color-text-muted);"></div>
+            </div>
+            
+            <!-- Comments Section -->
+            <h4 style="font-weight: 600; font-size: 16px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f3f4f6;">Comments & Replies</h4>
+            
+            <div id="commentList" class="comment-list">
+                <!-- Comments rendered here -->
+            </div>
+
+            <!-- Post Comment Form -->
+            <div id="mainCommentForm" style="display: flex; gap: 12px; margin-top: 16px; align-items: stretch;">
+                <input id="commentName" placeholder="Your name (optional)" class="form-input" style="flex: 0.3; padding: 10px; font-size: 14px;" />
+                <input id="commentText" placeholder="Write a supportive comment..." class="form-input" style="flex: 1; padding: 10px; font-size: 14px;" />
+                <button id="postComment" data-reply-id="" class="btn btn-primary" style="padding: 10px 15px; font-size: 14px; flex-shrink: 0;">
+                    Post
+                </button>
+            </div>
+
+            <!-- Reply Form Template (Hidden) -->
+            <div id="replyFormTemplate" style="margin-top: 10px; padding: 10px; background-color: #fce7f6; border: 1px solid #fccce5; border-radius: 6px; display: none;">
+                <p style="font-size: 12px; color: var(--color-primary); margin-bottom: 6px;">Replying to: <span id="replyToUser"></span></p>
+                <div style="display: flex; gap: 8px; align-items: stretch;">
+                    <input id="replyName" placeholder="Your name (optional)" class="form-input" style="flex: 0.3; padding: 8px; font-size: 12px;" />
+                    <input id="replyText" placeholder="Your reply..." class="form-input" style="flex: 1; padding: 8px; font-size: 12px;" />
+                    <button id="submitReplyBtn" class="btn btn-primary" style="padding: 8px 10px; font-size: 12px; flex-shrink: 0; background-color: #db2777;">
+                        Reply
+                    </button>
+                </div>
+                <button id="cancelReplyBtn" style="font-size: 10px; color: var(--color-text-muted); margin-top: 4px; border: none; background: none; cursor: pointer;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- APPLICATION LOGIC (LOCAL STORAGE) -->
+<script>
+    // --- DATA INITIALIZATION & CONSTANTS ---
+    const LOCAL_STORAGE_KEY_STORIES = 'saheli_stories_v3_css'; 
+    const LOCAL_STORAGE_KEY_COMMENTS = 'saheli_comments_v3_css'; 
+    
+    let allStories = []; 
+    let allComments = {}; 
+
+    // Richer sample stories (12 unique entries)
+    const sampleStories = [
+        { id: 's-aurora', name: 'Aarohi M.', age: 18, story: `My first period happened during a camping trip at the foothills. There was no internet and our only reading was a battered field guide. I panicked—there was no one to ask. An older woman from a neighboring campsite returned in the afternoon with her bag of herbs and taught me how a warm compress, ginger infusion, and a small poultice of crushed fennel relieve cramps. Over the years I became curious: I studied traditional remedies alongside science. I learned that many plants used in our grandmothers' kitchens have measurable anti-inflammatory compounds. That camping trip changed my relationship to my body: curiosity replaced shame, and knowledge replaced fear. I now run a small blog that blends folk wisdom with evidence — and we donate a portion of proceeds to menstrual education in rural schools. This journey showed me that period care is deeply personal and often rooted in cultural wisdom we should cherish.`, tags: "first-period,folk-medicine,education,cramps", likes: 142, created_at: Date.now() - 1000 * 60 * 60 * 24 * 300, image: 'A' },
+        { id: 's-lab-note', name: 'Dr. Neelam R.', age: 34, story: `As a young researcher I questioned an accepted 'rule' — that cramps always correlated only with prostaglandins. I designed a small study in my clinic: tracking diet, magnesium intake, sleep and perceived pain in 120 participants. The surprising result was consistent: participants who ate small servings of magnesium-rich foods and kept steady sleep reported 30% lower pain scores. The lab data suggested magnesium modulates muscular contraction pathways in the uterus. We published a short paper and the reception was humbling. The takeaway: small lifestyle nudges matter, and science benefits when clinicians listen to patients' lived experience. If you track your cycle accurately, you might discover patterns your doctor can't see alone.`, tags: "research,magnesium,science,diet,pain", likes: 204, created_at: Date.now() - 1000 * 60 * 60 * 24 * 240, image: 'N' },
+        { id: 's-shebuilds', name: 'Rhea P.', age: 27, story: `I co-founded 'SheBuilds'—a peer network where young women in tech share menstrual hacks for busy product weeks. We create "period-friendly sprints": flexible scheduling, standing desks, quick magnesium snack kits and silent signal badges for teammates who need rest. At first, management thought this was trivial. After we measured retention and productivity it changed minds: teams that respected cycles had fewer sick days and higher engagement. The story I love is of Priyanka, who used our badge in a server-facing release day and was allowed a 2-hour quiet room to manage severe cramps — she returned and delivered a flawless rollout. Systems change when we design for bodies. We proved that workplace policy must acknowledge the reality of menstrual health for peak performance.`, tags: "work,policy,inclusion,tech", likes: 87, created_at: Date.now() - 1000 * 60 * 60 * 24 * 180, image: 'R' },
+        { id: 's-collective', name: 'Zainab H.', age: 41, story: `After multiple miscarriages and weary clinic visits, I joined a local collective where women documented symptoms across cycles. By pooling data — onset, severity, diet, sleep, and stress — we noticed patterns that individual accounts missed: certain diets worsened bloating for many, and mindfulness exercises helped mood swings. We shared anonymized findings with a sympathetic gynecologist who adjusted one woman's treatment and saw tangible improvement. The power here was community data — not as research, but as patient-led discovery. It helped reclaim agency over health decisions. Never underestimate the power of collective knowledge in navigating chronic health issues.`, tags: "community,data,fertility,pms", likes: 111, created_at: Date.now() - 1000 * 60 * 60 * 24 * 120, image: 'Z' },
+        { id: 's-theswitch', name: 'Maya L.', age: 30, story: `I used to push through intense pain until one day I fainted at work. That was a wakeup call. I visited a specialist and realized my heavy bleeding was treatable — a combination of iron supplements and an IUD solved what felt irreversible. Sharing this now because many of us accept severe pain as "normal" when it can indicate treatable conditions like endometriosis or fibroids. If your cycle disrupts life, please consult a doctor. Seeking help isn't weakness — it's empowerment. My only regret is waiting so long to advocate for my own health and quality of life.`, tags: "health,doctor,advocacy,heavy-bleeding,pain", likes: 298, created_at: Date.now() - 1000 * 60 * 60 * 24 * 90, image: 'M' },
+        { id: 's-mindedness', name: 'Ishani S.', age: 22, story: `During my college years, I experimented with different diets to manage PMS. After a semester of mood swings I kept a note: caffeine and sugar spikes predicted worse mood. By switching to steady proteins and fibre, adding magnesium at night, and practicing a 10-minute breathwork routine, the swings smoothed. It wasn't dramatic; it was incremental. I learned to track, not to blame myself. Tracking gave me language for conversations with friends and clinicians. This journey taught me that PMS management is less about fighting the cycle and more about supporting the body through its natural hormonal shifts.`, tags: "pms,nutrition,mindfulness,college", likes: 66, created_at: Date.now() - 1000 * 60 * 60 * 24 * 45, image: 'I' },
+        { id: 's-stigma', name: 'Anonymous', age: 25, story: `I grew up in a household where the word 'period' was whispered. When I accidentally bled through my school uniform, the shame was immediate and overwhelming. It took me years to realize that shame is *taught*, not natural. Now, I openly talk about my cycle and menstrual products to anyone who listens. My small act of defiance is carrying my period kit openly, not hidden in my sleeve. Breaking the cycle of silence starts with refusing to be embarrassed by a natural biological function. This is my fight against menstrual stigma.`, tags: "stigma,shame,advocacy,school", likes: 312, created_at: Date.now() - 1000 * 60 * 60 * 24 * 15, image: 'N/A' },
+        { id: 's-eco-swap', name: 'Priya T.', age: 38, story: `After calculating the lifetime waste of disposable products, I made the switch to a menstrual cup and reusable cloth pads. The learning curve was steep, and honestly, messy at first! But the freedom, the cost savings, and the environmental impact have been profound. It also made me incredibly aware of my flow and what my body was doing. I highly recommend researching the options and finding a sustainable product that works for you. Don't be afraid of the change; it's an investment in the planet and your body.`, tags: "eco,sustainability,product-review,cup", likes: 95, created_at: Date.now() - 1000 * 60 * 60 * 24 * 7, image: 'P' },
+        { id: 's-male-ally', name: 'Sara K.', age: 29, story: `My breakthrough moment came when my male partner asked, 'How can I support you during your luteal phase?' Not 'Why are you moody?' but 'How can I support?' He educated himself on the four phases of the menstrual cycle and now tracks it alongside me. He pre-emptively buys dark chocolate and plans quiet evenings on days he knows my energy will dip. This small change in perspective has eliminated 90% of our pre-period tension. Teaching the men in our lives about the reality of the cycle is crucial for genuine equality and support.`, tags: "relationships,partners,luteal-phase,support", likes: 188, created_at: Date.now() - 1000 * 60 * 60 * 24 * 4, image: 'S' },
+        { id: 's-infertility', name: 'Deepa V.', age: 35, story: `After trying to conceive for two years, I started viewing my period not as a failure, but as critical diagnostic information. Tracking temperature, cervical mucus, and flow intensity revealed slight hormonal imbalances we corrected with targeted vitamins. When I finally became pregnant, I realized the intense emotional roller coaster of trying to conceive—where every period feels like defeat—is a shared experience. If you are struggling, please know you are not alone, and that detailed cycle tracking can be your most powerful tool.`, tags: "infertility,TTC,tracking,emotional-health", likes: 72, created_at: Date.now() - 1000 * 60 * 60 * 24 * 2, image: 'D' },
+        { id: 's-school-policy', name: 'Hina B.', age: 50, story: `As a former school principal, I championed a policy change to ensure all restrooms were stocked with free, high-quality menstrual products, funded by the school budget. The administrative pushback was fierce, but the impact was undeniable. Absences due to period poverty dropped instantly. I saw 12-year-olds walk taller knowing they were covered. Dignity in education requires access to basic hygiene. Every school needs to recognize that providing these supplies is not a luxury, but a necessity for student equality.`, tags: "policy,school,education,access", likes: 165, created_at: Date.now() - 1000 * 60 * 60 * 24 * 1, image: 'H' },
+        { id: 's-late-onset', name: 'Reema G.', age: 20, story: `My period didn't start until I was 17, far later than all my friends. I felt intensely isolated, worried I wasn't 'normal' or woman enough. The doctor assured me it was delayed puberty due to intense sports training and stress. This experience taught me that bodies operate on their own timelines. Comparison is the thief of joy, especially when it comes to reproductive health. If you are experiencing primary amenorrhea, talk to a doctor, but don't let cultural timelines dictate your self-worth.`, tags: "amenorrhea,late-period,self-worth,sports", likes: 45, created_at: Date.now() - 1000 * 60 * 60 * 24 * 0.5, image: 'G' }
+    ];
+
+    function generateAvatar(name) {
+        const initial = (name || 'A')[0].toUpperCase();
+        const colors = ['#f43f5e', '#ec4899', '#db2777', '#a10d3a'];
+        const color = colors[initial.charCodeAt(0) % colors.length];
+        return `https://placehold.co/48x48/${color.substring(1)}/ffffff?text=${initial}`;
+    }
+    
+    function formatText(s) {
+        return escapeHtml(s || '').split(/\n+/).map(p => `<p style="margin-top: 8px;">${p}</p>`).join('');
+    }
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+    }
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function initData() {
+        // Fix for missing footer element in previous versions
+        const currentYearEl = document.getElementById('currentYear');
+        if (currentYearEl) {
+            currentYearEl.textContent = new Date().getFullYear();
+        }
+
+        try {
+            const storedStories = localStorage.getItem(LOCAL_STORAGE_KEY_STORIES);
+            const storedComments = localStorage.getItem(LOCAL_STORAGE_KEY_COMMENTS);
+            
+            if (storedStories) {
+                allStories = JSON.parse(storedStories);
+            } else {
+                allStories = sampleStories;
+                saveStories();
+            }
+
+            if (storedComments) {
+                allComments = JSON.parse(storedComments);
+            } else {
+                // Initialize comments with some sample replies
+                allComments = {
+                    's-aurora': [
+                        { id: generateUUID(), name: 'Samina F.', comment: 'That is such an empowering way to frame that experience. Thank you for sharing the blend of traditional knowledge and science!', created_at: Date.now() - 1000 * 60 * 60 * 12, reply_to_id: null },
+                        { id: generateUUID(), name: 'Commenter A', comment: 'I totally agree! I also found that fennel helps with bloating.', created_at: Date.now() - 1000 * 60 * 60 * 5, reply_to_id: null },
+                    ],
+                    's-lab-note': [
+                        { id: generateUUID(), name: 'Research Fan', comment: 'Dr. Neelam, is your paper publicly accessible? I would love to read more about the magnesium findings.', created_at: Date.now() - 1000 * 60 * 60 * 10, reply_to_id: null },
+                    ],
+                    's-theswitch': [
+                        { id: generateUUID(), name: 'Advocate J', comment: 'This is the most important message here. Seek help! Severe pain is NOT normal.', created_at: Date.now() - 1000 * 60 * 60 * 8, reply_to_id: null },
+                        { id: generateUUID(), name: 'Another Reader', comment: 'I needed to hear this today. I will finally call my gynecologist.', created_at: Date.now() - 1000 * 60 * 60 * 3, reply_to_id: null }
+                    ]
+                };
+                // Adding a nested reply manually for demonstration
+                const topCommentId = allComments['s-aurora'][0].id;
+                allComments['s-aurora'].push({
+                     id: generateUUID(), name: 'Aarohi R.', comment: 'Yes, Samina, focusing on traditional methods really opened my eyes to holistic care.', created_at: Date.now() - 1000 * 60 * 60 * 2, reply_to_id: topCommentId
+                });
+                saveComments();
+            }
+
+        } catch (e) {
+            console.error("Error loading data from localStorage, falling back to samples:", e);
+            allStories = sampleStories;
+            allComments = {};
+        }
+        loadStories();
+    }
+
+    function saveStories() {
+        localStorage.setItem(LOCAL_STORAGE_KEY_STORIES, JSON.stringify(allStories));
+    }
+
+    function saveComments() {
+        localStorage.setItem(LOCAL_STORAGE_KEY_COMMENTS, JSON.stringify(allComments));
+    }
+
+    // --- UI ELEMENTS ---
+    const storiesGrid = document.getElementById('storiesGrid');
+    const storyForm = document.getElementById('storyForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const popularTagsEl = document.getElementById('popularTags');
+    const emptyState = document.getElementById('emptyState');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+
+    const modal = document.getElementById('commentsModal');
+    const modalPanel = modal.querySelector('.modal-panel');
+    const commentListEl = document.getElementById('commentList');
+    const commentNameInput = document.getElementById('commentName'); 
+    const commentTextInput = document.getElementById('commentText'); 
+    const postCommentBtn = document.getElementById('postComment'); 
+    const closeComments = document.getElementById('closeComments');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalStoryBlock = document.getElementById('modalStoryBlock');
+    const modalTags = document.getElementById('modalTags');
+    const modalMeta = document.getElementById('modalMeta');
+
+    const replyFormTemplate = document.getElementById('replyFormTemplate');
+    let activeStoryId = null;
+    let activeReplyToId = null;
+    let currentReplyForm = null;
+    
+    // --- STORY RENDERING ---
+
+    function renderStoryCard(s) {
+        const commentCount = getComments(s.id).length;
+        const card = document.createElement('article');
+        card.className = 'story-card animate-fade-in';
+        card.dataset.id = s.id;
+        
+        const tagsArray = (s.tags || '').split(',').filter(Boolean).map(t => t.trim());
+        const tagsHtml = tagsArray.slice(0, 4).map(t => 
+            `<button class="tag-chip" data-tag="${escapeHtml(t)}">#${escapeHtml(t)}</button>`
+        ).join(' ');
+
+        const preview = s.story.length > 220 ? s.story.slice(0, 220) + '…' : s.story;
+        const nameDisplay = escapeHtml(s.name || 'Anonymous');
+        const avatarUrl = s.image || generateAvatar(s.name || 'Anonymous');
+        
+        card.innerHTML = `
+            <div class="meta">
+                <img class="avatar" src="${avatarUrl}" alt="${nameDisplay} avatar">
+                <div class="info">
+                    <h3>${nameDisplay}</h3>
+                    <small>${s.age ? (s.age + ' yrs • ') : ''}${new Date(s.created_at).toLocaleDateString()}</small>
+                </div>
+            </div>
+
+            <div class="story-preview">
+                ${formatText(preview)}
+            </div>
+
+            <button class="readmore" data-id="${s.id}">
+                Read more <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
+            </button>
+
+            <div class="tags-container">${tagsHtml}</div>
+
+            <div class="story-footer">
+                <div style="font-size: 12px; color: var(--color-text-muted);">${s.story.length > 180 ? 'Long read' : 'Quick read'}</div>
+                <div class="actions">
+                    <button class="like-btn" aria-label="Like" data-id="${s.id}">
+                        <span class="like-count">${s.likes || 0}</span>
+                        <i class="fas fa-heart" style="font-size: 14px;">Like</i>
+                    </button>
+                    <button class="comment-btn">
+                        <i class="fas fa-comment" style="font-size: 14px;">Comment</i> ${commentCount}
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Like button logic
+        const likeBtn = card.querySelector('.like-btn');
+        likeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const rect = likeBtn.getBoundingClientRect();
+            spawnHeart(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+            likeBtn.classList.add('pulse-once');
+            setTimeout(() => likeBtn.classList.remove('pulse-once'), 320);
+
+            incrementLike(s.id);
+        });
+
+        // Comments/Read More button
+        const openModalButtons = card.querySelectorAll('.comment-btn, .readmore');
+        openModalButtons.forEach(btn => {
+            btn.addEventListener('click', () => openCommentsModal(s));
+        });
+
+        storiesGrid.appendChild(card);
+    }
+
+    function renderStories(list) {
+        loadingIndicator.classList.add('hidden');
+        storiesGrid.innerHTML = '';
+        
+        if (!list || list.length === 0) {
+            emptyState.classList.remove('hidden');
+            return;
+        }
+
+        emptyState.classList.add('hidden');
+        
+        list.sort((a, b) => b.created_at - a.created_at);
+
+        list.forEach((s, i) => {
+            renderStoryCard(s);
+            const card = storiesGrid.children[i];
+            card.style.animation = `fadeIn .5s ${i * 40}ms both`;
+        });
+        
+        // Render popular tags
+        const tagCounts = {};
+        list.forEach(s => {
+            (s.tags || '').split(',').filter(Boolean).forEach(t => {
+                const tag = t.trim();
+                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            });
+        });
+
+        popularTagsEl.innerHTML = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]).slice(0, 8).map(t => 
+            `<button class="tag-chip" data-tag="${escapeHtml(t)}">#${escapeHtml(t)} <span style="opacity:0.7; font-size: 10px;">(${tagCounts[t]})</span></button>`
+        ).join(' ');
+        
+        document.querySelectorAll('.popular-tags-container .tag-chip').forEach(btn => {
+            btn.addEventListener('click', () => {
+                searchInput.value = btn.dataset.tag;
+                filterStories(btn.dataset.tag);
+            });
+        });
+    }
+    
+    // --- LOCAL STORAGE DATA OPERATIONS ---
+
+    function loadStories(queryText = '') {
+        loadingIndicator.classList.remove('hidden');
+        setTimeout(() => {
+            filterStories(queryText);
+        }, 10);
+    }
+
+    function filterStories(queryText) {
+        const lowerQuery = queryText.toLowerCase().trim();
+        
+        if (!lowerQuery) {
+            renderStories(allStories);
+            return;
+        }
+
+        const filtered = allStories.filter(story => {
+            const content = `${story.story} ${story.name} ${story.tags}`.toLowerCase();
+            return content.includes(lowerQuery);
+        });
+
+        renderStories(filtered);
+    }
+    
+    function incrementLike(storyId) {
+        const storyIndex = allStories.findIndex(s => s.id === storyId);
+        if (storyIndex > -1) {
+            allStories[storyIndex].likes = (allStories[storyIndex].likes || 0) + 1;
+            saveStories();
+            
+            const cardElement = storiesGrid.querySelector(`.story-card[data-id="${storyId}"]`);
+            if (cardElement) {
+                cardElement.querySelector('.like-count').textContent = allStories[storyIndex].likes;
+            }
+        }
+    }
+
+    function addStory(storyData) {
+        storyData.id = 'local-' + Math.random().toString(36).substring(2, 9);
+        storyData.created_at = Date.now();
+        storyData.likes = 0;
+        
+        allStories.unshift(storyData); 
+        saveStories();
+        loadStories(); 
+        return true;
+    }
+
+    function addComment(storyId, name, comment, replyToId = null) {
+        if (!storyId) return false;
+        
+        if (!allComments[storyId]) {
+            allComments[storyId] = [];
+        }
+
+        allComments[storyId].push({
+            id: generateUUID(),
+            name: name || 'Anonymous',
+            comment: comment,
+            created_at: Date.now(),
+            reply_to_id: replyToId
+        });
+        
+        saveComments();
+        renderComments(storyId);
+        
+        // Update comment count on card
+        const cardElement = storiesGrid.querySelector(`.story-card[data-id="${storyId}"]`);
+        if(cardElement) {
+             const countEl = cardElement.querySelector('.comment-btn');
+             const count = getComments(storyId).length;
+             countEl.innerHTML = `<i class="fas fa-comment" style="font-size: 14px;"></i> ${count}`;
+        }
+
+        return true;
+    }
+
+    function getComments(storyId) {
+        return allComments[storyId] || [];
+    }
+    
+    // Recursive comment rendering function
+    function renderCommentItem(comment, allComments, isReply = false) {
+        const nameDisplay = escapeHtml(comment.name || 'Anonymous');
+        const replies = allComments.filter(c => c.reply_to_id === comment.id);
+        
+        let replyBtnHtml = '';
+        if (!isReply) {
+             replyBtnHtml = `<button class="reply-btn" style="font-size: 10px; color: var(--color-text-muted); margin-left: 10px; cursor: pointer; border: none; background: none;" data-name="${nameDisplay}" data-id="${comment.id}">Reply</button>`;
+        }
+        
+        let html = `
+            <div class="comment-item" data-comment-id="${comment.id}" style="${isReply ? 'background: #f9f9f9; padding: 8px; margin-top: 6px; border-radius: 4px;' : ''}">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <b>${nameDisplay}</b>
+                    <small>${new Date(comment.created_at).toLocaleString()}</small>
+                </div>
+                <div style="margin-top: 4px; font-size: 14px; color: #4b5563;">${escapeHtml(comment.comment)}</div>
+                <div style="margin-top: 4px;">${replyBtnHtml}</div>
+                
+                ${replies.length > 0 ? `<div class="reply-section">${replies.map(r => renderCommentItem(r, allComments, true)).join('')}</div>` : ''}
+            </div>
+        `;
+        return html;
+    }
+
+    function renderComments(storyId) {
+        const all = getComments(storyId);
+        
+        // Filter for top-level comments (reply_to_id is null)
+        const topLevelComments = all.filter(c => !c.reply_to_id);
+        
+        if (!all || topLevelComments.length === 0) {
+            commentListEl.innerHTML = '<div style="text-align: center; color: var(--color-text-muted); padding: 15px; font-size: 14px;">No comments yet — be the first to encourage 💛</div>';
+        } else {
+            topLevelComments.sort((a, b) => b.created_at - a.created_at);
+            
+            commentListEl.innerHTML = topLevelComments.map(c => renderCommentItem(c, all, false)).join('');
+            
+            document.querySelectorAll('.reply-btn').forEach(btn => {
+                btn.addEventListener('click', handleReplyClick);
+            });
+        }
+    }
+    
+    // --- UI EVENT HANDLERS ---
+    
+    function handleReplyClick(e) {
+        const btn = e.target;
+        const replyToId = btn.dataset.id;
+        const replyToName = btn.dataset.name;
+
+        if (currentReplyForm) currentReplyForm.remove();
+        
+        const replyForm = replyFormTemplate.cloneNode(true);
+        replyForm.removeAttribute('id'); 
+        replyForm.style.display = 'block';
+        
+        const commentItem = btn.closest('.comment-item');
+        
+        commentItem.appendChild(replyForm);
+        currentReplyForm = replyForm;
+
+        replyForm.querySelector('#replyToUser').textContent = replyToName;
+        activeReplyToId = replyToId;
+
+        const replyText = replyForm.querySelector('#replyText');
+        replyText.focus();
+
+        // --- Reply Form Submission ---
+        replyForm.querySelector('#submitReplyBtn').onclick = () => {
+            const name = replyForm.querySelector('#replyName').value.trim();
+            const text = replyForm.querySelector('#replyText').value.trim();
+
+            if (!text) {
+                replyText.style.borderColor = 'red';
+                setTimeout(() => replyText.style.borderColor = '#d1d5db', 1500);
+                return;
+            }
+
+            addComment(activeStoryId, name, text, activeReplyToId);
+            currentReplyForm.remove(); 
+            currentReplyForm = null;
+            activeReplyToId = null;
+        };
+
+        // --- Reply Form Cancel ---
+        replyForm.querySelector('#cancelReplyBtn').onclick = () => {
+            currentReplyForm.remove();
+            currentReplyForm = null;
+            activeReplyToId = null;
+        };
+    }
+
+    function openCommentsModal(storyObj) {
+        activeStoryId = storyObj.id;
+        
+        activeReplyToId = null;
+        if (currentReplyForm) currentReplyForm.remove();
+        currentReplyForm = null;
+
+        // Show modal
+        modal.classList.add('open'); 
+        modal.setAttribute('aria-hidden', 'false');
+        modalPanel.style.transform = 'scale(1)';
+
+        // Populate story data
+        modalTitle.textContent = escapeHtml(storyObj.name || 'Anonymous');
+        modalStoryBlock.innerHTML = formatText(storyObj.story);
+        modalTags.textContent = (storyObj.tags || '').split(',').filter(Boolean).map(t => ('#' + t.trim())).join(' ');
+        modalMeta.textContent = `${storyObj.age ? storyObj.age + ' yrs • ' : ''} Posted: ${new Date(storyObj.created_at).toLocaleDateString()}`;
+
+        // Load comments
+        renderComments(storyObj.id);
+        commentNameInput.value = ''; commentTextInput.value = '';
+    }
+
+    function closeCommentsModal() {
+        activeStoryId = null;
+        activeReplyToId = null;
+        if (currentReplyForm) currentReplyForm.remove();
+        currentReplyForm = null;
+
+        modalPanel.style.transform = 'scale(0.95)';
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    closeComments.addEventListener('click', closeCommentsModal);
+    modal.addEventListener('click', (e) => { 
+        if (e.target === modal) closeCommentsModal(); 
+    });
+
+    // Main Comment Post Button Handler
+    postCommentBtn.addEventListener('click', () => {
+        const name = commentNameInput.value.trim();
+        const text = commentTextInput.value.trim();
+        
+        if (!text) {
+            commentTextInput.style.borderColor = 'red';
+            setTimeout(() => commentTextInput.style.borderColor = '#d1d5db', 1500);
+            return;
+        }
+
+        const success = addComment(activeStoryId, name, text, null); 
+        if (success) {
+            commentTextInput.value = '';
+        } else {
+            console.error("Failed to post comment.");
+        }
+    });
+
+    storyForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const age = document.getElementById('age').value.trim();
+        const story = document.getElementById('storyText').value.trim();
+        const tags = document.getElementById('tagsInput').value.trim();
+
+        if (!story) {
+            document.getElementById('storyText').style.borderColor = 'red';
+            setTimeout(() => document.getElementById('storyText').style.borderColor = '#d1d5db', 1500);
+            return;
+        }
+
+        const storyData = {
+            name: name || 'Anonymous',
+            age: parseInt(age) || null,
+            story: story,
+            tags: tags,
+            image: generateAvatar(name || 'Anonymous'),
+        };
+
+        const success = addStory(storyData);
+        if (success) {
+            storyForm.reset();
+        } else {
+            console.error("Story submission failed.");
+        }
+    });
+
+    // Search and filter events
+    searchBtn.addEventListener('click', () => filterStories(searchInput.value.trim()));
+    searchInput.addEventListener('keydown', (e) => { 
+        if (e.key === 'Enter') { 
+            e.preventDefault(); 
+            filterStories(searchInput.value.trim()); 
+        }
+    });
+
+    function spawnHeart(x, y) {
+        const heart = document.createElement('div');
+        heart.style.position = 'fixed';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.pointerEvents = 'none';
+        heart.style.transform = 'translate(-50%,-50%)';
+        heart.style.zIndex = 50;
+        heart.innerHTML = `<i class="fas fa-heart" style="font-size: 22px; color: #ef4444;"></i>`;
+        document.body.appendChild(heart);
+        
+        heart.animate([
+            { opacity: 1, transform: 'translate(-50%,-50%) translateY(0) scale(1)' },
+            { opacity: 0, transform: 'translate(-50%,-120px) scale(0.6)' }
+        ], {
+            duration: 900,
+            easing: 'ease-out'
+        });
+        setTimeout(() => heart.remove(), 950);
+    }
+    
+    // Initial app startup
+    initData();
+</script>
+
+</body>
+</html>

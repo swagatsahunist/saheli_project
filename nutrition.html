@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nutrition & Meal Planner — Saheli</title>
+
+  <!-- icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- styles -->
+  <link rel="stylesheet" href="nutrition.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-logo">🌸</span><span class="brand-name">Saheli</span></a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="cycle-tracker.html">Cycle Tracker</a>
+        <a href="nutrition.html" class="active">Nutrition</a>
+        <a href="remedies.html">Remedies</a>
+        <a href="myths-vs-facts.html">Myths</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text" data-animate>
+        <h1>Nutrition for Every Cycle — Weekly Meal Planner</h1>
+        <p class="lead">Personalized suggestions for each cycle phase. Edit meals, tag nutrients and download a printable plan.</p>
+
+        <div class="controls">
+          <label for="phaseSelect">Select cycle phase</label>
+          <select id="phaseSelect" aria-label="Cycle phase">
+            <option value="menstrual">Menstrual</option>
+            <option value="follicular">Follicular</option>
+            <option value="ovulation">Ovulation</option>
+            <option value="luteal">Luteal</option>
+          </select>
+
+          <button id="applyPhase" class="btn primary">Apply Phase Plan</button>
+          <button id="downloadPlan" class="btn ghost">Download Meal Plan</button>
+        </div>
+      </div>
+
+      <div class="hero-img" data-animate>
+        <img src="images/nutrition-hero.jpg" alt="Healthy meal bowl" style="width:100%; max-width:420px; border-radius:20px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:transform 0.4s ease;">
+      </div>
+    </div>
+  </section>
+
+  <!-- MEAL PLANNER -->
+  <main class="container planner-wrap" role="main">
+    <section class="planner" aria-label="Weekly meal planner">
+      <h2>Weekly Meal Planner</h2>
+      <p class="sub muted">Click any cell to edit a meal. Tag nutrients to highlight benefits.</p>
+
+      <div class="planner-grid" id="plannerGrid" aria-live="polite">
+        <!-- header row created by JS -->
+      </div>
+
+      <div class="legend">
+        <span class="legend-item"><span class="tag iron"></span> Iron</span>
+        <span class="legend-item"><span class="tag protein"></span> Protein</span>
+        <span class="legend-item"><span class="tag omega"></span> Omega-3</span>
+        <span class="legend-item"><span class="tag magnesium"></span> Magnesium</span>
+      </div>
+    </section>
+
+    <!-- Recipes / tips -->
+    <section class="recipes">
+      <h3>Quick Recipes & Tips</h3>
+      <div class="recipes-grid">
+        <article class="recipe-card">
+          <img src="images/iron-smoothie.jpg" alt="Iron Boost Smoothie" style="width:100%; height:220px; object-fit:cover; border-radius:15px; transition:transform 0.4s ease;">
+          <div class="rc-body">
+            <h4>Iron Boost Smoothie</h4>
+            <p>Spinach, banana, cocoa, chia seeds — pair with vitamin C (orange) for better iron absorption.</p>
+          </div>
+        </article>
+
+        <article class="recipe-card">
+          <img src="images/protein-salad.jpg" alt="Protein Power Salad" style="width:100%; height:220px; object-fit:cover; border-radius:15px; transition:transform 0.4s ease;">
+          <div class="rc-body">
+            <h4>Protein Power Salad</h4>
+            <p>Lentils + pumpkin seeds + avocado — great for follicular & luteal phases.</p>
+          </div>
+        </article>
+
+        <article class="recipe-card">
+          <img src="images/oats-bowl.jpg" alt="Comfort Oats Bowl" style="width:100%; height:220px; object-fit:cover; border-radius:15px; transition:transform 0.4s ease;">
+          <div class="rc-body">
+            <h4>Comfort Oats Bowl</h4>
+            <p>Oats, almond butter, banana and flaxseed — magnesium and omega-3 friendly.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- EDIT MODAL -->
+  <div id="editModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="editTitle">
+    <div class="modal-panel">
+      <button class="modal-close" aria-label="Close">✕</button>
+      <h3 id="editTitle">Edit Meal</h3>
+      <form id="editForm">
+        <label>Day: <span id="editDay"></span></label>
+        <label>Meal: <span id="editMealType"></span></label>
+
+        <label for="mealText">Meal description</label>
+        <input id="mealText" type="text" placeholder="e.g. Spinach dal + brown rice" required>
+
+        <label>Tag nutrient</label>
+        <div class="tag-row">
+          <button type="button" class="tagbtn" data-tag="iron"><span class="tag iron"></span> Iron</button>
+          <button type="button" class="tagbtn" data-tag="protein"><span class="tag protein"></span> Protein</button>
+          <button type="button" class="tagbtn" data-tag="omega"><span class="tag omega"></span> Omega-3</button>
+          <button type="button" class="tagbtn" data-tag="magnesium"><span class="tag magnesium"></span> Magnesium</button>
+          <button type="button" class="tagbtn" data-tag="" title="remove tag">Clear</button>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn primary">Save</button>
+          <button type="button" id="deleteCell" class="btn outline">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 Saheli — Nourish your cycle</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="nutrition.js"></script>
+</body>
+</html>

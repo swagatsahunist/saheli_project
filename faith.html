@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title data-translate-key="page_title">The Sacred Cycle — Faith & Science</title>
+    <script src="https://kit.fontawesome.com/a7a0b5a371.js" crossorigin="anonymous"></script>
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-background: #fdf7f4; /* Light Beige/Cream */
+            --color-primary: #941753; /* Deep Rose */
+            --color-accent: #ff7f99; /* Soft Pink */
+            --color-text: #1b2430;
+            --color-muted: #6f7480;
+            --card-shadow: 0 10px 30px rgba(148, 23, 83, 0.08);
+            --glass-border: rgba(148, 23, 83, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, Arial, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Navigation --- */
+        header.site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand .title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 24px;
+            color: var(--color-primary);
+        }
+        
+        .brand .sub {
+            font-size: 13px;
+            color: var(--color-muted);
+            margin-top: -4px;
+        }
+
+        .language-filter select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background-color: #fff;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .language-filter select:hover {
+            border-color: var(--color-accent);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            /* REDUCED FROM 60px */
+            padding: 30px 0;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--color-background) 100%),
+                        radial-gradient(900px 300px at 50% 10%, rgba(255, 127, 153, 0.15), transparent 60%);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-muted);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-image-container {
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Educational Grid --- */
+        .educational-grid {
+            /* REDUCED TOP PADDING FROM 40px */
+            padding: 25px 0 10px;
+        }
+
+        .grid-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .grid-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(148, 23, 83, 0.15);
+        }
+
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            font-size: 15px;
+            color: var(--color-text);
+            margin-bottom: 10px;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* --- Scientific Bridge Section --- */
+        .science-bridge {
+            background-color: #f7e6e9; /* Softest pink background */
+            /* REDUCED FROM 60px */
+            padding: 40px 0;
+        }
+
+        .bridge-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .bridge-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .bridge-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .perspective-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .perspective-box h3 {
+            font-size: 1.75rem;
+            color: var(--color-accent);
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .perspective-box h3 i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        .perspective-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .perspective-box ul li {
+            padding: 10px 0;
+            border-bottom: 1px dotted rgba(0,0,0,0.1);
+            font-size: 15px;
+        }
+
+        .perspective-box ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .perspective-box .fact-label {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-right: 8px;
+        }
+        
+        /* --- New Section Styles --- */
+        .new-section {
+            /* REDUCED FROM 60px */
+            padding: 40px 0;
+        }
+
+        .new-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .new-section .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        /* Practical Application (Three R's) Grid */
+        .three-rs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .rs-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .rs-card:hover {
+            background-color: #ffeef2;
+        }
+        .rs-card i {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+        .rs-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .rs-card p {
+            font-size: 15px;
+            color: var(--color-text);
+        }
+
+        /* Myth vs. Fact Table */
+        .myth-fact-table {
+            background-color: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .myth-fact-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .myth-fact-table th, .myth-fact-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .myth-fact-table th {
+            background-color: var(--color-primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .myth-fact-table tr:nth-child(even) {
+            background-color: #fcf4f7;
+        }
+        .myth-fact-table td.myth-col {
+            font-style: italic;
+            color: var(--color-muted);
+        }
+        .myth-fact-table td.fact-col {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        .myth-fact-table i.fa-times-circle { color: #cc3333; margin-right: 8px; }
+        .myth-fact-table i.fa-check-circle { color: #2a9d8f; margin-right: 8px; }
+
+        /* --- Final Message Section --- */
+        .final-message-section {
+            /* REDUCED FROM 40px */
+            padding: 25px 0;
+            text-align: center; 
+            background-color: #f7e6e9;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--color-primary);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .grid-cards { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+            .bridge-content { grid-template-columns: 1fr; }
+            .three-rs-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            header.site-header { padding: 15px 20px; }
+            .brand .title { font-size: 20px; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-section { padding: 30px 0; }
+            .hero-subtitle { font-size: 1rem; margin-bottom: 30px; }
+            .perspective-box h3 { font-size: 1.5rem; }
+            .myth-fact-table th, .myth-fact-table td { padding: 10px; font-size: 14px; }
+            .three-rs-grid { grid-template-columns: 1fr; }
+            .educational-grid { padding: 20px 0 40px; }
+            .science-bridge { padding: 30px 0; }
+            .new-section { padding: 30px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Language Filter -->
+    <header class="site-header">
+        <div class="brand">
+            <div style="font-size: 30px;">✨</div>
+            <div>
+                <div class="title" data-translate-key="brand_title">Saheli</div>
+                <div class="sub" data-translate-key="brand_subtitle">The Sacred Cycle</div>
+            </div>
+        <a href="index.html" style="color: var(--color-primary); font-weight: 600;">Home</a>
+        <a href="cycle-tracker.html" style="color: var(--color-primary); font-weight: 600;">Tracker</a>
+        <a href="nutrition.html" style="color: var(--color-primary); font-weight: 600;">Nutrition</a>
+        </div>
+        <div class="language-filter">
+            <select id="languageSelector">
+                <option value="en">English</option>
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="od">Odia (ଓଡ଼ିଆ)</option>
+                <option value="kn">Kannada (ಕನ್ನಡ)</option>
+                <option value="ta">Tamil (தமிழ்)</option>
+                <option value="mr">Marathi (मराठी)</option>
+                <option value="te">Telugu (తెలుగు)</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title" data-translate-key="hero_title">Where Faith & Physiology Converge.</h1>
+                <p class="hero-subtitle" data-translate-key="hero_subtitle">
+                    Explore the universal spiritual and cultural significance of the menstrual cycle, grounded in scientific understanding and deep respect for tradition.
+                </p>
+            </div>
+        </section>
+
+        <!-- Educational Grid: Pillars of Practice (Original Section) -->
+        <section class="educational-grid">
+            <div class="container">
+                <div class="grid-header">
+                    <h2 data-translate-key="grid_heading">Universal Pillars of the Cycle</h2>
+                    <p class="sub" data-translate-key="grid_subheading" style="color: var(--color-muted);">Across diverse spiritual traditions, three themes consistently emerge.</p>
+                </div>
+
+                <div class="grid-cards">
+                    <!-- CARD 1: Rest & Rejuvenation -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="images/rest_meditation.jpg" alt="A quiet figure resting" width="400" height="180" onerror="this.onerror=null;this.src='https://placehold.co/400x180/e3e0f4/5a4d9e?text=Image+of+Rest+or+Meditation';" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag" data-translate-key="card1_tag">REST & RITUAL</span>
+                            <h3 data-translate-key="card1_title">The Call for Rest</h3>
+                            <p data-translate-key="card1_text">Many ancient practices advocate for a period of physical or domestic rest. This time is traditionally seen as one of spiritual seclusion, reflection, and quiet conservation of energy.</p>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: Purity & Cleansing -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="images/water_cleansing.jpg" alt="Hands cleansing with water" width="400" height="180" onerror="this.onerror=null;this.src='https://placehold.co/400x180/fff7e9/f08d38?text=Image+of+Water+or+Cleansing';" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag" data-translate-key="card2_tag">HYGIENE & SACRED SPACE</span>
+                            <h3 data-translate-key="card2_title">The Concept of Purity</h3>
+                            <p data-translate-key="card2_text">Rituals concerning purity often accompany menstruation. These practices emphasize heightened spiritual cleanliness and may involve specific ablutions before re-entering communal or sacred spaces.</p>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: Power & Intuition -->
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="images/moon_cycle.jpg" alt="A symbol of the moon cycle" width="400" height="180" onerror="this.onerror=null;this.src='https://placehold.co/400x180/ebf7f4/2a9d8f?text=Image+of+Nature+or+Intuition';" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag" data-translate-key="card3_tag">POWER & CELEBRATION</span>
+                            <h3 data-translate-key="card3_title">Inner Strength & Power</h3>
+                            <p data-translate-key="card3_text">In many indigenous and matriarchal societies, the cycle is celebrated as a source of profound spiritual power and enhanced intuition, linking the individual to the earth's natural rhythms.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 1: Practical Application (The Three R's) -->
+        <section class="new-section" style="background-color: #fcf4f7;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-translate-key="practical_heading">Practical Application: The Three R's</h2>
+                    <p class="sub" data-translate-key="practical_subheading" style="color: var(--color-muted);">Informed choices for honoring your body throughout the month.</p>
+                </div>
+
+                <div class="three-rs-grid">
+                    <div class="rs-card">
+                        <i class="fas fa-bed"></i>
+                        <h3 data-translate-key="rs1_title">Rest (During Bleeding)</h3>
+                        <p data-translate-key="rs1_text">Prioritize sleep and gentle movement. Align with the cultural call for slowing down by minimizing non-essential tasks and deeply listening to your body's need for lower exertion.</p>
+                    </div>
+                    <div class="rs-card">
+                        <i class="fas fa-apple-alt"></i>
+                        <h3 data-translate-key="rs2_title">Re-Nourish (Pre & Post Cycle)</h3>
+                        <p data-translate-key="rs2_text">Re-stock essential nutrients lost during bleeding, particularly iron, B vitamins, and magnesium. This supports hormonal balance and energy return, supporting both traditional and scientific wellness.</p>
+                    </div>
+                    <div class="rs-card">
+                        <i class="fas fa-brain"></i>
+                        <h3 data-translate-key="rs3_title">Reflect (Continuous Practice)</h3>
+                        <p data-translate-key="rs3_text">Use the inward focus of the menstrual phase for planning and introspection. This taps into the traditional wisdom of enhanced intuition and self-knowledge.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scientific Bridge Section (Original Section) -->
+        <section class="science-bridge">
+            <div class="container">
+                <div class="bridge-header">
+                    <h2 data-translate-key="bridge_heading">Bridging Belief and Biology</h2>
+                    <p class="sub" data-translate-key="bridge_subheading" style="color: var(--color-primary); font-weight: 600;">Understanding the "Why" behind the traditions.</p>
+                </div>
+                
+                <div class="bridge-content">
+                    
+                    <!-- Scientific Perspective -->
+                    <div class="perspective-box">
+                        <h3 style="color: var(--color-primary);"><i class="fas fa-microscope"></i> <span data-translate-key="science_title">The Scientific Lens</span></h3>
+                        <ul>
+                            <li>
+                                <span class="fact-label" data-translate-key="science_fact1_label">Rest's Benefit:</span> 
+                                <span data-translate-key="science_fact1_text">Physiologically, menstruation is energy-intensive. Rest minimizes stress and reduces the severity of pain mediated by prostaglandins.</span>
+                            </li>
+                            <li>
+                                <span class="fact-label" data-translate-key="science_fact2_label">Hormonal Shift:</span> 
+                                <span data-translate-key="science_fact2_text">Low progesterone and estrogen during the early cycle can lead to reduced physical stamina and inward focus, aligning with traditional calls for reflection.</span>
+                            </li>
+                            <li>
+                                <span class="fact-label" data-translate-key="science_fact3_label">Hygiene Context:</span> 
+                                <span data-translate-key="science_fact3_text">Historically, rituals were essential public health measures before modern sanitation, focusing on general cleanliness and infection control during vulnerability.</span>
+                            </li>
+                            <li>
+                                <span class="fact-label" data-translate-key="science_fact4_label">Intuitive Connection:</span> 
+                                <span data-translate-key="science_fact4_text">The brain's focus shifts during this phase, promoting introspection and enhanced self-awareness—a biological basis for 'spiritual power.'</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Cultural Sensitivity Guide -->
+                    <div class="perspective-box">
+                        <h3 style="color: var(--color-accent);"><i class="fas fa-hand-holding-heart"></i> <span data-translate-key="cultural_title">Cultural Sensitivity Guide</span></h3>
+                        <ul>
+                            <li>
+                                <span class="fact-label" data-translate-key="cultural_fact1_label">Dignity First:</span> 
+                                <span data-translate-key="cultural_fact1_text">Always approach traditional practices with respect, recognizing their historical or spiritual importance to the community.</span>
+                            </li>
+                            <li>
+                                <span class="fact-label" data-translate-key="cultural_fact2_label">Avoid 'Superstition':</span> 
+                                <span data-translate-key="cultural_fact2_text">Avoid framing practices as mere 'superstition'; instead, explore the underlying purpose (e.g., community bond, psychological grounding).</span>
+                            </li>
+                            <li>
+                                <span class="fact-label" data-translate-key="cultural_fact3_label">Focus on Choice:</span> 
+                                <span data-translate-key="cultural_fact3_text">Emphasize the individual's right to choose informed practices—blending modern health knowledge with cultural preservation.</span>
+                            </li>
+                            <li>
+                                <span class="fact-label" data-translate-key="cultural_fact4_label">Positive Language:</span> 
+                                <span data-translate-key="cultural_fact4_text">Use language that celebrates the cycle, moving away from terms that imply weakness, curse, or shame.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 2: Global Perspectives & Challenges -->
+        <section class="new-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-translate-key="global_heading">Global Perspectives: Dignity & Access</h2>
+                    <p class="sub" data-translate-key="global_subheading" style="color: var(--color-muted);">Recognizing the challenges that cross cultural and geographical boundaries.</p>
+                </div>
+                
+                <div class="bridge-content">
+                    
+                    <!-- Access & Equity -->
+                    <div class="perspective-box" style="border-left: 5px solid var(--color-accent);">
+                        <h3 style="color: var(--color-accent);"><i class="fas fa-globe-asia"></i> <span data-translate-key="access_title">Access and Equity</span></h3>
+                        <p data-translate-key="access_text">Globally, lack of affordable menstrual products and sanitation facilities impacts dignity and education. Addressing "period poverty" is a human rights issue that empowers women across all faiths and cultures to fully participate in society.</p>
+                    </div>
+
+                    <!-- Modern Taboos -->
+                    <div class="perspective-box" style="border-left: 5px solid var(--color-primary);">
+                        <h3 style="color: var(--color-primary);"><i class="fas fa-comments"></i> <span data-translate-key="taboos_title">Modern Taboos & Stigma</span></h3>
+                        <p data-translate-key="taboos_text">While many practices promote reverence, negative cultural taboos still cause silence and isolation. Open dialogue, backed by scientific fact, helps distinguish protective custom from harmful stigma.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW SECTION 3: Myth vs. Fact Debunked -->
+        <section class="new-section" style="background-color: #f7e6e9;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-translate-key="myth_heading">Myth vs. Fact Debunked</h2>
+                    <p class="sub" data-translate-key="myth_subheading" style="color: var(--color-muted);">Separating cultural beliefs from biological reality.</p>
+                </div>
+
+                <div class="myth-fact-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;" data-translate-key="table_header_myth">Myth / Traditional Belief</th>
+                                <th style="width: 60%;" data-translate-key="table_header_fact">Biological Fact & Scientific Insight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="myth-col"><i class="fas fa-times-circle"></i> <span data-translate-key="myth1_text">You should never touch plants while menstruating.</span></td>
+                                <td class="fact-col"><i class="fas fa-check-circle"></i> <span data-translate-key="fact1_text">Biological process has no effect on plant life. This may have originated as a way to enforce rest.</span></td>
+                            </tr>
+                            <tr>
+                                <td class="myth-col"><i class="fas fa-times-circle"></i> <span data-translate-key="myth2_text">You cannot prepare food or enter the kitchen.</span></td>
+                                <td class="fact-col"><i class="fas fa-check-circle"></i> <span data-translate-key="fact2_text">The menstrual blood path is entirely separate from the digestive system. There is zero risk of contamination.</span></td>
+                            </tr>
+                            <tr>
+                                <td class="myth-col"><i class="fas fa-times-circle"></i> <span data-translate-key="myth3_text">Women are weak or impure during this time.</span></td>
+                                <td class="fact-col"><i class="fas fa-check-circle"></i> <span data-translate-key="fact3_text">Menstruation is a sign of biological vitality and hormonal readiness. It is a natural cleansing process, not a state of illness or moral impurity.</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Final Call to Action / Footer Message -->
+        <section class="final-message-section">
+             <p style="font-size: 1.1rem; color: var(--color-primary); font-weight: 600;" data-translate-key="final_message">
+                Every cycle is sacred. Honor the body, respect the tradition, and trust the science.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            &copy; <span id="currentYear"></span> Saheli. <span data-translate-key="footer_text">Dedicated to holistic menstrual health education.</span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const translations = {
+            en: {
+                page_title: "The Sacred Cycle — Faith & Science",
+                brand_title: "Saheli",
+                brand_subtitle: "The Sacred Cycle",
+                hero_title: "Where Faith & Physiology Converge.",
+                hero_subtitle: "Explore the universal spiritual and cultural significance of the menstrual cycle, grounded in scientific understanding and deep respect for tradition.",
+                grid_heading: "Universal Pillars of the Cycle",
+                grid_subheading: "Across diverse spiritual traditions, three themes consistently emerge.",
+                card1_tag: "REST & RITUAL",
+                card1_title: "The Call for Rest",
+                card1_text: "Many ancient practices advocate for a period of physical or domestic rest. This time is traditionally seen as one of spiritual seclusion, reflection, and quiet conservation of energy.",
+                card2_tag: "HYGIENE & SACRED SPACE",
+                card2_title: "The Concept of Purity",
+                card2_text: "Rituals concerning purity often accompany menstruation. These practices emphasize heightened spiritual cleanliness and may involve specific ablutions before re-entering communal or sacred spaces.",
+                card3_tag: "POWER & CELEBRATION",
+                card3_title: "Inner Strength & Power",
+                card3_text: "In many indigenous and matriarchal societies, the cycle is celebrated as a source of profound spiritual power and enhanced intuition, linking the individual to the earth's natural rhythms.",
+                bridge_heading: "Bridging Belief and Biology",
+                bridge_subheading: "Understanding the \"Why\" behind the traditions.",
+                science_title: "The Scientific Lens",
+                science_fact1_label: "Rest's Benefit:",
+                science_fact1_text: "Physiologically, menstruation is energy-intensive. Rest minimizes stress and reduces the severity of pain mediated by prostaglandins.",
+                science_fact2_label: "Hormonal Shift:",
+                science_fact2_text: "Low progesterone and estrogen during the early cycle can lead to reduced physical stamina and inward focus, aligning with traditional calls for reflection.",
+                science_fact3_label: "Hygiene Context:",
+                science_fact3_text: "Historically, rituals were essential public health measures before modern sanitation, focusing on general cleanliness and infection control during vulnerability.",
+                science_fact4_label: "Intuitive Connection:",
+                science_fact4_text: "The brain's focus shifts during this phase, promoting introspection and enhanced self-awareness—a biological basis for 'spiritual power.'",
+                cultural_title: "Cultural Sensitivity Guide",
+                cultural_fact1_label: "Dignity First:",
+                cultural_fact1_text: "Always approach traditional practices with respect, recognizing their historical or spiritual importance to the community.",
+                cultural_fact2_label: "Avoid 'Superstition':",
+                cultural_fact2_text: "Avoid framing practices as mere 'superstition'; instead, explore the underlying purpose (e.g., community bond, psychological grounding).",
+                cultural_fact3_label: "Focus on Choice:",
+                cultural_fact3_text: "Emphasize the individual's right to choose informed practices—blending modern health knowledge with cultural preservation.",
+                cultural_fact4_label: "Positive Language:",
+                cultural_fact4_text: "Use language that celebrates the cycle, moving away from terms that imply weakness, curse, or shame.",
+                practical_heading: "Practical Application: The Three R's",
+                practical_subheading: "Informed choices for honoring your body throughout the month.",
+                rs1_title: "Rest (During Bleeding)",
+                rs1_text: "Prioritize sleep and gentle movement. Align with the cultural call for slowing down by minimizing non-essential tasks and deeply listening to your body's need for lower exertion.",
+                rs2_title: "Re-Nourish (Pre & Post Cycle)",
+                rs2_text: "Re-stock essential nutrients lost during bleeding, particularly iron, B vitamins, and magnesium. This supports hormonal balance and energy return, supporting both traditional and scientific wellness.",
+                rs3_title: "Reflect (Continuous Practice)",
+                rs3_text: "Use the inward focus of the menstrual phase for planning and introspection. This taps into the traditional wisdom of enhanced intuition and self-knowledge.",
+                global_heading: "Global Perspectives: Dignity & Access",
+                global_subheading: "Recognizing the challenges that cross cultural and geographical boundaries.",
+                access_title: "Access and Equity",
+                access_text: "Globally, lack of affordable menstrual products and sanitation facilities impacts dignity and education. Addressing \"period poverty\" is a human rights issue that empowers women across all faiths and cultures to fully participate in society.",
+                taboos_title: "Modern Taboos & Stigma",
+                taboos_text: "While many practices promote reverence, negative cultural taboos still cause silence and isolation. Open dialogue, backed by scientific fact, helps distinguish protective custom from harmful stigma.",
+                myth_heading: "Myth vs. Fact Debunked",
+                myth_subheading: "Separating cultural beliefs from biological reality.",
+                table_header_myth: "Myth / Traditional Belief",
+                table_header_fact: "Biological Fact & Scientific Insight",
+                myth1_text: "You should never touch plants while menstruating.",
+                fact1_text: "Biological process has no effect on plant life. This may have originated as a way to enforce rest.",
+                myth2_text: "You cannot prepare food or enter the kitchen.",
+                fact2_text: "The menstrual blood path is entirely separate from the digestive system. There is zero risk of contamination.",
+                myth3_text: "Women are weak or impure during this time.",
+                fact3_text: "Menstruation is a sign of biological vitality and hormonal readiness. It is a natural cleansing process, not a state of illness or moral impurity.",
+                final_message: "Every cycle is sacred. Honor the body, respect the tradition, and trust the science.",
+                footer_text: "Dedicated to holistic menstrual health education."
+            },
+            hi: {
+                page_title: "पवित्र चक्र — आस्था और विज्ञान",
+                brand_title: "सहेली",
+                brand_subtitle: "पवित्र चक्र",
+                hero_title: "जहाँ आस्था और शरीर विज्ञान मिलते हैं।",
+                hero_subtitle: "आध्यात्मिक और सांस्कृतिक महत्व को वैज्ञानिक समझ और परंपरा के गहरे सम्मान के साथ जानें।",
+                grid_heading: "चक्र के सार्वभौमिक स्तंभ",
+                grid_subheading: "विभिन्न आध्यात्मिक परंपराओं में, तीन विषय लगातार उभरते हैं।",
+                card1_tag: "विश्राम और अनुष्ठान",
+                card1_title: "विश्राम का आह्वान",
+                card1_text: "कई प्राचीन पद्धतियाँ शारीरिक या घरेलू विश्राम की अवधि की वकालत करती हैं। इस समय को पारंपरिक रूप से आध्यात्मिक एकांत, प्रतिबिंब और ऊर्जा के शांत संरक्षण का समय माना जाता है।",
+                card2_tag: "स्वच्छता और पवित्र स्थान",
+                card2_title: "शुद्धता की अवधारणा",
+                card2_text: "शुद्धता से संबंधित अनुष्ठान अक्सर मासिक धर्म के साथ होते हैं। ये अभ्यास बढ़ी हुई आध्यात्मिक स्वच्छता पर जोर देते हैं और इसमें सांप्रदायिक या पवित्र स्थानों में फिर से प्रवेश करने से पहले विशिष्ट स्नान शामिल हो सकते हैं।",
+                card3_tag: "शक्ति और उत्सव",
+                card3_title: "आंतरिक शक्ति और बल",
+                card3_text: "कई स्वदेशी और मातृसत्तात्मक समाजों में, चक्र को गहन आध्यात्मिक शक्ति और बढ़ी हुई अंतर्ज्ञान के स्रोत के रूप में मनाया जाता है, जो व्यक्ति को पृथ्वी की प्राकृतिक लय से जोड़ता है।",
+                practical_heading: "व्यावहारिक अनुप्रयोग: तीन 'R'",
+                practical_subheading: "महीने भर अपने शरीर का सम्मान करने के लिए सूचित विकल्प।",
+                rs1_title: "विश्राम (मासिक धर्म के दौरान)",
+                rs1_text: "नींद और कोमल गति को प्राथमिकता दें। गैर-आवश्यक कार्यों को कम करके और कम प्रयास के लिए अपने शरीर की आवश्यकता को गहराई से सुनकर धीमा होने के सांस्कृतिक आह्वान के साथ संरेखित करें।",
+                rs2_title: "पुनः पोषण (पूर्व और बाद के चक्र)",
+                rs2_text: "मासिक धर्म के दौरान खोए हुए आवश्यक पोषक तत्वों, विशेष रूप से आयरन, बी विटामिन और मैग्नीशियम को फिर से भरें। यह हार्मोनल संतुलन और ऊर्जा वापसी का समर्थन करता है, पारंपरिक और वैज्ञानिक कल्याण दोनों का समर्थन करता है।",
+                rs3_title: "प्रतिबिंब (निरंतर अभ्यास)",
+                rs3_text: "योजना और आत्मनिरीक्षण के लिए मासिक धर्म के चरण के आंतरिक फोकस का उपयोग करें। यह बढ़ी हुई अंतर्ज्ञान और आत्म-ज्ञान की पारंपरिक ज्ञान में टैप करता है।",
+                bridge_heading: "आस्था और जीव विज्ञान को जोड़ना",
+                bridge_subheading: "परंपराओं के पीछे के \"क्यों\" को समझना।",
+                science_title: "वैज्ञानिक दृष्टिकोण",
+                science_fact1_label: "विश्राम का लाभ:",
+                science_fact1_text: "शारीरिक रूप से, मासिक धर्म ऊर्जा-गहन होता है। आराम तनाव को कम करता है और प्रोस्टाग्लैंडीन द्वारा मध्यस्थता वाले दर्द की गंभीरता को कम करता है।",
+                science_fact2_label: "हार्मोनल बदलाव:",
+                science_fact2_text: "शुरुआती चक्र के दौरान कम प्रोजेस्टेरोन और एस्ट्रोजन शारीरिक सहनशक्ति को कम कर सकते हैं और आंतरिक ध्यान बढ़ा सकते हैं, जो प्रतिबिंब के लिए पारंपरिक आह्वान के साथ संरेखित होता है।",
+                science_fact3_label: "स्वच्छता संदर्भ:",
+                science_fact3_text: "ऐतिहासिक रूप से, आधुनिक स्वच्छता से पहले अनुष्ठान आवश्यक सार्वजनिक स्वास्थ्य उपाय थे, जो भेद्यता के दौरान सामान्य स्वच्छता और संक्रमण नियंत्रण पर ध्यान केंद्रित करते थे।",
+                science_fact4_label: "सहज संबंध:",
+                science_fact4_text: "इस चरण के दौरान मस्तिष्क का ध्यान बदल जाता है, जो अंतर्ज्ञान और बढ़ी हुई आत्म-जागरूकता को बढ़ावा देता है - 'आध्यात्मिक शक्ति' के लिए एक जैविक आधार।",
+                cultural_title: "सांस्कृतिक संवेदनशीलता मार्गदर्शिका",
+                cultural_fact1_label: "गरिमा पहले:",
+                cultural_fact1_text: "पारंपरिक प्रथाओं को हमेशा सम्मान के साथ देखें, समुदाय के लिए उनके ऐतिहासिक या आध्यात्मिक महत्व को पहचानें।",
+                cultural_fact2_label: "'अंधविश्वास' से बचें:",
+                cultural_fact2_text: "प्रथाओं को केवल 'अंधविश्वास' के रूप में चित्रित करने से बचें; इसके बजाय, अंतर्निहित उद्देश्य का पता लगाएं (उदाहरण के लिए, सामुदायिक बंधन, मनोवैज्ञानिक आधार)।",
+                cultural_fact3_label: "पसंद पर ध्यान दें:",
+                cultural_fact3_text: "सूचित प्रथाओं को चुनने के लिए व्यक्ति के अधिकार पर जोर दें - आधुनिक स्वास्थ्य ज्ञान को सांस्कृतिक संरक्षण के साथ मिलाना।",
+                cultural_fact4_label: "सकारात्मक भाषा:",
+                cultural_fact4_text: "चक्र का जश्न मनाने वाली भाषा का प्रयोग करें, उन शब्दों से दूर रहें जो कमजोरी, अभिशाप या शर्म का संकेत देते हैं।",
+                global_heading: "वैश्विक परिप्रेक्ष्य: गरिमा और पहुंच",
+                global_subheading: "उन चुनौतियों को पहचानना जो सांस्कृतिक और भौगोलिक सीमाओं को पार करती हैं।",
+                access_title: "पहुंच और समानता",
+                access_text: "विश्व स्तर पर, सस्ती मासिक धर्म उत्पादों और स्वच्छता सुविधाओं की कमी गरिमा और शिक्षा को प्रभावित करती है। \"मासिक धर्म गरीबी\" को संबोधित करना एक मानवाधिकार मुद्दा है जो सभी आस्थाओं और संस्कृतियों की महिलाओं को समाज में पूरी तरह से भाग लेने के लिए सशक्त बनाता है।",
+                taboos_title: "आधुनिक निषेध और कलंक",
+                taboos_text: "जबकि कई प्रथाएं श्रद्धा को बढ़ावा देती हैं, नकारात्मक सांस्कृतिक निषेध अभी भी चुप्पी और अलगाव का कारण बनते हैं। वैज्ञानिक तथ्य द्वारा समर्थित खुला संवाद, हानिकारक कलंक से सुरक्षात्मक रिवाज को अलग करने में मदद करता है।",
+                myth_heading: "मिथक बनाम तथ्य का पर्दाफाश",
+                myth_subheading: "जैविक वास्तविकता से सांस्कृतिक मान्यताओं को अलग करना।",
+                table_header_myth: "मिथक / पारंपरिक विश्वास",
+                table_header_fact: "जैविक तथ्य और वैज्ञानिक अंतर्दृष्टि",
+                myth1_text: "मासिक धर्म के दौरान आपको कभी भी पौधों को नहीं छूना चाहिए।",
+                fact1_text: "जैविक प्रक्रिया का पौधे के जीवन पर कोई प्रभाव नहीं पड़ता है। यह विश्राम को लागू करने के तरीके के रूप में उत्पन्न हो सकता है।",
+                myth2_text: "आप भोजन तैयार नहीं कर सकते या रसोई में प्रवेश नहीं कर सकते।",
+                fact2_text: "मासिक धर्म रक्त पथ पाचन तंत्र से पूरी तरह से अलग है। संदूषण का शून्य जोखिम है।",
+                myth3_text: "महिलाएं इस समय कमजोर या अशुद्ध होती हैं।",
+                fact3_text: "मासिक धर्म जैविक जीवन शक्ति और हार्मोनल तत्परता का संकेत है। यह एक प्राकृतिक सफाई प्रक्रिया है, न कि बीमारी या नैतिक अशुद्धता की स्थिति।",
+                final_message: "हर चक्र पवित्र है। शरीर का सम्मान करें, परंपरा का सम्मान करें और विज्ञान पर भरोसा करें।",
+                footer_text: "समग्र मासिक धर्म स्वास्थ्य शिक्षा के लिए समर्पित।"
+            },
+            od: {
+                page_title: "ପବିତ୍ର ଚକ୍ର — ବିଶ୍ୱାସ ଏବଂ ବିଜ୍ଞାନ",
+                brand_title: "ସାହେଲି",
+                brand_subtitle: "ପବିତ୍ର ଚକ୍ର",
+                hero_title: "ଯେଉଁଠାରେ ବିଶ୍ୱାସ ଏବଂ ଶାରୀରିକ ବିଜ୍ଞାନ ମିଳିତ ହୁଏ।",
+                hero_subtitle: "ଋତୁସ୍ରାବ ଚକ୍ରର ସର୍ବଭାରତୀୟ ଆଧ୍ୟାତ୍ମିକ ଏବଂ ସାଂସ୍କୃତିକ ମହତ୍ତ୍ୱ ବୈଜ୍ଞାନିକ ବୁଝାମଣା ଏବଂ ପରମ୍ପରାର ଗଭୀର ସମ୍ମାନ ସହିତ ଅନୁସନ୍ଧାନ କରନ୍ତୁ।",
+                grid_heading: "ଚକ୍ରର ସାର୍ବଜନୀନ ସ୍ତମ୍ଭ",
+                grid_subheading: "ବିଭିନ୍ନ ଆଧ୍ୟାତ୍ମିକ ପରମ୍ପରା ମଧ୍ୟରେ, ତିନୋଟି ବିଷୟ ବସ୍ତୁ ସ୍ଥିର ଭାବରେ ଉଭା ହୁଏ।",
+                card1_tag: "ବିଶ୍ରାମ ଏବଂ ଅନୁଷ୍ଠାନ",
+                card1_title: "ବିଶ୍ରାମ ପାଇଁ ଆହ୍ୱାନ",
+                card1_text: "ଅନେକ ପ୍ରାଚୀନ ଅଭ୍ୟାସ ଶାରୀରିକ କିମ୍ବା ଘରୋଇ ବିଶ୍ରାମର ଏକ ଅବଧି ପାଇଁ ଓକିଲାତି କରେ | ଏହି ସମୟକୁ ପାରମ୍ପାରିକ ଭାବରେ ଆଧ୍ୟାତ୍ମିକ ଏକାନ୍ତ, ପ୍ରତିଫଳନ ଏବଂ ଶକ୍ତିର ଶାନ୍ତ ସଂରକ୍ଷଣ ସମୟ ଭାବରେ ଦେଖାଯାଏ |",
+                card2_tag: "ସ୍ୱଚ୍ଛତା ଏବଂ ପବିତ୍ର ସ୍ଥାନ",
+                card2_title: "ଶୁଦ୍ଧତାର ଧାରଣା",
+                card2_text: "ଶୁଦ୍ଧତା ସମ୍ବନ୍ଧୀୟ ରୀତିନୀତି ପ୍ରାୟତଃ ଋତୁସ୍ରାବ ସହିତ ଆସେ | ଏହି ଅଭ୍ୟାସଗୁଡ଼ିକ ବର୍ଦ୍ଧିତ ଆଧ୍ୟାତ୍ମିକ ସ୍ୱଚ୍ଛତା ଉପରେ ଗୁରୁତ୍ୱ ଦିଏ ଏବଂ ସାମ୍ପ୍ରଦାୟିକ କିମ୍ବା ପବିତ୍ର ସ୍ଥାନରେ ପୁନ-ପ୍ରବେଶ କରିବା ପୂର୍ବରୁ ନିର୍ଦ୍ଦିଷ୍ଟ ସ୍ନାନ କରିପାରନ୍ତି |",
+                card3_tag: "ଶକ୍ତି ଏବଂ ଉତ୍ସବ",
+                card3_title: "ଆଭ୍ୟନ୍ତରୀଣ ଶକ୍ତି ଏବଂ ଶକ୍ତି",
+                card3_text: "ଅନେକ ଆଦିବାସୀ ଏବଂ ମାତୃତ୍ୱ ସମାଜରେ, ଚକ୍ରକୁ ଗଭୀର ଆଧ୍ୟାତ୍ମିକ ଶକ୍ତି ଏବଂ ବର୍ଦ୍ଧିତ ଅନ୍ତର୍ଜ୍ଞାନର ଉତ୍ସ ଭାବରେ ପାଳନ କରାଯାଏ, ଯାହା ବ୍ୟକ୍ତିବିଶେଷଙ୍କୁ ପୃଥିବୀର ପ୍ରାକୃତିକ ଲୟ ସହିତ ଯୋଡିଥାଏ |",
+                practical_heading: "ବ୍ୟବହାରିକ ପ୍ରୟୋଗ: ତିନୋଟି 'R'",
+                practical_subheading: "ସାରା ମାସରେ ଆପଣଙ୍କ ଶରୀରକୁ ସମ୍ମାନ କରିବା ପାଇଁ ସୂଚିତ ପସନ୍ଦ |",
+                rs1_title: "ବିଶ୍ରାମ (ଋତୁସ୍ରାବ ସମୟରେ)",
+                rs1_text: "ନିଦ ଏବଂ କୋମଳ ଗତିକୁ ପ୍ରାଥମିକତା ଦିଅନ୍ତୁ | ଅଣ-ଅତ୍ୟାବଶ୍ୟକ କାର୍ଯ୍ୟଗୁଡ଼ିକୁ କମ୍ କରିବା ଏବଂ କମ୍ ପରିଶ୍ରମ ପାଇଁ ଆପଣଙ୍କ ଶରୀରର ଆବଶ୍ୟକତାକୁ ଗଭୀର ଭାବରେ ଶୁଣିବା ଦ୍ୱାରା ଧୀର ହେବା ପାଇଁ ସାଂସ୍କୃତିକ ଆହ୍ୱାନ ସହିତ ସମନ୍ୱିତ ହୁଅନ୍ତୁ |",
+                rs2_title: "ପୁନ-ପୋଷଣ (ପୂର୍ବ ଏବଂ ପରବର୍ତ୍ତୀ ଚକ୍ର)",
+                rs2_text: "ଋତୁସ୍ରାବ ସମୟରେ ହରାଇଥିବା ଆବଶ୍ୟକୀୟ ପୁଷ୍ଟିକର ଖାଦ୍ୟ, ବିଶେଷକରି ଲୁହା, ବି ଭିଟାମିନ୍ ଏବଂ ମ୍ୟାଗ୍ନେସିୟମକୁ ପୁନ-ଭରଣା କରନ୍ତୁ | ଏହା ହରମୋନାଲ୍ ସନ୍ତୁଳନ ଏବଂ ଶକ୍ତି ଫେରସ୍ତକୁ ସମର୍ଥନ କରେ, ଉଭୟ ପାରମ୍ପାରିକ ଏବଂ ବ scientific ଜ୍ଞାନିକ ସୁସ୍ଥତାକୁ ସମର୍ଥନ କରେ |",
+                rs3_title: "ପ୍ରତିଫଳନ (ନିରନ୍ତର ଅଭ୍ୟାସ)",
+                rs3_text: "ଯୋଜନା ଏବଂ ଆତ୍ମନିରୀକ୍ଷଣ ପାଇଁ ଋତୁସ୍ରାବ ପର୍ଯ୍ୟାୟର ଆଭ୍ୟନ୍ତରୀଣ ଧ୍ୟାନ ବ୍ୟବହାର କରନ୍ତୁ | ଏହା ବର୍ଦ୍ଧିତ ଅନ୍ତର୍ଜ୍ଞାନ ଏବଂ ଆତ୍ମ-ଜ୍ଞାନର ପାରମ୍ପାରିକ ଜ୍ଞାନରେ ଟ୍ୟାପ୍ କରେ |",
+                bridge_heading: "ବିଶ୍ୱାସ ଏବଂ ଜୀବ ବିଜ୍ଞାନକୁ ସଂଯୋଗ",
+                bridge_subheading: "ପରମ୍ପରା ପଛରେ ଥିବା \"କାହିଁକି\" କୁ ବୁଝିବା।",
+                science_title: "ବୈଜ୍ଞାନିକ ଲେନ୍ସ",
+                science_fact1_label: "ବିଶ୍ରାମର ଲାଭ:",
+                science_fact1_text: "ଶାରୀରିକ ଭାବରେ, ଋତୁସ୍ରାବ ଶକ୍ତି-ଘନୀଭୂତ | ବିଶ୍ରାମ ଚାପକୁ କମ୍ କରେ ଏବଂ ପ୍ରୋଷ୍ଟାଗ୍ଲାଣ୍ଡିନ୍ ଦ୍ୱାରା ମଧ୍ୟସ୍ଥିତା ହୋଇଥିବା ଯନ୍ତ୍ରଣାର ଗମ୍ଭୀରତା ହ୍ରାସ କରେ |",
+                science_fact2_label: "ହରମୋନ୍ ପରିବର୍ତ୍ତନ:",
+                science_fact2_text: "ପ୍ରାରମ୍ଭିକ ଚକ୍ର ସମୟରେ କମ୍ ପ୍ରୋଜେଷ୍ଟେରନ୍ ଏବଂ ଇଷ୍ଟ୍ରୋଜେନ୍ ଶାରୀରିକ ସହନଶୀଳତା ହ୍ରାସ ଏବଂ ଆଭ୍ୟନ୍ତରୀଣ ଧ୍ୟାନକୁ ନେଇପାରେ, ଯାହା ପ୍ରତିଫଳନ ପାଇଁ ପାରମ୍ପାରିକ ଆହ୍ୱାନ ସହିତ ସମାନ |",
+                science_fact3_label: "ସ୍ୱଚ୍ଛତା ପ୍ରସଙ୍ଗ:",
+                science_fact3_text: "Historତିହାସିକ ଭାବରେ, ଆଧୁନିକ ସ୍ୱଚ୍ଛତା ପୂର୍ବରୁ ରୀତିନୀତିଗୁଡ଼ିକ ଅତ୍ୟାବଶ୍ୟକ ଜନସ୍ୱାସ୍ଥ୍ୟ ପଦକ୍ଷେପ ଥିଲା, ଯାହା ଅସୁରକ୍ଷିତତା ସମୟରେ ସାଧାରଣ ସ୍ୱଚ୍ଛତା ଏବଂ ସଂକ୍ରମଣ ନିୟନ୍ତ୍ରଣ ଉପରେ ଧ୍ୟାନ ଦେଉଥିଲା |",
+                science_fact4_label: "ଅନ୍ତର୍ଜ୍ଞାନ ସଂଯୋଗ:",
+                science_fact4_text: "ଏହି ପର୍ଯ୍ୟାୟରେ ମସ୍ତିଷ୍କର ଧ୍ୟାନ ପରିବର୍ତ୍ତନ ହୁଏ, ଆତ୍ମନିରୀକ୍ଷଣ ଏବଂ ବର୍ଦ୍ଧିତ ଆତ୍ମ-ସଚେତନତାକୁ ପ୍ରୋତ୍ସାହିତ କରେ—'ଆଧ୍ୟାତ୍ମିକ ଶକ୍ତି' ପାଇଁ ଏକ ଜ bi ବିକ ଆଧାର |",
+                cultural_title: "ସାଂସ୍କୃତିକ ସମ୍ବେଦନଶୀଳତା ଗାଇଡ୍",
+                cultural_fact1_label: "ପ୍ରଥମେ ସମ୍ମାନ:",
+                cultural_fact1_text: "ସର୍ବଦା ସମ୍ମାନର ସହିତ ପାରମ୍ପାରିକ ଅଭ୍ୟାସ ନିକଟକୁ ଯାଆନ୍ତୁ, ସମ୍ପ୍ରଦାୟ ପାଇଁ ସେମାନଙ୍କର historical ତିହାସିକ କିମ୍ବା ଆଧ୍ୟାତ୍ମିକ ମହତ୍ତ୍ୱକୁ ସ୍ୱୀକାର କରନ୍ତୁ |",
+                cultural_fact2_label: "'ଅନ୍ଧବିଶ୍ୱାସ'ରୁ ଦୂରେଇ ରୁହନ୍ତୁ:",
+                cultural_fact2_text: "କେବଳ 'ଅନ୍ଧବିଶ୍ୱାସ' ଭାବରେ ଅଭ୍ୟାସଗୁଡ଼ିକୁ ଫ୍ରେମିଂ କରିବା ଠାରୁ ଦୂରେଇ ରୁହନ୍ତୁ; ଏହା ପରିବର୍ତ୍ତେ, ଅନ୍ତର୍ନିହିତ ଉଦ୍ଦେଶ୍ୟ ଅନୁସନ୍ଧାନ କରନ୍ତୁ (ଉଦାହରଣ ସ୍ୱରୂପ, ସମ୍ପ୍ରଦାୟ ବନ୍ଧନ, ମାନସିକ ଭିତ୍ତିଭୂମି) |",
+                cultural_fact3_label: "ପସନ୍ଦ ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ:",
+                cultural_fact3_text: "ସୂଚିତ ଅଭ୍ୟାସ ବାଛିବା ପାଇଁ ବ୍ୟକ୍ତିବିଶେଷଙ୍କ ଅଧିକାର ଉପରେ ଗୁରୁତ୍ୱ ଦିଅନ୍ତୁ — ଆଧୁନିକ ସ୍ୱାସ୍ଥ୍ୟ ଜ୍ଞାନକୁ ସାଂସ୍କୃତିକ ସଂରକ୍ଷଣ ସହିତ ମିଶାଇ |",
+                cultural_fact4_label: "ସକାରାତ୍ମକ ଭାଷା:",
+                cultural_fact4_text: "ଚକ୍ରକୁ ପାଳନ କରୁଥିବା ଭାଷା ବ୍ୟବହାର କରନ୍ତୁ, ଦୁର୍ବଳତା, ଅଭିଶାପ କିମ୍ବା ଲଜ୍ଜାକୁ ସୂଚିତ କରୁଥିବା ଶବ୍ଦଗୁଡ଼ିକଠାରୁ ଦୂରେଇ ଯାଆନ୍ତୁ |",
+                global_heading: "ବିଶ୍ୱସ୍ତରୀୟ ପରିପ୍ରେକ୍ଷୀ: ଗାରିମା ଏବଂ ପ୍ରବେଶ",
+                global_subheading: "ସାଂସ୍କୃତିକ ଏବଂ ଭ ographic ଗୋଳିକ ସୀମା ଅତିକ୍ରମ କରୁଥିବା ଆହ୍ୱାନଗୁଡ଼ିକୁ ଚିହ୍ନିବା |",
+                access_title: "ପ୍ରବେଶ ଏବଂ ଇକ୍ୱିଟି",
+                access_text: "ବିଶ୍ୱ ସ୍ତରରେ, ସୁଲଭ ଋତୁସ୍ରାବ ଉତ୍ପାଦ ଏବଂ ପରିମଳ ସୁବିଧା ଅଭାବ ଗାରିମା ଏବଂ ଶିକ୍ଷା ଉପରେ ପ୍ରଭାବ ପକାଇଥାଏ | \"ଋତୁସ୍ରାବ ଦାରିଦ୍ର୍ୟ\" କୁ ସମ୍ବୋଧିତ କରିବା ଏକ ମାନବ ଅଧିକାର ପ୍ରସଙ୍ଗ ଯାହା ସମସ୍ତ ବିଶ୍ୱାସ ଏବଂ ସଂସ୍କୃତିର ମହିଳାମାନଙ୍କୁ ସମାଜରେ ସମ୍ପୂର୍ଣ୍ଣ ଭାବରେ ଅଂଶଗ୍ରହଣ କରିବାକୁ ସଶକ୍ତ କରିଥାଏ |",
+                taboos_title: "ଆଧୁନିକ ନିଷେଧ ଏବଂ କଳଙ୍କ",
+                taboos_text: "ଅନେକ ଅଭ୍ୟାସ ଶ୍ରଦ୍ଧାକୁ ପ୍ରୋତ୍ସାହିତ କରୁଥିବାବେଳେ, ନକାରାତ୍ମକ ସାଂସ୍କୃତିକ ନିଷେଧ ଏବେ ବି ନୀରବତା ଏବଂ ବିଚ୍ଛିନ୍ନତା ସୃଷ୍ଟି କରୁଛି | ବ scientific ଜ୍ଞାନିକ ତଥ୍ୟ ଦ୍ୱାରା ସମର୍ଥିତ ଖୋଲା ସଂଳାପ, କ୍ଷତିକାରକ କଳଙ୍କରୁ ସୁରକ୍ଷାମୂଳକ କଷ୍ଟମ୍ କୁ ଭିନ୍ନ କରିବାରେ ସାହାଯ୍ୟ କରେ |",
+                myth_heading: "ମିଥ୍ୟା ବନାମ ତଥ୍ୟ ଡିବଙ୍କଡ୍",
+                myth_subheading: "ଜ bi ବିକ ବାସ୍ତବତାରୁ ସାଂସ୍କୃତିକ ବିଶ୍ୱାସକୁ ପୃଥକ କରିବା |",
+                table_header_myth: "ମିଥ୍ୟା / ପାରମ୍ପାରିକ ବିଶ୍ୱାସ",
+                table_header_fact: "ଜ bi ବିକ ତଥ୍ୟ ଏବଂ ବ scientific ଜ୍ଞାନିକ ଅନ୍ତର୍ଦୃଷ୍ଟି",
+                myth1_text: "ଋତୁସ୍ରାବ ସମୟରେ ତୁମେ କଦାପି ଉଦ୍ଭିଦକୁ ଛୁଇଁବା ଉଚିତ୍ ନୁହେଁ |",
+                fact1_text: "ଜ bi ବିକ ପ୍ରକ୍ରିୟାର ଉଦ୍ଭିଦ ଜୀବନ ଉପରେ କ impact ଣସି ପ୍ରଭାବ ପଡ଼େ ନାହିଁ | ଏହା ବିଶ୍ରାମକୁ ବଳବତ୍ତର କରିବା ପାଇଁ ଏକ ଉପାୟ ଭାବରେ ଉତ୍ପନ୍ନ ହୋଇଥାଇ ପାରେ |",
+                myth2_text: "ତୁମେ ଖାଦ୍ୟ ପ୍ରସ୍ତୁତ କରିପାରିବ ନାହିଁ କିମ୍ବା ରୋଷେଇ ଘରେ ପ୍ରବେଶ କରିପାରିବ ନାହିଁ |",
+                fact2_text: "ଋତୁସ୍ରାବ ରକ୍ତ ପଥ ହଜମ ପ୍ରଣାଳୀରୁ ସମ୍ପୂର୍ଣ୍ଣ ଭିନ୍ନ | ଦୂଷିତ ହେବାର ଶୂନ୍ୟ ବିପଦ ଅଛି |",
+                myth3_text: "ଏହି ସମୟରେ ମହିଳାମାନେ ଦୁର୍ବଳ କିମ୍ବା ଅଶୁଦ୍ଧ ଅଟନ୍ତି |",
+                fact3_text: "ଋତୁସ୍ରାବ ଜ bi ବିକ ଜୀବନଶକ୍ତି ଏବଂ ହରମୋନାଲ୍ ପ୍ରସ୍ତୁତିର ସଙ୍କେତ | ଏହା ଏକ ପ୍ରାକୃତିକ ସଫେଇ ପ୍ରକ୍ରିୟା, ରୋଗ କିମ୍ବା ନ ical ତିକ ଅପରିଷ୍କାରତା ନୁହେଁ |",
+                final_message: "ପ୍ରତ୍ୟେକ ଚକ୍ର ପବିତ୍ର ଅଟେ | ଶରୀରକୁ ସମ୍ମାନ କର, ପରମ୍ପରାକୁ ସମ୍ମାନ କର ଏବଂ ବିଜ୍ଞାନକୁ ବିଶ୍ୱାସ କର |",
+                footer_text: "ସାମଗ୍ରିକ ଋତୁସ୍ରାବ ସ୍ୱାସ୍ଥ୍ୟ ଶିକ୍ଷା ପାଇଁ ଉତ୍ସର୍ଗୀକୃତ |"
+            },
+            kn: {
+                page_title: "ಪವಿತ್ರ ಚಕ್ರ — ನಂಬಿಕೆ ಮತ್ತು ವಿಜ್ಞಾನ",
+                brand_title: "ಸಹೇಲಿ",
+                brand_subtitle: "ಪವಿತ್ರ ಚಕ್ರ",
+                hero_title: "ಇಲ್ಲಿ ನಂಬಿಕೆ ಮತ್ತು ಶರೀರಶಾಸ್ತ್ರ ಒಗ್ಗೂಡುತ್ತವೆ.",
+                hero_subtitle: "ಮುಟ್ಟಿನ ಚಕ್ರದ ಸಾರ್ವತ್ರಿಕ ಆಧ್ಯಾತ್ಮಿಕ ಮತ್ತು ಸಾಂಸ್ಕೃತಿಕ ಮಹತ್ವವನ್ನು ವೈಜ್ಞಾನಿಕ ತಿಳುವಳಿಕೆ ಮತ್ತು ಸಂಪ್ರದಾಯದ ಆಳವಾದ ಗೌರವದ ಆಧಾರದ ಮೇಲೆ ಅನ್ವೇಷಿಸಿ.",
+                grid_heading: "ಚಕ್ರದ ಸಾರ್ವತ್ರಿಕ ಸ್ತಂಭಗಳು",
+                grid_subheading: "ವೈವಿಧ್ಯಮಯ ಆಧ್ಯಾತ್ಮಿಕ ಸಂಪ್ರದಾಯಗಳಾದ್ಯಂತ, ಮೂರು ವಿಷಯಗಳು ಸ್ಥಿರವಾಗಿ ಹೊರಹೊಮ್ಮುತ್ತವೆ.",
+                card1_tag: "ವಿಶ್ರಾಂತಿ ಮತ್ತು ಆಚರಣೆ",
+                card1_title: "ವಿಶ್ರಾಂತಿಗೆ ಕರೆ",
+                card1_text: "ಅನೇಕ ಪ್ರಾಚೀನ ಆಚರಣೆಗಳು ದೈಹಿಕ ಅಥವಾ ದೇಶೀಯ ವಿಶ್ರಾಂತಿಯ ಅವಧಿಗೆ ಪ್ರತಿಪಾದಿಸುತ್ತವೆ. ಈ ಸಮಯವನ್ನು ಸಾಂಪ್ರದಾಯಿಕವಾಗಿ ಆಧ್ಯಾತ್ಮಿಕ ಏಕಾಂತ, ಪ್ರತಿಬಿಂಬ ಮತ್ತು ಶಕ್ತಿಯ ಶಾಂತ ಸಂರಕ್ಷಣೆಯ ಸಮಯವೆಂದು ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ.",
+                card2_tag: "ನೈರ್ಮಲ್ಯ ಮತ್ತು ಪವಿತ್ರ ಸ್ಥಳ",
+                card2_title: "ಶುದ್ಧತೆಯ ಪರಿಕಲ್ಪನೆ",
+                card2_text: "ಶುದ್ಧತೆಗೆ ಸಂಬಂಧಿಸಿದ ಆಚರಣೆಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಮುಟ್ಟಿನೊಂದಿಗೆ ಇರುತ್ತವೆ. ಈ ಆಚರಣೆಗಳು ಹೆಚ್ಚಿದ ಆಧ್ಯಾತ್ಮಿಕ ಶುಚಿತ್ವವನ್ನು ಒತ್ತಿಹೇಳುತ್ತವೆ ಮತ್ತು ಕೋಮು ಅಥವಾ ಪವಿತ್ರ ಸ್ಥಳಗಳಿಗೆ ಮರು-ಪ್ರವೇಶಿಸುವ ಮೊದಲು ನಿರ್ದಿಷ್ಟ ಶುದ್ಧೀಕರಣವನ್ನು ಒಳಗೊಂಡಿರಬಹುದು.",
+                card3_tag: "ಶಕ್ತಿ ಮತ್ತು ಆಚರಣೆ",
+                card3_title: "ಆಂತರಿಕ ಶಕ್ತಿ ಮತ್ತು ಸಾಮರ್ಥ್ಯ",
+                card3_text: "ಅನೇಕ ಸ್ಥಳೀಯ ಮತ್ತು ಮಾತೃಪ್ರಧಾನ ಸಮಾಜಗಳಲ್ಲಿ, ಚಕ್ರವನ್ನು ಆಳವಾದ ಆಧ್ಯಾತ್ಮಿಕ ಶಕ್ತಿ ಮತ್ತು ವರ್ಧಿತ ಅಂತಃಪ್ರಜ್ಞೆಯ ಮೂಲವಾಗಿ ಆಚರಿಸಲಾಗುತ್ತದೆ, ಇದು ವ್ಯಕ್ತಿಯನ್ನು ಭೂಮಿಯ ನೈಸರ್ಗಿಕ ಲಯಗಳಿಗೆ ಜೋಡಿಸುತ್ತದೆ।",
+                practical_heading: "ಪ್ರಾಯೋಗಿಕ ಅನ್ವಯ: ಮೂರು 'R' ಗಳು",
+                practical_subheading: "ತಿಂಗಳ ಉದ್ದಕ್ಕೂ ನಿಮ್ಮ ದೇಹವನ್ನು ಗೌರವಿಸಲು ತಿಳುವಳಿಕೆಯುಳ್ಳ ಆಯ್ಕೆಗಳು.",
+                rs1_title: "ವಿಶ್ರಾಂತಿ (ರಕ್ತಸ್ರಾವದ ಸಮಯದಲ್ಲಿ)",
+                rs1_text: "ನಿದ್ರೆ ಮತ್ತು ಮೃದುವಾದ ಚಲನೆಗೆ ಆದ್ಯತೆ ನೀಡಿ. ಅನಿವಾರ್ಯವಲ್ಲದ ಕಾರ್ಯಗಳನ್ನು ಕಡಿಮೆ ಮಾಡುವ ಮೂಲಕ ಮತ್ತು ಕಡಿಮೆ ಶ್ರಮಕ್ಕಾಗಿ ನಿಮ್ಮ ದೇಹದ ಅಗತ್ಯವನ್ನು ಆಳವಾಗಿ ಕೇಳುವ ಮೂಲಕ ನಿಧಾನಗೊಳಿಸಲು ಸಾಂಸ್ಕೃತಿಕ ಕರೆಯೊಂದಿಗೆ ಹೊಂದಾಣಿಕೆ ಮಾಡಿ.",
+                rs2_title: "ಮರು-ಪೋಷಣೆ (ಪೂರ್ವ ಮತ್ತು ನಂತರದ ಚಕ್ರ)",
+                rs2_text: "ರಕ್ತಸ್ರಾವದ ಸಮಯದಲ್ಲಿ ಕಳೆದುಹೋದ ಅಗತ್ಯ ಪೋಷಕಾಂಶಗಳನ್ನು, ವಿಶೇಷವಾಗಿ ಕಬ್ಬಿಣ, ಬಿ ಜೀವಸತ್ವಗಳು ಮತ್ತು ಮೆಗ್ನೀಸಿಯಮ್ ಅನ್ನು ಮರು-ಸ್ಟಾಕ್ ಮಾಡಿ. ಇದು ಹಾರ್ಮೋನುಗಳ ಸಮತೋಲನ ಮತ್ತು ಶಕ್ತಿಯ ಮರಳುವಿಕೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತದೆ, ಸಾಂಪ್ರದಾಯಿಕ ಮತ್ತು ವೈಜ್ಞಾನಿಕ ಸ್ವಾಸ್ಥ್ಯ ಎರಡನ್ನೂ ಬೆಂಬಲಿಸುತ್ತದೆ.",
+                rs3_title: "ಪ್ರತಿಬಿಂಬ (ನಿರಂತರ ಅಭ್ಯಾಸ)",
+                rs3_text: "ಯೋಜನೆ ಮತ್ತು ಆತ್ಮಾವಲೋಕನಕ್ಕಾಗಿ ಮುಟ್ಟಿನ ಹಂತದ ಒಳಮುಖ ಗಮನವನ್ನು ಬಳಸಿ. ಇದು ವರ್ಧಿತ ಅಂತಃಪ್ರಜ್ಞೆ ಮತ್ತು ಸ್ವಯಂ-ಜ್ಞಾನದ ಸಾಂಪ್ರದಾಯಿಕ ಬುದ್ಧಿವಂತಿಕೆಯನ್ನು ಬಳಸುತ್ತದೆ.",
+                bridge_heading: "ನಂಬಿಕೆ ಮತ್ತು ಜೀವಶಾಸ್ತ್ರವನ್ನು ಜೋಡಿಸುವುದು",
+                bridge_subheading: "ಸಂಪ್ರದಾಯಗಳ ಹಿಂದಿನ \"ಏಕೆ\" ಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು.",
+                science_title: "ವೈಜ್ಞಾನಿಕ ಮಸೂರ",
+                science_fact1_label: "ವಿಶ್ರಾಂತಿಯ ಪ್ರಯೋಜನ:",
+                science_fact1_text: "ಶಾರೀರಿಕವಾಗಿ, ಮುಟ್ಟಿನು ಶಕ್ತಿ-ತೀವ್ರವಾಗಿರುತ್ತದೆ. ವಿಶ್ರಾಂತಿಯು ಒತ್ತಡವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ ಮತ್ತು ಪ್ರೊಸ್ಟಗ್ಲಾಂಡಿನ್‌ಗಳಿಂದ ಮಧ್ಯಸ್ಥಿಕೆ ವಹಿಸುವ ನೋವಿನ ತೀವ್ರತೆಯನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.",
+                science_fact2_label: "ಹಾರ್ಮೋನುಗಳ ಬದಲಾವಣೆ:",
+                science_fact2_text: "ಆರಂಭಿಕ ಚಕ್ರದಲ್ಲಿ ಕಡಿಮೆ ಪ್ರೊಜೆಸ್ಟರಾನ್ ಮತ್ತು ಈಸ್ಟ್ರೊಜೆನ್ ಕಡಿಮೆಯಾದ ದೈಹಿಕ ತ್ರಾಣ ಮತ್ತು ಒಳಮುಖ ಗಮನಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು, ಇದು ಪ್ರತಿಬಿಂಬಕ್ಕಾಗಿ ಸಾಂಪ್ರದಾಯಿಕ ಕರೆಗಳೊಂದಿಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತದೆ.",
+                science_fact3_label: "ನೈರ್ಮಲ್ಯ ಸಂದರ್ಭ:",
+                science_fact3_text: "ಐತಿಹಾಸಿಕವಾಗಿ, ಆಧುನಿಕ ನೈರ್ಮಲ್ಯಕ್ಕೆ ಮೊದಲು ಆಚರಣೆಗಳು ಅಗತ್ಯವಾದ ಸಾರ್ವಜನಿಕ ಆರೋಗ್ಯ ಕ್ರಮಗಳಾಗಿದ್ದು, ದುರ್ಬಲತೆಯ ಸಮಯದಲ್ಲಿ ಸಾಮಾನ್ಯ ಶುಚಿತ್ವ ಮತ್ತು ಸೋಂಕು ನಿಯಂತ್ರಣದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸುತ್ತವೆ.",
+                science_fact4_label: "ಅಂತಃಪ್ರಜ್ಞೆಯ ಸಂಪರ್ಕ:",
+                science_fact4_text: "ಈ ಹಂತದಲ್ಲಿ ಮೆದುಳಿನ ಗಮನವು ಬದಲಾಗುತ್ತದೆ, ಇದು ಆತ್ಮಾವಲೋಕನ ಮತ್ತು ವರ್ಧಿತ ಸ್ವಯಂ-ಅರಿವನ್ನು ಉತ್ತೇಜಿಸುತ್ತದೆ - 'ಆಧ್ಯಾತ್ಮಿಕ ಶಕ್ತಿ'ಗೆ ಜೈವಿಕ ಆಧಾರ.",
+                cultural_title: "ಸಾಂಸ್ಕೃತಿಕ ಸೂಕ್ಷ್ಮತೆಯ ಮಾರ್ಗದರ್ಶಿ",
+                cultural_fact1_label: "ಮೊದಲಿಗೆ ಗೌರವ:",
+                cultural_fact1_text: "ಸಾಂಪ್ರದಾಯಿಕ ಆಚರಣೆಗಳನ್ನು ಯಾವಾಗಲೂ ಗೌರವದಿಂದ ಸಮೀಪಿಸಿ, ಸಮುದಾಯಕ್ಕೆ ಅವುಗಳ ಐತಿಹಾಸಿಕ ಅಥವಾ ಆಧ್ಯಾತ್ಮಿಕ ಮಹತ್ವವನ್ನು ಗುರುತಿಸಿ.",
+                cultural_fact2_label: "'ಮೂಢನಂಬಿಕೆ'ಯನ್ನು ತಪ್ಪಿಸಿ:",
+                cultural_fact2_text: "ಕೇವಲ 'ಮೂಢನಂಬಿಕೆ' ಎಂದು ಆಚರಣೆಗಳನ್ನು ರೂಪಿಸುವುದನ್ನು ತಪ್ಪಿಸಿ; ಬದಲಿಗೆ, ಆಧಾರವಾಗಿರುವ ಉದ್ದೇಶವನ್ನು ಅನ್ವೇಷಿಸಿ (ಉದಾಹರಣೆಗೆ, ಸಮುದಾಯ ಬಂಧ, ಮಾನಸಿಕ ಆಧಾರ).",
+                cultural_fact3_label: "ಆಯ್ಕೆಯ ಮೇಲೆ ಗಮನ ಹರಿಸಿ:",
+                cultural_fact3_text: "ಮಾಹಿತಿಯುಕ್ತ ಆಚರಣೆಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡುವ ವ್ಯಕ್ತಿಯ ಹಕ್ಕನ್ನು ಒತ್ತಿಹೇಳಿ - ಆಧುನಿಕ ಆರೋಗ್ಯ ಜ್ಞಾನವನ್ನು ಸಾಂಸ್ಕೃತಿಕ ಸಂರಕ್ಷಣೆಯೊಂದಿಗೆ ಮಿಶ್ರಣ ಮಾಡಿ.",
+                cultural_fact4_label: "ಸಕಾರಾತ್ಮಕ ಭಾಷೆ:",
+                cultural_fact4_text: "ಚಕ್ರವನ್ನು ಆಚರಿಸುವ ಭಾಷೆಯನ್ನು ಬಳಸಿ, ದೌರ್ಬಲ್ಯ, ಶಾಪ ಅಥವಾ ಅವಮಾನವನ್ನು ಸೂಚಿಸುವ ಪದಗಳಿಂದ ದೂರವಿರಿ।",
+                global_heading: "ಜಾಗತಿಕ ದೃಷ್ಟಿಕೋನಗಳು: ಗೌರವ ಮತ್ತು ಪ್ರವೇಶ",
+                global_subheading: "ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ಭೌಗೋಳಿಕ ಗಡಿಗಳನ್ನು ದಾಟುವ ಸವಾಲುಗಳನ್ನು ಗುರುತಿಸುವುದು.",
+                access_title: "ಪ್ರವೇಶ ಮತ್ತು ಸಮಾನತೆ",
+                access_text: "ಜಾಗತಿಕವಾಗಿ, ಕೈಗೆಟುಕುವ ಮುಟ್ಟಿನ ಉತ್ಪನ್ನಗಳು ಮತ್ತು ನೈರ್ಮಲ್ಯ ಸೌಲಭ್ಯಗಳ ಕೊರತೆಯು ಘನತೆ ಮತ್ತು ಶಿಕ್ಷಣದ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ. \"ಮುಟ್ಟಿನ ಬಡತನ\" ವನ್ನು ಪರಿಹರಿಸುವುದು ಮಾನವ ಹಕ್ಕುಗಳ ಸಮಸ್ಯೆಯಾಗಿದ್ದು, ಎಲ್ಲಾ ನಂಬಿಕೆಗಳು ಮತ್ತು ಸಂಸ್ಕೃತಿಗಳ ಮಹಿಳೆಯರನ್ನು ಸಮಾಜದಲ್ಲಿ ಸಂಪೂರ್ಣವಾಗಿ ಭಾಗವಹಿಸಲು ಸಶಕ್ತಗೊಳಿಸುತ್ತದೆ.",
+                taboos_title: "ಆಧುನಿಕ ನಿಷೇಧಗಳು ಮತ್ತು ಕಳಂಕ",
+                taboos_text: "ಅನೇಕ ಆಚರಣೆಗಳು ಗೌರವವನ್ನು ಉತ್ತೇಜಿಸುತ್ತವೆಯಾದರೂ, ನಕಾರಾತ್ಮಕ ಸಾಂಸ್ಕೃತಿಕ ನಿಷೇಧಗಳು ಇನ್ನೂ ಮೌನ ಮತ್ತು ಪ್ರತ್ಯೇಕತೆಗೆ ಕಾರಣವಾಗುತ್ತವೆ. ವೈಜ್ಞಾನಿಕ ಸತ್ಯದಿಂದ ಬೆಂಬಲಿತವಾದ ಮುಕ್ತ ಸಂವಾದವು ಹಾನಿಕಾರಕ ಕಳಂಕದಿಂದ ರಕ್ಷಣಾತ್ಮಕ ಪದ್ಧತಿಯನ್ನು ಪ್ರತ್ಯೇಕಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+                myth_heading: "ಪುರಾಣ ಮತ್ತು ವಾಸ್ತವದ ಪರ್ದೆಯನ್ನು ತೆಗೆಯುವುದು",
+                myth_subheading: "ಜೈವಿಕ ವಾಸ್ತವದಿಂದ ಸಾಂಸ್ಕೃತಿಕ ನಂಬಿಕೆಗಳನ್ನು ಬೇರ್ಪಡಿಸುವುದು.",
+                table_header_myth: "ಪುರಾಣ / ಸಾಂಪ್ರದಾಯಿಕ ನಂಬಿಕೆ",
+                table_header_fact: "ಜೈವಿಕ ವಾಸ್ತವ ಮತ್ತು ವೈಜ್ಞಾನಿಕ ಒಳನೋಟ",
+                myth1_text: "ಮುಟ್ಟಿನ ಸಮಯದಲ್ಲಿ ನೀವು ಎಂದಿಗೂ ಸಸ್ಯಗಳನ್ನು ಮುಟ್ಟಬಾರದು.",
+                fact1_text: "ಜೈವಿಕ ಪ್ರಕ್ರಿಯೆಯು ಸಸ್ಯ ಜೀವನದ ಮೇಲೆ ಯಾವುದೇ ಪರಿಣಾಮ ಬೀರುವುದಿಲ್ಲ. ಇದು ವಿಶ್ರಾಂತಿಯನ್ನು ಜಾರಿಗೊಳಿಸುವ ಮಾರ್ಗವಾಗಿ ಹುಟ್ಟಿಕೊಂಡಿರಬಹುದು.",
+                myth2_text: "ನೀವು ಆಹಾರವನ್ನು ತಯಾರಿಸಲು ಅಥವಾ ಅಡುಗೆಮನೆಗೆ ಪ್ರವೇಶಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+                fact2_text: "ಮುಟ್ಟಿನ ರಕ್ತದ ಹಾದಿಯು ಜೀರ್ಣಾಂಗ ವ್ಯವಸ್ಥೆಯಿಂದ ಸಂಪೂರ್ಣವಾಗಿ ಪ್ರತ್ಯೇಕವಾಗಿದೆ. ಮಾಲಿನ್ಯದ ಶೂನ್ಯ ಅಪಾಯವಿದೆ.",
+                myth3_text: "ಈ ಸಮಯದಲ್ಲಿ ಮಹಿಳೆಯರು ದುರ್ಬಲರು ಅಥವಾ ಅಶುದ್ಧರು.",
+                fact3_text: "ಮುಟ್ಟಿನು ಜೈವಿಕ ಚೈತನ್ಯ ಮತ್ತು ಹಾರ್ಮೋನುಗಳ ಸಿದ್ಧತೆಯ ಸಂಕೇತವಾಗಿದೆ. ಇದು ನೈಸರ್ಗಿಕ ಶುದ್ಧೀಕರಣ ಪ್ರಕ್ರಿಯೆಯಾಗಿದೆ, ಅನಾರೋಗ್ಯ ಅಥವಾ ನೈತಿಕ ಅಶುದ್ಧತೆಯ ಸ್ಥಿತಿಯಲ್ಲ.",
+                final_message: "ಪ್ರತಿ ಚಕ್ರವು ಪವಿತ್ರವಾಗಿದೆ. ದೇಹವನ್ನು ಗೌರವಿಸಿ, ಸಂಪ್ರದಾಯವನ್ನು ಗೌರವಿಸಿ ಮತ್ತು ವಿಜ್ಞಾನವನ್ನು ನಂಬಿರಿ।",
+                footer_text: "ಸಮಗ್ರ ಮುಟ್ಟಿನ ಆರೋಗ್ಯ ಶಿಕ್ಷಣಕ್ಕೆ ಸಮರ್ಪಿಸಲಾಗಿದೆ."
+            },
+            ta: {
+                page_title: "புனித சுழற்சி — நம்பிக்கை மற்றும் அறிவியல்",
+                brand_title: "சஹேலி",
+                brand_subtitle: "புனித சுழற்சி",
+                hero_title: "நம்பிக்கையும் உடலியலும் இணையும் இடம்.",
+                hero_subtitle: "அறிவியல் புரிதல் மற்றும் பாரம்பரியத்திற்கான ஆழமான மரியாதையின் அடிப்படையில், மாதவிடாய் சுழற்சியின் உலகளாவிய ஆன்மீக மற்றும் கலாச்சார முக்கியத்துவத்தை ஆராயுங்கள்.",
+                grid_heading: "சுழற்சியின் உலகளாவிய தூண்கள்",
+                grid_subheading: "பல்வேறு ஆன்மீக மரபுகளில், மூன்று கருப்பொருள்கள் தொடர்ந்து வெளிப்படுகின்றன.",
+                card1_tag: "ஓய்வு மற்றும் சடங்கு",
+                card1_title: "ஓய்வுக்கான அழைப்பு",
+                card1_text: "பல பண்டைய நடைமுறைகள் உடல் அல்லது வீட்டு ஓய்வு காலத்தை ஆதரிக்கின்றன. இந்த நேரம் பாரம்பரியமாக ஆன்மீக தனிமை, பிரதிபலிப்பு மற்றும் ஆற்றலின் அமைதியான பாதுகாப்பு நேரமாக கருதப்படுகிறது.",
+                card2_tag: "சுகாதாரம் மற்றும் புனித இடம்",
+                card2_title: "தூய்மையின் கருத்து",
+                card2_text: "தூய்மை தொடர்பான சடங்குகள் பெரும்பாலும் மாதவிடாயுடன் வரும். இந்த நடைமுறைகள் அதிகரித்த ஆன்மீக தூய்மையை வலியுறுத்துகின்றன மற்றும் வகுப்புவாத அல்லது புனித இடங்களுக்கு மீண்டும் நுழைவதற்கு முன் குறிப்பிட்ட சடங்குகளை உள்ளடக்கியிருக்கலாம்.",
+                card3_tag: "சக்தி மற்றும் கொண்டாட்டம்",
+                card3_title: "உள் வலிமை மற்றும் சக்தி",
+                card3_text: "பல பழங்குடி மற்றும் தாய்வழி சமூகங்களில், சுழற்சி ஆழ்ந்த ஆன்மீக சக்தி மற்றும் மேம்படுத்தப்பட்ட உள்ளுணர்வின் ஆதாரமாக கொண்டாடப்படுகிறது, இது தனிநபரை பூமியின் இயற்கையான தாளங்களுடன் இணைக்கிறது.",
+                practical_heading: "நடைமுறை பயன்பாடு: மூன்று 'R'கள்",
+                practical_subheading: "மாதம் முழுவதும் உங்கள் உடலை மதிக்கத் தெரிந்த தேர்வுகள்.",
+                rs1_title: "ஓய்வு (இரத்தப்போக்கு காலத்தில்)",
+                rs1_text: "தூக்கம் மற்றும் மென்மையான இயக்கத்திற்கு முன்னுரிமை கொடுங்கள். அத்தியாவசியமற்ற பணிகளைக் குறைப்பதன் மூலமும், குறைந்த உழைப்புக்கான உங்கள் உடலின் தேவையை ஆழமாகக் கேட்பதன் மூலமும் மெதுவாக்குவதற்கான கலாச்சார அழைப்புடன் ஒத்துப்போங்கள்.",
+                rs2_title: "மீண்டும் ஊட்டமளித்தல் (சுழற்சிக்கு முன் மற்றும் பின்)",
+                rs2_text: "இரத்தப்போக்கின் போது இழந்த அத்தியாவசிய ஊட்டச்சத்துக்களை, குறிப்பாக இரும்பு, பி வைட்டமின்கள் மற்றும் மெக்னீசியம் ஆகியவற்றை மீண்டும் சேமிக்கவும். இது ஹார்மோன் சமநிலை மற்றும் ஆற்றல் திரும்புவதை ஆதரிக்கிறது, பாரம்பரிய மற்றும் அறிவியல் ஆரோக்கியத்தை ஆதரிக்கிறது.",
+                rs3_title: "பிரதிபலிப்பு (தொடர்ச்சியான பயிற்சி)",
+                rs3_text: "திட்டமிடல் மற்றும் சுயபரிசோதனைக்காக மாதவிடாய் கட்டத்தின் உள்நோக்கிய கவனத்தைப் பயன்படுத்தவும். இது மேம்படுத்தப்பட்ட உள்ளுணர்வு மற்றும் சுய அறிவின் பாரம்பரிய ஞானத்தைத் தூண்டுகிறது.",
+                bridge_heading: "நம்பிக்கை மற்றும் உயிரியலை இணைத்தல்",
+                bridge_subheading: "மரபுகளுக்குப் பின்னால் உள்ள \"ஏன்\" என்பதைப் புரிந்துகொள்வது.",
+                science_title: "அறிவியல் லென்ஸ்",
+                science_fact1_label: "ஓய்வின் நன்மை:",
+                science_fact1_text: "உடலியல் ரீதியாக, மாதவிடாய் ஆற்றல் மிகுந்தது. ஓய்வு மன அழுத்தத்தைக் குறைக்கிறது மற்றும் புரோஸ்டாக்லாண்டின்களால் மத்தியஸ்தம் செய்யப்படும் வலியின் தீவிரத்தைக் குறைக்கிறது।",
+                science_fact2_label: "ஹார்மோன் மாற்றம்:",
+                science_fact2_text: "ஆரம்ப சுழற்சியின் போது குறைந்த புரோஜெஸ்ட்டிரோன் மற்றும் ஈஸ்ட்ரோஜன் குறைந்த உடல் சகிப்புத்தன்மை மற்றும் உள்நோக்கிய கவனத்தை ஏற்படுத்தும், இது பிரதிபலிப்புக்கான பாரம்பரிய அழைப்புகளுடன் ஒத்துப்போகிறது.",
+                science_fact3_label: "சுகாதார சூழல்:",
+                science_fact3_text: "வரலாற்று ரீதியாக, நவீன சுகாதாரத்திற்கு முன்னர் சடங்குகள் அத்தியாவசிய பொது சுகாதார நடவடிக்கைகளாக இருந்தன, இது பாதிப்பு காலத்தில் பொதுவான சுத்தம் மற்றும் தொற்று கட்டுப்பாட்டில் கவனம் செலுத்தியது.",
+                science_fact4_label: "உள்ளுணர்வு இணைப்பு:",
+                science_fact4_text: "இந்த கட்டத்தில் மூளையின் கவனம் மாறுகிறது, இது சுயபரிசோதனை மற்றும் மேம்படுத்தப்பட்ட சுய விழிப்புணர்வை ஊக்குவிக்கிறது - 'ஆன்மீக சக்திக்கு' ஒரு உயிரியல் அடிப்படையாகும்.",
+                cultural_title: "கலாச்சார உணர்திறன் வழிகாட்டி",
+                cultural_fact1_label: "மதிப்பு முதலில்:",
+                cultural_fact1_text: "பாரம்பரிய நடைமுறைகளை எப்போதும் மரியாதையுடன் அணுகவும், சமூகத்திற்கான அவற்றின் வரலாற்று அல்லது ஆன்மீக முக்கியத்துவத்தை அங்கீகரிக்கவும்.",
+                cultural_fact2_label: "'மூடநம்பிக்கையை' தவிர்க்கவும்:",
+                cultural_fact2_text: "நடைமுறைகளை வெறும் 'மூடநம்பிக்கை' என்று கட்டமைப்பதைத் தவிர்க்கவும்; அதற்கு பதிலாக, அடிப்படை நோக்கத்தை ஆராயுங்கள் (எ.கா., சமூக பிணைப்பு, உளவியல் அடித்தளம்).",
+                cultural_fact3_label: "தேர்வு மீது கவனம் செலுத்துங்கள்:",
+                cultural_fact3_text: "நவீன சுகாதார அறிவை கலாச்சாரப் பாதுகாப்போடு கலக்கும் informed நடைமுறைகளைத் தேர்வுசெய்ய தனிநபரின் உரிமையை வலியுறுத்துங்கள்.",
+                cultural_fact4_label: "நேர்மறை மொழி:",
+                cultural_fact4_text: "பலவீனம், சாபம் அல்லது அவமானம் ஆகியவற்றைக் குறிக்கும் சொற்களிலிருந்து விலகி, சுழற்சியைக் கொண்டாடும் மொழியைப் பயன்படுத்துங்கள்.",
+                global_heading: "உலகளாவிய முன்னோக்குகள்: கண்ணியமும் அணுகலும்",
+                global_subheading: "கலாச்சார மற்றும் புவியியல் எல்லைகளைத் தாண்டிய சவால்களை அங்கீகரித்தல்.",
+                access_title: "அணுகல் மற்றும் சமத்துவம்",
+                access_text: "உலகளவில், மலிவு விலையில் மாதவிடாய் தயாரிப்புகள் மற்றும் சுகாதார வசதிகள் இல்லாதது கண்ணியம் மற்றும் கல்வியைப் பாதிக்கிறது. \"மாதவிடாய் வறுமை\" க்கு தீர்வு காண்பது ஒரு மனித உரிமைப் பிரச்சினையாகும், இது அனைத்து நம்பிக்கைகள் மற்றும் கலாச்சாரங்களைச் சேர்ந்த பெண்களையும் சமூகத்தில் முழுமையாக பங்கேற்க empowers.",
+                taboos_title: "நவீன தடைகள் மற்றும் களங்கம்",
+                taboos_text: "பல நடைமுறைகள் மரியாதையை ஊக்குவிக்கும் அதே வேளையில், எதிர்மறையான கலாச்சார தடைகள் இன்னும் அமைதி மற்றும் தனிமைக்கு காரணமாகின்றன. அறிவியல் உண்மையால் ஆதரிக்கப்படும் வெளிப்படையான உரையாடல், தீங்கு விளைவிக்கும் களங்கத்திலிருந்து பாதுகாப்பான பழக்கவழக்கத்தை வேறுபடுத்த உதவுகிறது.",
+                myth_heading: "புராணம் மற்றும் உண்மை தகர்ப்பு",
+                myth_subheading: "கலாச்சார நம்பிக்கைகளை உயிரியல் யதார்த்தத்திலிருந்து பிரித்தல்.",
+                table_header_myth: "புராணம் / பாரம்பரிய நம்பிக்கை",
+                table_header_fact: "உயிரியல் உண்மை மற்றும் அறிவியல் நுண்ணறிவு",
+                myth1_text: "மாதவிடாய் காலத்தில் நீங்கள் ஒருபோதும் செடிகளைத் தொடக்கூடாது.",
+                fact1_text: "உயிரியல் செயல்முறை தாவர வாழ்க்கையில் எந்த விளைவையும் ஏற்படுத்தாது. இது ஓய்வை அமல்படுத்துவதற்கான ஒரு வழியாக தோன்றியிருக்கலாம்.",
+                myth2_text: "நீங்கள் உணவைத் தயாரிக்கவோ அல்லது சமையலறையில் நுழையவோ முடியாது.",
+                fact2_text: "மாதவிடாய் இரத்தப் பாதை செரிமான அமைப்பிலிருந்து முற்றிலும் வேறுபட்டது. மாசுபடுதலுக்கான ஆபத்து பூஜ்ஜியம்.",
+                myth3_text: "இந்த நேரத்தில் பெண்கள் பலவீனமானவர்கள் அல்லது அசுத்தமானவர்கள்.",
+                fact3_text: "மாதவிடாய் என்பது உயிரியல் உயிர் மற்றும் ஹார்மோன் தயார்நிலையின் அறிகுறியாகும். இது ஒரு இயற்கையான சுத்திகரிப்பு செயல்முறையாகும், நோய் அல்லது தார்மீக அசுத்தத்தின் நிலை அல்ல।",
+                final_message: "ஒவ்வொரு சுழற்சியும் புனிதமானது. உடலை மதிக்கவும், பாரம்பரியத்தை மதிக்கவும், அறிவியலை நம்பவும்.",
+                footer_text: "முழுமையான மாதவிடாய் சுகாதார கல்விக்கு அர்ப்பணிக்கப்பட்டுள்ளது."
+            },
+            mr: {
+                page_title: "पवित्र चक्र — श्रद्धा आणि विज्ञान",
+                brand_title: "सहेली",
+                brand_subtitle: "पवित्र चक्र",
+                hero_title: "जेथे श्रद्धा आणि शरीरविज्ञान एकत्र येतात।",
+                hero_subtitle: "मासिक पाळीच्या चक्राचे सार्वत्रिक अध्यात्मिक आणि सांस्कृतिक महत्त्व, वैज्ञानिक समजूतदारपणा आणि परंपरेबद्दल आदर ठेवून एक्सप्लोर करा.",
+                grid_heading: "चक्राचे सार्वत्रिक स्तंभ",
+                grid_subheading: "विविध अध्यात्मिक परंपरांमध्ये, तीन विषय सातत्याने उदयास येतात।",
+                card1_tag: "विश्रांती आणि विधी",
+                card1_title: "विश्रांतीसाठी आवाहन",
+                card1_text: "अनेक प्राचीन प्रथा शारीरिक किंवा घरगुती विश्रांतीच्या कालावधीची वकिली करतात. हा काळ पारंपारिकपणे आध्यात्मिक एकांत, प्रतिबिंब आणि उर्जेचे शांत संवर्धन म्हणून पाहिला जातो.",
+                card2_tag: "स्वच्छता आणि पवित्र जागा",
+                card2_title: "शुद्धतेची संकल्पना",
+                card2_text: "शुद्धतेसंबंधी विधी अनेकदा मासिक पाळीसोबत येतात. या प्रथा वाढलेल्या आध्यात्मिक स्वच्छतेवर जोर देतात आणि सामुदायिक किंवा पवित्र ठिकाणी पुन्हा प्रवेश करण्यापूर्वी विशिष्ट स्नान समाविष्ट करू शकतात।",
+                card3_tag: "शक्ती आणि उत्सव",
+                card3_title: "अंतर्गत शक्ती आणि बल",
+                card3_text: "अनेक स्थानिक आणि मातृसत्ताक समाजांमध्ये, चक्राला गहन आध्यात्मिक शक्ती आणि वाढलेल्या अंतर्ज्ञानाचा स्रोत म्हणून साजरा केला जातो, ज्यामुळे व्यक्ती पृथ्वीच्या नैसर्गिक तालांशी जोडली जाते।",
+                practical_heading: "व्यावहारिक अनुप्रयोग: तीन 'R'",
+                practical_subheading: "महिनाभर आपल्या शरीराचा सन्मान करण्यासाठी सूचित पर्याय.",
+                rs1_title: "विश्रांती (मासिक पाळीच्या दरम्यान)",
+                rs1_text: "झोप आणि कोमल हालचालींना प्राधान्य द्या. अनावश्यक कार्ये कमी करून आणि कमी प्रयत्नांसाठी आपल्या शरीराच्या गरजेनुसार खोलवर ऐकून हळू होण्याच्या सांस्कृतिक आवाहनाशी संरेखित करा.",
+                rs2_title: "पुनः पोषण (पूर्व आणि नंतरच्या चक्र)",
+                rs2_text: "मासिक पाळीच्या दरम्यान गमावलेले आवश्यक पोषक तत्व, विशेषत: लोह, बी जीवनसत्त्वे आणि मॅग्नेशियम पुन्हा भरून काढा. हे हार्मोनल संतुलन आणि ऊर्जा परत येण्यास समर्थन देते, पारंपारिक आणि वैज्ञानिक कल्याण दोन्हीचे समर्थन करते.",
+                rs3_title: "प्रतिबिंब (निरंतर अभ्यास)",
+                rs3_text: "नियोजन आणि आत्मनिरीक्षणासाठी मासिक पाळीच्या टप्प्यातील अंतर्गत फोकस वापरा. हे वाढलेल्या अंतर्ज्ञान आणि आत्म-ज्ञानाच्या पारंपारिक ज्ञानात टॅप करते.",
+                bridge_heading: "श्रद्धा आणि जीवशास्त्र यांना जोडणे",
+                bridge_subheading: "परंपरांमागील \"का\" समजून घेणे.",
+                science_title: "वैज्ञानिक दृष्टीकोन",
+                science_fact1_label: "विश्रांतीचा फायदा:",
+                science_fact1_text: "शारीरिकरित्या, मासिक पाळी ऊर्जा-केंद्रित असते. विश्रांती तणाव कमी करते आणि प्रोस्टाग्लँडिनद्वारे मध्यस्थी केलेल्या वेदनांची तीव्रता कमी करते.",
+                science_fact2_label: "हार्मोनल बदल:",
+                science_fact2_text: "सुरुवातीच्या चक्रात कमी प्रोजेस्टेरोन आणि इस्ट्रोजेनमुळे शारीरिक सहनशक्ती कमी होऊ शकते आणि अंतर्गत लक्ष केंद्रित होऊ शकते, जे प्रतिबिंबासाठी पारंपारिक आवाहनांशी जुळते.",
+                science_fact3_label: "स्वच्छता संदर्भ:",
+                science_fact3_text: "ऐतिहासिकरित्या, आधुनिक स्वच्छतेपूर्वी विधी आवश्यक सार्वजनिक आरोग्य उपाय होते, ज्यात असुरक्षिततेदरम्यान सामान्य स्वच्छता आणि संक्रमण नियंत्रणावर लक्ष केंद्रित केले जात होते.",
+                science_fact4_label: "सहज संबंध:",
+                science_fact4_text: "या टप्प्यात मेंदूचे लक्ष बदलत जाते, ज्यामुळे आत्मनिरीक्षण आणि वाढलेली आत्म-जागरूकता वाढते—'अध्यात्मिक शक्ती'साठी एक जैविक आधार.",
+                cultural_title: "सांस्कृतिक संवेदनशीलता मार्गदर्शक",
+                cultural_fact1_label: "प्रतिष्ठा प्रथम:",
+                cultural_fact1_text: "पारंपारिक प्रथांशी नेहमी आदराने संपर्क साधा, समुदायासाठी त्यांचे ऐतिहासिक किंवा आध्यात्मिक महत्त्व ओळखा.",
+                cultural_fact2_label: "'अंधश्रद्धा' टाळा:",
+                cultural_fact2_text: "प्रथांना केवळ 'अंधश्रद्धा' म्हणून मांडणे टाळा; त्याऐवजी, मूळ उद्देशाचा शोध घ्या (उदा. सामुदायिक बंधन, मानसिक आधार).",
+                cultural_fact3_label: "निवडीवर लक्ष केंद्रित करा:",
+                cultural_fact3_text: "माहितीपूर्ण पद्धती निवडण्याचा व्यक्तीचा अधिकार 강조 करा—आधुनिक आरोग्य ज्ञान सांस्कृतिक संवर्धनासोबत मिसळा.",
+                cultural_fact4_label: "सकारात्मक भाषा:",
+                cultural_fact4_text: "चक्र साजरे करणारी भाषा वापरा, दुर्बलता, शाप किंवा शरम दर्शविणाऱ्या शब्दांपासून दूर रहा.",
+                global_heading: "जागतिक दृष्टिकोन: सन्मान आणि पोहोच",
+                global_subheading: "सांस्कृतिक आणि भौगोलिक सीमा ओलांडणाऱ्या आव्हानांची ओळख.",
+                access_title: "पोहोच आणि समानता",
+                access_text: "जागतिक स्तरावर, परवडणाऱ्या मासिक पाळीच्या उत्पादनांचा आणि स्वच्छता सुविधांचा अभाव सन्मान आणि शिक्षणावर परिणाम करतो. \"मासिक पाळीतील गरिबी\" ला संबोधित करणे हा मानवाधिकार प्रश्न आहे जो सर्व श्रद्धा आणि संस्कृतींमधील महिलांना समाजात पूर्णपणे सहभागी होण्यासाठी सशक्त करतो.",
+                taboos_title: "आधुनिक निषेध आणि कलंक",
+                taboos_text: "अनेक प्रथा आदर वाढवतात, परंतु नकारात्मक सांस्कृतिक निषेध अजूनही शांतता आणि अलगावचे कारण ठरतात. वैज्ञानिक तथ्याद्वारे समर्थित खुला संवाद, हानिकारक कलंकातून संरक्षणात्मक रूढी वेगळे करण्यास मदत करतो.",
+                myth_heading: "मिथक विरुद्ध तथ्य उघड",
+                myth_subheading: "जैविक वास्तविकतेपासून सांस्कृतिक श्रद्धा वेगळे करणे.",
+                table_header_myth: "मिथक / पारंपारिक विश्वास",
+                table_header_fact: "जैविक तथ्य आणि वैज्ञानिक अंतर्दृष्टी",
+                myth1_text: "मासिक पाळीच्या वेळी तुम्ही कधीही झाडांना स्पर्श करू नये.",
+                fact1_text: "जैविक प्रक्रियेचा वनस्पती जीवनावर कोणताही परिणाम होत नाही. विश्रांती लागू करण्याचा हा एक मार्ग म्हणून उद्भवला असावा।",
+                myth2_text: "तुम्ही जेवण बनवू शकत नाही किंवा स्वयंपाकघरात प्रवेश करू शकत नाही.",
+                fact2_text: "मासिक पाळीचा रक्त मार्ग पचनसंस्थेपासून पूर्णपणे वेगळा आहे. दूषित होण्याचा धोका शून्य आहे.",
+                myth3_text: "या काळात महिला दुर्बळ किंवा अशुद्ध असतात.",
+                fact3_text: "मासिक पाळी जैविक जीवनशक्ती आणि हार्मोनल तयारीचे लक्षण आहे. ही एक नैसर्गिक साफसफाईची प्रक्रिया आहे, आजार किंवा नैतिक अशुद्धतेची स्थिती नाही.",
+                final_message: "प्रत्येक चक्र पवित्र आहे. शरीराचा सन्मान करा, परंपरेचा आदर करा आणि विज्ञानावर विश्वास ठेवा.",
+                footer_text: "समग्र मासिक पाळी आरोग्य शिक्षणासाठी समर्पित।"
+            },
+            te: {
+                page_title: "పవిత్ర చక్రం — విశ్వాసం మరియు విజ్ఞానం",
+                brand_title: "సహేలి",
+                brand_subtitle: "పవిత్ర చక్రం",
+                hero_title: "విశ్వాసం మరియు శరీరధర్మ శాస్త్రం కలిసే చోటు.",
+                hero_subtitle: "ఋతు చక్రం యొక్క సార్వత్రిక ఆధ్యాత్మిక మరియు సాంస్కృతిక ప్రాముఖ్యతను శాస్త్రీయ అవగాహన మరియు సంప్రదాయం పట్ల లోతైన గౌరవం ఆధారంగా అన్వేషించండి.",
+                grid_heading: "చక్రం యొక్క సార్వత్రిక స్తంభాలు",
+                grid_subheading: "వివిధ ఆధ్యాత్మిక సంప్రదాయాలలో, మూడు ఇతివృత్తాలు స్థిరంగా ఉద్భవిస్తాయి.",
+                card1_tag: "విశ్రాంతి మరియు ఆచారం",
+                card1_title: "విశ్రాంతి కోసం పిలుపు",
+                card1_text: "అనేక పురాతన పద్ధతులు శారీరక లేదా గృహ విశ్రాంతి కాలానికి మద్దతు ఇస్తాయి. ఈ సమయాన్ని సాంప్రదాయకంగా ఆధ్యాత్మిక ఏకాంతం, ప్రతిబింబం మరియు శక్తి యొక్క నిశ్శబ్ద సంరక్షణ సమయంగా పరిగణిస్తారు.",
+                card2_tag: "పరిశుభ్రత మరియు పవిత్ర స్థలం",
+                card2_title: "శుద్ధీకరణ భావన",
+                card2_text: "శుద్ధీకరణకు సంబంధించిన ఆచారాలు తరచుగా ఋతుస్రావంతో పాటు వస్తాయి. ఈ పద్ధతులు పెరిగిన ఆధ్యాత్మిక శుభ్రతను నొక్కి చెబుతాయి మరియు సామూహిక లేదా పవిత్ర స్థలాల్లోకి తిరిగి ప్రవేశించే ముందు నిర్దిష్ట స్నానాలు చేయవచ్చు.",
+                card3_tag: "శక్తి మరియు వేడుక",
+                card3_title: "అంతర్గత బలం మరియు శక్తి",
+                card3_text: "అనేక దేశీయ మరియు మాతృస్వామ్య సమాజాలలో, చక్రం లోతైన ఆధ్యాత్మిక శక్తి మరియు మెరుగైన అంతర్ దృష్టికి మూలంగా జరుపుకుంటారు, ఇది వ్యక్తిని భూమి యొక్క సహజ లయలకు అనుసంధానిస్తుంది.",
+                practical_heading: "ప్రాక్టికల్ అప్లికేషన్: ది త్రీ 'R'స్",
+                practical_subheading: "నెల పొడవునా మీ శరీరాన్ని గౌరవించడానికి సమాచారంతో కూడిన ఎంపికలు.",
+                rs1_title: "విశ్రాంతి (రక్తస్రావం సమయంలో)",
+                rs1_text: "నిద్ర మరియు సున్నితమైన కదలికలకు ప్రాధాన్యత ఇవ్వండి. అనవసరమైన పనులను తగ్గించడం మరియు తక్కువ శ్రమ కోసం మీ శరీరం యొక్క అవసరాన్ని లోతుగా వినడం ద్వారా నెమ్మదిగా ఉండటానికి సాంస్కృతిక పిలుపుతో సమలేఖనం చేయండి.",
+                rs2_title: "పునః-పోషకము (చక్రానికి ముందు మరియు తరువాత)",
+                rs2_text: "రక్తస్రావం సమయంలో కోల్పోయిన ముఖ్యమైన పోషకాలను, ముఖ్యంగా ఇనుము, బి విటమిన్లు మరియు మెగ్నీషియంను మళ్లీ నిల్వ చేయండి. ఇది హార్మోన్ల సమతుల్యత మరియు శక్తి తిరిగి రావడానికి మద్దతు ఇస్తుంది, సాంప్రదాయ మరియు శాస్త్రీయ ఆరోగ్యానికి మద్దతు ఇస్తుంది.",
+                rs3_title: "ప్రతిబింబి (నిరంతర అభ్యాసం)",
+                rs3_text: "ప్రణాళిక మరియు ఆత్మపరిశీలన కోసం ఋతుస్రావం దశ యొక్క అంతర్ముఖ దృష్టిని ఉపయోగించండి. ఇది మెరుగైన అంతర్ దృష్టి మరియు ఆత్మజ్ఞానం యొక్క సాంప్రదాయ జ్ఞానాన్ని ఉపయోగిస్తుంది.",
+                bridge_heading: "విశ్వాసం మరియు జీవశాస్త్రం అనుసంధానం",
+                bridge_subheading: "సంప్రదాయాల వెనుక ఉన్న \"ఎందుకు\" ను అర్థం చేసుకోవడం.",
+                science_title: "శాస్త్రీయ లెన్స్",
+                science_fact1_label: "విశ్రాంతి యొక్క ప్రయోజనం:",
+                science_fact1_text: "శారీరకంగా, ఋతుస్రావం శక్తి-తీవ్రమైనది. విశ్రాంతి ఒత్తిడిని తగ్గిస్తుంది మరియు ప్రోస్టాగ్లాండిన్స్ ద్వారా మధ్యవర్తిత్వం వహించే నొప్పి తీవ్రతను తగ్గిస్తుంది.",
+                science_fact2_label: "హార్మోన్ల మార్పు:",
+                science_fact2_text: "ప్రారంభ చక్రంలో తక్కువ ప్రొజెస్టెరాన్ మరియు ఈస్ట్రోజెన్ తగ్గిన శారీరక శక్తికి మరియు లోపలికి దృష్టి సారించడానికి దారితీస్తుంది, ఇది ప్రతిబింబం కోసం సాంప్రదాయ పిలుపులకు అనుగుణంగా ఉంటుంది.",
+                science_fact3_label: "పరిశుభ్రత సందర్భం:",
+                science_fact3_text: "చారిత్రకంగ, ఆధునిక పారిశుద్ధ్యం ముందు ఆచారాలు ముఖ్యమైన ప్రజారోగ్య చర్యలు, దుర్బలత్వం సమయంలో సాధారణ పరిశుభ్రత మరియు సంక్రమణ నియంత్రణపై దృష్టి సారిస్తాయి.",
+                science_fact4_label: "అంతర్ దృష్టి కనెక్షన్:",
+                science_fact4_text: "ఈ దశలో మెదడు యొక్క దృష్టి మారుతుంది, ఇది ఆత్మపరిశీలన మరియు మెరుగైన ఆత్మ-అవగాహనను ప్రోత్సహిస్తుంది - 'ఆధ్యాత్మిక శక్తి'కి జీవసంబంధమైన ఆధారం.",
+                cultural_title: "సాంస్కృతిక సున్నితత్వ మార్గదర్శిని",
+                cultural_fact1_label: "గౌరవం మొదట:",
+                cultural_fact1_text: "సాంప్రదాయ పద్ధతులను ఎల్లప్పుడూ గౌరవంతో సంప్రదించండి, సమాజానికి వాటి చారిత్రక లేదా ఆధ్యాత్మిక ప్రాముఖ్యతను గుర్తించండి.",
+                cultural_fact2_label: "'మూఢనమ్మకం' నివారించండి:",
+                cultural_fact2_text: "పద్ధతులను కేవలం 'మూఢనమ్మకం'గా చూపించడం మానుకోండి; బదులుగా, అంతర్లీన ఉద్దేశాన్ని అన్వేషించండి (ఉదా. సమాజ బంధం, మానసిక ఆధారం).",
+                cultural_fact3_label: "ఎంపికపై దృష్టి సారించండి:",
+                cultural_fact3_text: "ఆధునిక ఆరోగ్య పరిజ్ఞానాన్ని సాంస్కృతిక పరిరక్షణతో కలిపి, సమాచారం ఉన్న పద్ధతులను ఎంచుకోవడానికి వ్యక్తి యొక్క హక్కును నొక్కి చెప్పండి.",
+                cultural_fact4_label: "సానుకూల భాష:",
+                cultural_fact4_text: "బలహీనత, శాపం లేదా అవమానాన్ని సూచించే పదాల నుండి దూరంగా, చక్రాన్ని జరుపుకునే భాషను ఉపయోగించండి.",
+                global_heading: "గ్లోబల్ దృక్కోణాలు: డిగ్నిటీ మరియు యాక్సెస్",
+                global_subheading: "సాంస్కృతిక మరియు భౌగోళిక సరిహద్దులను దాటే సవాళ్లను గుర్తించడం.",
+                access_title: "యాక్సెస్ మరియు ఈక్విటీ",
+                access_text: "ప్రపంచవ్యాప్తంగా, సరసమైన ఋతుస్రావ ఉత్పత్తులు మరియు పారిశుద్ధ్య సౌకర్యాలు లేకపోవడం డిగ్నిటీ మరియు విద్యపై ప్రభావం చూపుతుంది. \"పీరియడ్ పేదరికం\" ను పరిష్కరించడం అనేది మానవ హక్కుల సమస్య, ఇది అన్ని విశ్వాసాలు మరియు సంస్కృతుల మహిళలను సమాజంలో పూర్తిగా పాల్గొనడానికి శక్తివంతం చేస్తుంది.",
+                taboos_title: "ఆధునిక నిషిద్ధాలు మరియు కళంకం",
+                taboos_text: "అనేక పద్ధతులు భక్తిని ప్రోత్సహించినప్పటికీ, ప్రతికూల సాంస్కృతిక నిషిద్ధాలు ఇప్పటికీ నిశ్శబ్దం మరియు ఒంటరితనానికి కారణమవుతాయి. శాస్త్రీయ వాస్తవం ద్వారా మద్దతు ఉన్న బహిరంగ సంభాషణ, హానికరమైన కళంకం నుండి రక్షణ ఆచారాన్ని వేరు చేయడానికి సహాయపడుతుంది.",
+                myth_heading: "మిత్ వర్సెస్ ఫాక్ట్ డీబంక్డ్",
+                myth_subheading: "సాంస్కృతిక నమ్మకాలను జీవసంబంధమైన వాస్తవికత నుండి వేరు చేయడం.",
+                table_header_myth: "మిత్ / సాంప్రదాయ నమ్మకం",
+                table_header_fact: "జీవసంబంధమైన వాస్తవం మరియు శాస్త్రీయ అంతర్దృష్టి",
+                myth1_text: "ఋతుస్రావం సమయంలో మీరు ఎప్పుడూ మొక్కలను తాకకూడదు.",
+                fact1_text: "జీవసంబంధమైన ప్రక్రియ మొక్కల జీవితంపై ఎటువంటి ప్రభావం చూపదు. ఇది విశ్రాంతిని అమలు చేయడానికి ఒక మార్గంగా ఉద్భవించి ఉండవచ్చు.",
+                myth2_text: "మీరు ఆహారాన్ని సిద్ధం చేయలేరు లేదా వంటగదిలోకి ప్రవేశించలేరు.",
+                fact2_text: "ఋతుస్రావ రక్త మార్గం జీర్ణ వ్యవస్థ నుండి పూర్తిగా వేరుగా ఉంటుంది. కాలుష్యం యొక్క ప్రమాదం సున్నా.",
+                myth3_text: "ఈ సమయంలో మహిళలు బలహీనంగా లేదా అపవిత్రంగా ఉంటారు.",
+                fact3_text: "ఋతుస్రావం అనేది జీవశక్తి మరియు హార్మోన్ల సంసిద్ధతకు సంకేతం. ఇది ఒక సహజ శుభ్రపరిచే ప్రక్రియ, అనారోగ్యం లేదా నైతిక అపవిత్రత యొక్క స్థితి కాదు.",
+                final_message: "ప్రతి చక్రం పవిత్రమైనది. శరీరాన్ని గౌరవించండి, సంప్రదాయాన్ని గౌరవించండి మరియు విజ్ఞానాన్ని విశ్వసించండి.",
+                footer_text: "సంపూర్ణ ఋతుస్రావ ఆరోగ్య విద్యకు అంకితం చేయబడింది."
+            }
+        };
+
+        const languageSelector = document.getElementById('languageSelector');
+
+        function applyTranslation(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            document.querySelectorAll('[data-translate-key]').forEach(element => {
+                const key = element.getAttribute('data-translate-key');
+                if (t[key]) {
+                    if (element.tagName === 'TITLE') {
+                        document.title = t[key];
+                    } else {
+                        element.textContent = t[key];
+                    }
+                }
+            });
+        }
+
+        // Initialize with English
+        applyTranslation('en');
+
+        // Event listener for selector change
+        languageSelector.addEventListener('change', (event) => {
+            applyTranslation(event.target.value);
+        });
+    </script>
+</body>
+</html>

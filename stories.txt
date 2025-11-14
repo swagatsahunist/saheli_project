@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Saheli — Story Wall</title>
+
+<!-- fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+   :root{
+    --bg: #fbf9fa;
+    --panel: rgba(255,255,255,0.8);
+    --glass-border: rgba(200,200,210,0.35);
+    --accent1: #ff9db3;
+    --accent2: #9fd6ff;   
+    --muted: #6f7480;
+    --card-shadow: 0 20px 40px rgba(18,24,37,0.06);
+    --card-bg: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,252,0.9)); 
+  }
+  
+  
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:
+    radial-gradient(600px 200px at 10% 10%, rgba(159,214,255,0.12), transparent 12%),
+    radial-gradient(500px 180px at 90% 90%, rgba(255,157,179,0.08), transparent 12%),
+    var(--bg);color:#1b2430; -webkit-font-smoothing:antialiased;}
+
+  a{color:inherit;text-decoration:none}
+
+  header.site-header{
+    display:flex;align-items:center;justify-content:space-between;padding:18px 26px;
+    background:var(--panel);backdrop-filter: blur(6px);border-bottom:1px solid var(--glass-border);
+    position:sticky;top:0;z-index:30;
+  }
+  .brand{display:flex;gap:12px;align-items:center}
+  .brand .logo{font-size:22px}
+  .brand .title{font-family:'Playfair Display',serif;font-weight:600;font-size:18px;color:var(--accent1)}
+  .brand .sub{font-size:12px;color:var(--muted)}
+
+  .container{max-width:1150px;margin:22px auto;padding:0 20px}
+
+  .hero{
+    display:grid;grid-template-columns:1fr 420px;gap:22px;align-items:start;margin-bottom:18px;
+  }
+
+  .hero-card{
+    background:var(--card-bg);
+    border-radius:16px;padding:18px;border:1px solid var(--glass-border);box-shadow:var(--card-shadow);
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .hero-card h1{margin:0;font-family:'Playfair Display',serif;color:var(--accent2);font-size:24px}
+  .hero-card p{margin:0;color:var(--muted);line-height:1.45}
+
+  /* post form */
+  .story-form{display:grid;grid-template-columns:1fr 140px;gap:12px;align-items:start}
+  .field{background:transparent;padding:10px;border-radius:12px;border:1px solid transparent}
+  .input, textarea{width:100%;border:0;background:transparent;color:inherit;outline:none;font-size:14px;padding:8px}
+  textarea{min-height:96px;resize:vertical}
+  .controls{display:flex;gap:8px;align-items:center}
+  .btn{
+    cursor:pointer;border:0;padding:10px 12px;border-radius:10px;font-weight:700;
+    background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#fff;box-shadow:0 10px 22px rgba(157,202,255,0.18)
+  }
+  .btn.ghost{background:transparent;border:1px solid var(--glass-border);color:var(--muted)}
+  .file-label{display:inline-block;padding:8px 10px;border-radius:10px;border:1px dashed var(--glass-border);background:transparent;color:var(--muted);font-size:13px;cursor:pointer}
+
+  /* search + tag filter */
+  .toolbar{display:flex;gap:12px;align-items:center;margin:14px 0 18px}
+  .search{flex:1;display:flex;gap:8px;align-items:center}
+  .search input{flex:1;padding:12px;border-radius:12px;border:1px solid var(--glass-border);background:transparent;color:inherit}
+  .tag-filter{display:flex;gap:8px;flex-wrap:wrap}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .card{
+    border-radius:14px;background:var(--card-bg);
+    padding:14px;border:1px solid var(--glass-border);box-shadow:var(--card-shadow);
+    transition:transform .28s ease,box-shadow .28s;position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 28px 60px rgba(18,24,37,0.08)}
+  .card .meta{display:flex;gap:12px;align-items:center}
+  .avatar{width:64px;height:64px;border-radius:12px;object-fit:cover;border:1px solid rgba(0,0,0,0.04);background:#fff}
+  .meta .info h3{margin:0;font-size:16px;color:var(--accent2)}
+  .meta .info small{color:var(--muted);display:block}
+  .card .story{margin-top:10px;color:#16202a;line-height:1.55;font-size:14px;max-height:110px;overflow:hidden;position:relative}
+  .card .story:after{content:'';position:absolute;left:0;right:0;bottom:0;height:36px;background:linear-gradient(180deg, rgba(255,255,255,0), var(--card-bg));}
+  .card .readmore{display:inline-block;margin-top:10px;color:var(--accent1);cursor:pointer;font-weight:700;background:transparent;border:0}
+
+  .card .tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .chip{background:transparent;padding:6px 10px;border-radius:999px;font-size:12px;color:var(--accent2);border:1px solid rgba(159,214,255,0.22)}
+
+  .card .footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px}
+  .actions{display:flex;gap:8px;align-items:center}
+  .like-btn{background:linear-gradient(90deg,#ffd0df,#ff9db3);border:0;color:#1b2430;padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(255,157,179,0.08)}
+  .like-count{font-weight:700}
+  .comment-btn{background:transparent;border:1px solid var(--glass-border);padding:8px 10px;border-radius:10px;color:var(--muted);cursor:pointer}
+
+  /* comments modal (high contrast) */
+  .modal{position:fixed;inset:0;background:rgba(24,30,36,0.5);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:opacity .22s}
+  .modal.open{opacity:1;pointer-events:all}
+  .modal-panel{width:100%;max-width:820px;background:#ffffff;border-radius:12px;padding:18px;border:1px solid rgba(20,25,30,0.06);box-shadow:0 30px 80px rgba(8,12,18,0.12);color:#0f1720}
+  .modal-panel h4{margin:0 0 8px;font-family:'Playfair Display',serif;color:var(--accent2)}
+  .modal-story{background:#fbfbfd;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.04);margin-bottom:12px}
+  .comment-list{max-height:320px;overflow:auto;padding:6px;border-radius:8px;display:flex;flex-direction:column;gap:8px}
+  .comment-item{background:#fff;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04)}
+  .comment-item b{color:var(--accent1)}
+
+  .modal-actions{display:flex;gap:8px;margin-top:10px;align-items:center}
+  .field-dark{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:10px;border-radius:10px;width:100%}
+
+  /* empty state */
+  .muted{color:var(--muted);font-size:13px}
+  .empty{padding:18px;border-radius:12px;background:transparent;text-align:center;color:var(--muted)}
+
+  /* responsive */
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr}
+    .story-form{grid-template-columns:1fr}
+    .avatar{width:56px;height:56px}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="logo">🌸</div>
+    <div>
+      <div class="title">Saheli — Story Wall</div>
+      <div class="sub">Real experiences, shared safely</div>
+    </div>
+  </div>
+  <nav style="display:flex;gap:12px;align-items:center;">
+    <a href="index.html" class="muted">Home</a>
+    <a href="cycle-tracker.html" class="muted">Tracker</a>
+    <a href="nutrition.html" class="muted">Nutrition</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-card">
+      <h1>Stories that teach, heal and inspire</h1>
+      <p>Read long-form, insightful experiences about menstrual health — from brave first-period stories to research-backed discoveries and actionable tips. Share your story to help someone else.</p>
+
+      <!-- Post form -->
+      <form id="storyForm" class="story-form" autocomplete="off">
+        <div style="display:grid;gap:8px">
+          <div style="display:flex;gap:8px">
+            <div class="field" style="flex:1"><input id="name" class="input" placeholder="Your name (optional)"/></div>
+            <div class="field" style="width:88px"><input id="age" class="input" placeholder="Age (opt)"/></div>
+          </div>
+
+          <div class="field"><textarea id="storyText" placeholder="Share your story — be honest, kind and helpful..."></textarea></div>
+
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="tagsInput" class="input field" placeholder="tags (comma separated)"/>
+            <label class="file-label">📷 Add photo <input id="photoInput" type="file" accept="image/*" style="display:none"/></label>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+          <button type="submit" class="btn">Post Story</button>
+          <div class="muted" style="font-size:12px">Be kind — stories are moderated by the Saheli team.</div>
+        </div>
+      </form>
+    </div>
+
+    <div class="hero-card" style="height:100%;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <h3 style="margin:0 0 8px">Explore</h3>
+        <div class="toolbar">
+          <div class="search">
+            <input id="searchInput" placeholder="Search text or tags (press Enter)"/>
+            <button class="btn ghost" id="searchBtn">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom:8px">Popular tags</h4>
+        <div id="popularTags" class="tag-filter"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div id="storiesGrid" class="grid" aria-live="polite"></div>
+    <div id="emptyState" class="empty" style="display:none">No stories yet — you can be the first to share ❤️</div>
+  </section>
+</main>
+
+<!-- comments & story modal -->
+<div id="commentsModal" class="modal" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h4 id="modalTitle">Story</h4>
+      <button id="closeComments" class="btn ghost">Close</button>
+    </div>
+
+    <div id="modalStoryBlock" class="modal-story" style="margin-top:12px"></div>
+
+    <div style="margin-top:8px;">
+      <strong>Tags: </strong><span id="modalTags" class="muted"></span>
+    </div>
+
+    <div style="margin-top:12px">
+      <h4 style="margin:6px 0 8px">Comments</h4>
+      <div id="commentList" class="comment-list"></div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:12px">
+      <input id="commentName" placeholder="Your name (optional)" class="field-dark" style="flex:0.4">
+      <input id="commentText" placeholder="Write a short supportive comment..." class="field-dark" style="flex:1">
+      <button id="postComment" class="btn">Post</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(async function(){
+  const API = "/api/stories"; // adjust if backend path differs
+  const storiesGrid = document.getElementById('storiesGrid');
+  const storyForm = document.getElementById('storyForm');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const popularTagsEl = document.getElementById('popularTags');
+  const emptyState = document.getElementById('emptyState');
+
+  // richer sample stories (longer, unique, thoughtful — truncated previews shown on cards)
+  const sampleStories = [
+    {
+      id: 's-aurora',
+      name: 'Aarohi M.',
+      age: 18,
+      story: `My first period happened during a camping trip at the foothills. There was no internet and our only reading was a battered field guide. I panicked—there was no one to ask. An older woman from a neighboring campsite returned in the afternoon with her bag of herbs and taught me how a warm compress, ginger infusion, and a small poultice of crushed fennel relieve cramps. Over the years I became curious: I studied traditional remedies alongside science. I learned that many plants used in our grandmothers' kitchens have measurable anti-inflammatory compounds. That camping trip changed my relationship to my body: curiosity replaced shame, and knowledge replaced fear. I now run a small blog that blends folk wisdom with evidence — and we donate a portion of proceeds to menstrual education in rural schools.`,
+      tags: "first-period,folk-medicine,education",
+      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop",
+      likes: 142,
+      created_at: Date.now()-1000*60*60*24*300
+    },
+    {
+      id: 's-lab-note',
+      name: 'Dr. Neelam R.',
+      age: 34,
+      story: `As a young researcher I questioned an accepted 'rule' — that cramps always correlated only with prostaglandins. I designed a small study in my clinic: tracking diet, magnesium intake, sleep and perceived pain in 120 participants. The surprising result was consistent: participants who ate small servings of magnesium-rich foods and kept steady sleep reported 30% lower pain scores. The lab data suggested magnesium modulates muscular contraction pathways in the uterus. We published a short paper and the reception was humbling. The takeaway: small lifestyle nudges matter, and science benefits when clinicians listen to patients' lived experience.`,
+      tags: "research,magnesium,science",
+      image: "https://images.unsplash.com/photo-1581091870622-3e7a6c1a9a1c?q=80&w=1200&auto=format&fit=crop",
+      likes: 204,
+      created_at: Date.now()-1000*60*60*24*240
+    },
+    {
+      id: 's-shebuilds',
+      name: 'Rhea P.',
+      age: 27,
+      story: `I co-founded 'SheBuilds'—a peer network where young women in tech share menstrual hacks for busy product weeks. We create "period-friendly sprints": flexible scheduling, standing desks, quick magnesium snack kits and silent signal badges for teammates who need rest. At first, management thought this was trivial. After we measured retention and productivity it changed minds: teams that respected cycles had fewer sick days and higher engagement. The story I love is of Priyanka, who used our badge in a server-facing release day and was allowed a 2-hour quiet room to manage severe cramps — she returned and delivered a flawless rollout. Systems change when we design for bodies.`,
+      tags: "work,policy,inclusion",
+      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
+      likes: 87,
+      created_at: Date.now()-1000*60*60*24*180
+    },
+    {
+      id: 's-collective',
+      name: 'Zainab H.',
+      age: 41,
+      story: `After multiple miscarriages and weary clinic visits, I joined a local collective where women documented symptoms across cycles. By pooling data — onset, severity, diet, sleep, and stress — we noticed patterns that individual accounts missed: certain diets worsened bloating for many, and mindfulness exercises helped mood swings. We shared anonymized findings with a sympathetic gynecologist who adjusted one woman's treatment and saw tangible improvement. The power here was community data — not as research, but as patient-led discovery. It helped reclaim agency over health decisions.`,
+      tags: "community,data,fertility",
+      image: "https://images.unsplash.com/photo-1531123414780-fb1b5b18f3c0?q=80&w=1200&auto=format&fit=crop",
+      likes: 111,
+      created_at: Date.now()-1000*60*60*24*120
+    },
+    {
+      id: 's-theswitch',
+      name: 'Maya L.',
+      age: 30,
+      story: `I used to push through intense pain until one day I fainted at work. That was a wakeup call. I visited a specialist and realized my heavy bleeding was treatable — a combination of iron supplements and an IUD solved what felt irreversible. Sharing this now because many of us accept severe pain as "normal" when it can indicate treatable conditions. If your cycle disrupts life, please consult a doctor. Seeking help isn't weakness — it's empowerment.`,
+      tags: "health,doctor,advocacy",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
+      likes: 298,
+      created_at: Date.now()-1000*60*60*24*90
+    },
+    {
+      id: 's-mindedness',
+      name: 'Ishani S.',
+      age: 22,
+      story: `During my college years, I experimented with different diets to manage PMS. After a semester of mood swings I kept a note: caffeine and sugar spikes predicted worse mood. By switching to steady proteins and fibre, adding magnesium at night, and practicing a 10-minute breathwork routine, the swings smoothed. It wasn't dramatic; it was incremental. I learned to track, not to blame myself. Tracking gave me language for conversations with friends and clinicians.`,
+      tags: "pms,nutrition,mindfulness",
+      image: "https://images.unsplash.com/photo-1504198458649-3128b932f49b?q=80&w=1200&auto=format&fit=crop",
+      likes: 66,
+      created_at: Date.now()-1000*60*60*24*45
+    },
+    {
+      id: 's-mothershop',
+      name: 'Salma Q.',
+      age: 36,
+      story: `I run a small cloth pad cooperative in my town. We train women in sewing, basic business, and menstrual hygiene education. One day a 14-year-old came in, ashamed because she had no money for sanitary products. We taught her to make a simple reusable pad and she started selling extras at school. That child's confidence and income changed her family dynamics. For me, stories are circular: training empowers, and empowered women teach more women.`,
+      tags: "entrepreneurship,access,education",
+      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
+      likes: 129,
+      created_at: Date.now()-1000*60*60*24*20
+    },
+    {
+      id: 's-debunk',
+      name: 'Nimisha T.',
+      age: 28,
+      story: `I was told not to swim on my period by relatives. During med school I learned there's no reason — tampons/cups make swimming safe. I became an advocate for busting myths. I started a short video series that combined humour and facts; surprisingly it reached older viewers who then shared corrected information in their communities. If you can, correct gently; if you can't, plant a seed by sharing a fact.`,
+      tags: "myths,education,media",
+      image: "https://images.unsplash.com/photo-1545996124-6d77b0f6b0f3?q=80&w=1200&auto=format&fit=crop",
+      likes: 54,
+      created_at: Date.now()-1000*60*60*24*5
+    }
+  ];
+
+  // fallback local storage store for likes/comments
+  const FALLBACK = {
+    likes: JSON.parse(localStorage.getItem('stories_likes')||'{}'),
+    comments: JSON.parse(localStorage.getItem('stories_comments')||'{}')
+  };
+
+  async function apiFetch(url, opts){
+    try{
+      const res = await fetch(url, opts);
+      if(!res.ok) throw new Error('bad response');
+      return await res.json();
+    }catch(e){
+      throw e;
+    }
+  }
+
+  async function loadStories(q){
+    storiesGrid.innerHTML='';
+    try{
+      const url = q ? API + '?q=' + encodeURIComponent(q) : API;
+      const rows = await apiFetch(url);
+      if(!Array.isArray(rows) || rows.length === 0){
+        renderStories(sampleStories);
+      } else {
+        renderStories(rows.map(r => ({
+          id: r.id ?? ('srv-'+Math.random().toString(36).slice(2,9)),
+          name: r.name,
+          age: r.age,
+          story: r.story,
+          tags: r.tags || '',
+          image: r.image || '',
+          likes: r.likes || 0,
+          created_at: r.created_at || Date.now()
+        })));
+      }
+    }catch(err){
+      // server unreachable: show samples
+      renderStories(sampleStories);
+    }
+  }
+
+  function renderStories(list){
+    storiesGrid.innerHTML='';
+    if(!list || list.length === 0){ emptyState.style.display='block'; return; }
+    emptyState.style.display='none';
+    const tagCounts = {};
+    list.forEach(s => {
+      const card = document.createElement('article');
+      card.className='card';
+      card.dataset.id = s.id;
+      const img = s.image || '';
+      const preview = s.story.length > 220 ? s.story.slice(0,220) + '…' : s.story;
+      const tagsHtml = (s.tags||'').split(',').filter(Boolean).slice(0,6).map(t => `<span class="chip">#${escapeHtml(t.trim())}</span>`).join(' ');
+      (s.tags||'').split(',').filter(Boolean).forEach(t => tagCounts[t.trim()] = (tagCounts[t.trim()]||0)+1);
+
+      card.innerHTML = `
+        <div class="meta">
+          <img class="avatar" src="${img}">
+          <div class="info">
+            <h3>${escapeHtml(s.name || 'Anonymous')}</h3>
+            <small class="muted">${s.age ? (s.age + ' yrs • ') : ''}${new Date(s.created_at).toLocaleDateString()}</small>
+          </div>
+        </div>
+
+        <div class="story" aria-hidden="false">${formatText(preview)}</div>
+
+        <button class="readmore" data-id="${s.id}">Read more →</button>
+
+        <div class="tags">${tagsHtml}</div>
+
+        <div class="footer">
+          <div class="muted">${s.story.length > 180 ? 'Long read — thank you for sharing' : ''}</div>
+          <div class="actions">
+            <button class="like-btn" aria-label="Like"><span class="like-count">${getLikeCount(s.id, s.likes)}</span> ❤️</button>
+            <button class="comment-btn">💬 Comments</button>
+          </div>
+        </div>
+      `;
+
+      // tilt effect
+      card.addEventListener('mousemove', (ev)=>{
+        const r = card.getBoundingClientRect();
+        const rx = (ev.clientX - r.left)/r.width - 0.5;
+        const ry = (ev.clientY - r.top)/r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateY(${rx * 6}deg) rotateX(${ -ry * 6 }deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave', ()=> card.style.transform = '');
+
+      // like button
+      const likeBtn = card.querySelector('.like-btn');
+      likeBtn.addEventListener('click', async (e)=>{
+        const rect = likeBtn.getBoundingClientRect();
+        spawnHeart(rect.left + rect.width/2, rect.top + rect.height/2);
+        try{
+          incrementLikeUI(card);
+          await apiFetch(`${API}/${s.id}/like`, { method: 'POST' });
+        }catch(err){
+          fallbackIncrementLike(s.id);
+        }
+      });
+
+      // comments
+      const commentBtn = card.querySelector('.comment-btn');
+      commentBtn.addEventListener('click', ()=> openCommentsModal(s.id));
+
+      // read more
+      const readBtn = card.querySelector('.readmore');
+      readBtn.addEventListener('click', ()=> openCommentsModal(s.id, s));
+
+      storiesGrid.appendChild(card);
+    });
+
+    // popular tags
+    popularTagsEl.innerHTML = Object.keys(tagCounts).sort((a,b)=> tagCounts[b]-tagCounts[a]).slice(0,8).map(t => `<button class="chip" data-tag="${t}">#${escapeHtml(t)} <small style="opacity:.7">(${tagCounts[t]})</small></button>`).join(' ');
+    document.querySelectorAll('#popularTags .chip').forEach(btn=>{
+      btn.addEventListener('click', ()=> loadStories(btn.dataset.tag));
+    });
+  }
+
+  function formatText(s){
+    return escapeHtml(s || '').split(/\n+/).map(p => `<p style="margin:8px 0">${p}</p>`).join('');
+  }
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  }
+
+  function getLikeCount(id, base){
+    if(FALLBACK.likes[id]) return base + FALLBACK.likes[id];
+    return base || 0;
+  }
+  function incrementLikeUI(card){
+    const span = card.querySelector('.like-count');
+    const current = parseInt(span.textContent || '0');
+    span.textContent = current + 1;
+    span.animate([{transform:'scale(1)'},{transform:'scale(1.15)'},{transform:'scale(1)'}],{duration:320,easing:'ease'});
+  }
+  function fallbackIncrementLike(id){
+    FALLBACK.likes[id] = (FALLBACK.likes[id]||0) + 1;
+    localStorage.setItem('stories_likes', JSON.stringify(FALLBACK.likes));
+  }
+
+  function spawnHeart(x,y){
+    const heart = document.createElement('div');
+    heart.style.position='absolute';
+    heart.style.left = x + 'px';
+    heart.style.top  = y + 'px';
+    heart.style.width = '22px'; heart.style.height='22px';
+    heart.style.pointerEvents='none'; heart.style.transform='translate(-50%,-50%)';
+    heart.style.filter='drop-shadow(0 6px 10px rgba(255,120,150,0.18))';
+    heart.innerHTML = `<svg viewBox="0 0 24 24" width="22" height="22"><path fill="#ff7b9f" d="M12 21s-7.5-4.35-9.5-7.1C-...Z"></path></svg>`;
+    document.body.appendChild(heart);
+    heart.animate([{opacity:1, transform:'translate(-50%,-50%) translateY(0) scale(1)'},{opacity:0, transform:'translate(-50%,-140%) scale(.6)'}],{duration:900,easing:'ease'});
+    setTimeout(()=> heart.remove(), 950);
+  }
+
+  // modal and comment logic
+  const modal = document.getElementById('commentsModal');
+  const commentListEl = document.getElementById('commentList');
+  const commentName = document.getElementById('commentName');
+  const commentText = document.getElementById('commentText');
+  const postCommentBtn = document.getElementById('postComment');
+  const closeComments = document.getElementById('closeComments');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalStoryBlock = document.getElementById('modalStoryBlock');
+  const modalTags = document.getElementById('modalTags');
+
+  let activeStoryId = null;
+  let activeStoryObj = null;
+
+  function openCommentsModal(storyId, storyObj = null){
+    activeStoryId = storyId;
+    activeStoryObj = storyObj;
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    if(storyObj){
+      modalTitle.textContent = storyObj.name || 'Anonymous';
+      modalStoryBlock.innerHTML = formatText(storyObj.story);
+      modalTags.textContent = (storyObj.tags||'').split(',').filter(Boolean).map(t=>('#'+t.trim())).join(' ');
+    } else {
+      modalTitle.textContent = 'Story';
+      modalStoryBlock.innerHTML = '<div class="muted">Loading story…</div>';
+      modalTags.textContent = '';
+    }
+    loadComments(storyId);
+    commentName.value = ''; commentText.value = '';
+  }
+  function closeCommentsModal(){ activeStoryId=null; activeStoryObj=null; modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); commentListEl.innerHTML=''; }
+  closeComments.addEventListener('click', closeCommentsModal);
+  modal.addEventListener('click', (e)=> { if(e.target === modal) closeCommentsModal(); });
+
+  async function loadComments(storyId){
+    commentListEl.innerHTML = '<div class="muted">Loading comments…</div>';
+    try{
+      const rows = await apiFetch(`${API}/${storyId}/comments`);
+      renderComments(rows);
+    }catch(e){
+      const rows = FALLBACK.comments[storyId] || [];
+      renderComments(rows);
+    }
+  }
+  function renderComments(rows){
+    if(!rows || rows.length===0) commentListEl.innerHTML = '<div class="muted">No comments yet — be the first to encourage 💛</div>';
+    else commentListEl.innerHTML = rows.map(c=>`<div class="comment-item"><b>${escapeHtml(c.name||'Anonymous')}</b><div style="margin-top:6px">${escapeHtml(c.comment)}</div><small class="muted">${new Date(c.created_at||Date.now()).toLocaleString()}</small></div>`).join('');
+  }
+
+  postCommentBtn.addEventListener('click', async ()=>{
+    const name = commentName.value.trim();
+    const text = commentText.value.trim();
+    if(!text) return alert('Write a short supportive comment first.');
+    try{
+      await apiFetch(`${API}/${activeStoryId}/comments`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ name, comment: text })});
+      commentText.value=''; loadComments(activeStoryId);
+    }catch(e){
+      FALLBACK.comments[activeStoryId] = FALLBACK.comments[activeStoryId] || [];
+      FALLBACK.comments[activeStoryId].unshift({ name: name||'Anonymous', comment:text, created_at: Date.now() });
+      localStorage.setItem('stories_comments', JSON.stringify(FALLBACK.comments));
+      renderComments(FALLBACK.comments[activeStoryId]); commentText.value='';
+    }
+  });
+
+  // posting story
+  storyForm.addEventListener('submit', async (ev)=>{
+    ev.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const age = document.getElementById('age').value.trim();
+    const story = document.getElementById('storyText').value.trim();
+    const tags = document.getElementById('tagsInput').value.trim();
+    const photo = document.getElementById('photoInput').files[0];
+
+    if(!story) return alert('Please write your story before posting.');
+
+    const form = new FormData();
+    form.append('name', name);
+    form.append('age', age);
+    form.append('story', story);
+    form.append('tags', tags);
+    if(photo) form.append('photo', photo);
+
+    try{
+      await fetch(API, { method: 'POST', body: form });
+      await loadStories();
+      storyForm.reset();
+    }catch(e){
+      const local = {
+        id: 'local-'+Math.random().toString(36).slice(2,9),
+        name, age, story, tags, image:'', likes:0, created_at: Date.now()
+      };
+      sampleStories.unshift(local);
+      renderStories(sampleStories);
+      storyForm.reset();
+    }
+  });
+
+  // search
+  searchBtn.addEventListener('click', ()=> loadStories(searchInput.value.trim()));
+  searchInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); loadStories(searchInput.value.trim()); }});
+
+  // initial load
+  await loadStories();
+
+  // small UI niceties
+  document.querySelectorAll('.card').forEach((c,i)=> c.style.animation = `fadeIn .5s ${i*40}ms both`);
+  const style = document.createElement('style'); style.textContent = `@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}`; document.head.appendChild(style);
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+/* ---------------------------------
+   Saheli Doctor Consultation — CSS
+   --------------------------------- */
+
+:root {
+  --beige: #f6efe6;
+  --pink: #e15b84;
+  --pink-2: #ff7ba8;
+  --muted: #6b6b6b;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--beige);
+  color: #222;
+}
+
+/* Navbar */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pink);
+  text-decoration: none;
+}
+
+nav a {
+  margin: 0 0.8rem;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--pink);
+}
+
+/* Hero Carousel */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-carousel {
+  position: relative;
+  height: 80vh;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 0 40px 40px;
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 60px;
+  left: 50px;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  margin: 0 0 0.4rem 0;
+}
+
+/* Filters */
+.filters {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.filters h2 {
+  color: var(--pink);
+  font-size: 1.8rem;
+}
+
+.filter-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.filter-grid select {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Doctor Cards */
+.doctors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+.doctor-card {
+  background: #fff;
+  box-shadow: var(--shadow);
+  border-radius: 16px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(225, 91, 132, 0.3);
+}
+
+.doctor-card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.doctor-card h4 {
+  margin: 0.8rem 0 0.4rem;
+  color: var(--pink);
+}
+
+.doctor-card p {
+  margin: 0.3rem 0;
+  color: var(--muted);
+}
+
+.doctor-card button {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  margin-top: 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.doctor-card button:hover {
+  background: var(--pink-2);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 20;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 14px;
+  width: 320px;
+  position: relative;
+  text-align: center;
+}
+
+.modal-content .close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #666;
+}
+
+.modal-content .close:hover {
+  color: var(--pink);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem 0;
+  background: #fff;
+  color: #555;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saheli — Your Health. Your Cycle. Your Companion.</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sakhi.css">
+
+  <!-- Script (deferred) -->
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner container">
+      <div class="brand">
+        <div class="logo">🌸</div>
+        <div class="brand-text">
+          <div class="brand-title">Saheli</div>
+          <div class="brand-tag">Your Health. Your Cycle. Your Companion.</div>
+        </div>
+      </div>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#hero">Home</a>
+        <a href="#features">Features</a>
+        <a href="#phases">Phases</a>
+        <a href="#goal">Our Goal</a>
+        <a href="#impact">Impact</a>
+        <a href="#stories">Empowerment</a>
+        <a href="#feedback">Feedback</a>
+        <a href="#about">About</a>
+        <a class="btn hollow" href="login.html">Login</a>
+        <a class="btn primary" href="signup.html">Sign Up</a>
+      </nav>
+
+      <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+  <h2 id="userGreeting" class="user-greeting"></h2>
+
+  <!-- HERO CAROUSEL -->
+  <section id="hero" class="hero container">
+    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Saheli hero">
+      <button class="arrow prev" data-action="prev" aria-label="Previous">‹</button>
+
+      <div class="slides">
+        <!-- Slide 1 -->
+        <article class="slide active" data-index="0">
+          <div class="slide-left">
+            <img src="images/hero1.jpg" alt="Cycle tracker illustration" class="slide-img">
+          </div>
+          <div class="slide-right">
+            <h1>Track Your Cycle with Confidence</h1>
+            <p class="lead">Log periods, moods and symptoms — receive thoughtful insights and timely reminders tailored to your body.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="cycle-tracker.html">Start Tracking</a>
+              <a class="btn hollow" href="#features">Explore Features</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="slide" data-index="1">
+          <div class="slide-left">
+            <img src="images/hero2.jpg" alt="Nutrition illustration" class="slide-img">
+          </div>
+          <div class="slide-right">
+            <h1>Eat Smart, Feel Strong</h1>
+            <p class="lead">Phase-based nutrition plans and easy recipes to support energy, mood and recovery across your cycle.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="nutrition.html">View Nutrition</a>
+              <a class="btn hollow" href="#phases">Learn Phases</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="slide" data-index="2">
+          <div class="slide-left">
+            <img src="images/hero3.jpg" alt="Doctor support illustration" class="slide-img">
+          </div>
+          <div class="slide-right">
+            <h1>Trusted Doctor Support</h1>
+            <p class="lead">Get private consultations with verified specialists and follow-up care when you need it most.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="doctor.html">Talk to a Doctor</a>
+              <a class="btn hollow" href="#about">Why Saheli</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 4 -->
+        <article class="slide" data-index="3">
+          <div class="slide-left">
+            <img src="images/hero4.jpg" alt="Myths vs facts illustration" class="slide-img">
+          </div>
+          <div class="slide-right">
+            <h1>Myths vs Facts</h1>
+            <p class="lead">We demystify menstrual health with evidence-based answers — empowering choices through trustworthy information.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="myths-vs-facts.html">Explore Myths</a>
+              <a class="btn hollow" href="#stories">Read Stories</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <button class="arrow next" data-action="next" aria-label="Next">›</button>
+
+      <div class="indicators" role="tablist" aria-label="carousel indicators">
+        <button class="dot active" data-slide-to="0" aria-label="Go to slide 1"></button>
+        <button class="dot" data-slide-to="1" aria-label="Go to slide 2"></button>
+        <button class="dot" data-slide-to="2" aria-label="Go to slide 3"></button>
+        <button class="dot" data-slide-to="3" aria-label="Go to slide 4"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="section-title">Featured tools & resources</h2>
+      <p class="section-sub">Quick links to the most useful parts of Saheli — crafted to help you every day.</p>
+
+      <div class="grid cards-grid">
+        <a class="card" href="cycle-tracker.html">
+          <div class="card-media circle">📅</div>
+          <h3>Cycle Tracker</h3>
+          <p>Predictive reminders, symptom logs, and insights for better planning.</p>
+        </a>
+
+        <a class="card" href="doctor.html">
+          <div class="card-media circle">🩺</div>
+          <h3>Doctor Support</h3>
+          <p>Secure consultations and follow-ups with verified specialists.</p>
+        </a>
+
+        <a class="card" href="nutrition.html">
+          <div class="card-media blob">🥗</div>
+          <h3>Nutrition</h3>
+          <p>Phase-specific meal ideas and nutrition tips to support your cycle.</p>
+        </a>
+
+        <a class="card" href="remedies.html">
+          <div class="card-media pill">🌿</div>
+          <h3>Remedies</h3>
+          <p>Home remedies, gentle stretches and simple rituals for comfort.</p>
+        </a>
+
+        <a class="card" href="myths-vs-facts.html">
+          <div class="card-media">💡</div>
+          <h3>Myths vs Facts</h3>
+          <p>Busting myths with evidence and compassionate explanations.</p>
+        </a>
+
+        <a class="card" href="story.html">
+          <div class="card-media">💡</div>
+          <h3>Story Telling Wall</h3>
+          <p>No Shame in the Story -- Let's Normalize the Flow.</p>
+        </a>
+
+        <a class="card" href="faith.html">
+          <div class="card-media">💡</div>
+          <h3>Faith and Science</h3>
+          <p>Where Faith & Physiology Converge.</p>
+        </a>
+
+        <a class="card" href="about.html">
+          <div class="card-media">🤝</div>
+          <h3>About Saheli</h3>
+          <p>Our mission, privacy practices and team behind Saheli.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASES -->
+  <section id="phases" class="section alt">
+    <div class="container">
+      <h2 class="section-title">Phases of the cycle</h2>
+      <p class="section-sub">A short, friendly guide for each phase and practical tips.</p>
+
+      <div class="grid phases-grid">
+        <div class="phase-card">
+          <div class="phase-ill">🩸</div>
+          <h4>Menstrual</h4>
+          <p>Days 1–5 — rest, replenishment, gentle nutrition & warmth.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-ill">🌱</div>
+          <h4>Follicular</h4>
+          <p>Days 6–13 — rising energy, plan & create, light workouts.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-ill">💖</div>
+          <h4>Ovulation</h4>
+          <p>~Day 14 — peak energy & sociability; good for important meetings.</p>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-ill">🌙</div>
+          <h4>Luteal</h4>
+          <p>Days 15–28 — wind down, self-care, sleep, and gentle routines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR GOAL -->
+  <section id="goal" class="section">
+    <div class="container goal-grid">
+      <div class="goal-image">
+        <img src="images/goal.jpg" alt="Community & goal image" class="rounded-img">
+      </div>
+      <div class="goal-text">
+        <h2 class="section-title">Our Goal</h2>
+        <p class="lead">Saheli exists to reduce stigma, improve access to menstrual health education, and provide practical daily tools that help women make informed choices about their bodies.</p>
+
+        <ul class="goal-list">
+          <li><strong>Accessible knowledge:</strong> Clear, evidence-based content in simple language.</li>
+          <li><strong>Personalized care:</strong> Tracker analytics & reminders tuned to your rhythm.</li>
+          <li><strong>Trusted support:</strong> Secure doctor connections and community resources.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section id="impact" class="section alt">
+    <div class="container">
+      <h2 class="section-title">Impact on Society</h2>
+      <p class="section-sub">Education + access = measurable change across households and communities.</p>
+
+      <div class="grid impact-grid">
+        <div class="impact-card">
+          <h4>Education & Opportunity</h4>
+          <p>Supporting girls' education by reducing stigma and improving attendance.</p>
+        </div>
+        <div class="impact-card">
+          <h4>Health Outcomes</h4>
+          <p>Better menstrual care reduces absenteeism and improves long-term health.</p>
+        </div>
+        <div class="impact-card">
+          <h4>Community Resilience</h4>
+          <p>Local programs create ripple effects in economic wellbeing and equality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section id="stories" class="section">
+    <div class="container">
+      <h2 class="section-title">Women Empowerment — real stories</h2>
+      <p class="section-sub">Short summaries with source links — click to read full stories.</p>
+
+      <div class="grid stories-grid">
+        <article class="story-card">
+          <div class="story-thumb">M</div>
+          <h4>Malala Yousafzai</h4>
+          <p>Advocate for girls' education — activism that changed global conversations.</p>
+          <a href="https://malala.org/malalas-story" target="_blank" rel="noopener">Source</a>
+        </article>
+
+        <article class="story-card">
+          <div class="story-thumb">U</div>
+          <h4>Kanyashree / UNICEF</h4>
+          <p>State & NGO program helping girls stay in school and resist early marriage.</p>
+          <a href="https://www.unicef.org/india/topics/girls-education" target="_blank" rel="noopener">Source</a>
+        </article>
+
+        <article class="story-card">
+          <div class="story-thumb">K</div>
+          <h4>Kiran Mazumdar-Shaw</h4>
+          <p>Entrepreneurial success inspiring women in science & business.</p>
+          <a href="https://www.forbes.com/profile/kiran-mazumdar-shaw/" target="_blank" rel="noopener">Source</a>
+        </article>
+
+        <article class="story-card">
+          <div class="story-thumb">UN</div>
+          <h4>UN Women Features</h4>
+          <p>Regional success stories of women-led initiatives and social programs.</p>
+          <a href="https://www.unwomen.org" target="_blank" rel="noopener">Source</a>
+        </article>
+
+        <article class="story-card">
+          <div class="story-thumb">E</div>
+          <h4>Educate Girls</h4>
+          <p>Community outreach programs that improved enrollment and outcomes.</p>
+          <a href="https://educategirls.ngo" target="_blank" rel="noopener">Source</a>
+        </article>
+
+        <article class="story-card">
+          <div class="story-thumb">T</div>
+          <h4>TIME — Firsts</h4>
+          <p>Profiles of women who were first in their fields — role models for many.</p>
+          <a href="https://time.com" target="_blank" rel="noopener">Source</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section id="feedback" class="section alt">
+    <div class="container">
+      <h2 class="section-title">What users say</h2>
+      <p class="section-sub">Honest feedback from early users (sample data).</p>
+
+      <div class="grid feedback-grid">
+        <article class="feedback-card">
+          <img class="avatar" src="images/face1.jpg" alt="Asha profile">
+          <div class="fb-body"><strong>Asha R.</strong><p>"The tracker finally made sense of my irregular periods."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face2.jpg" alt="Priya profile">
+          <div class="fb-body"><strong>Priya S.</strong><p>"Loved the nutrition plans — simple and practical."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face3.jpg" alt="Neha profile">
+          <div class="fb-body"><strong>Neha M.</strong><p>"Doctor consults were kind and clear."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face4.jpg" alt="Rina profile">
+          <div class="fb-body"><strong>Rina P.</strong><p>"Myths vs facts changed how I talk about periods."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face5.jpg" alt="Simran profile">
+          <div class="fb-body"><strong>Simran K.</strong><p>"Privacy-first and thoughtful UX."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face6.jpg" alt="Nandita profile">
+          <div class="fb-body"><strong>Nandita V.</strong><p>"Local resources are practical and helpful."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face7.jpg" alt="Shreya profile">
+          <div class="fb-body"><strong>Shreya T.</strong><p>"Helps me plan workouts and rest."</p></div>
+        </article>
+
+        <article class="feedback-card">
+          <img class="avatar" src="images/face8.jpg" alt="Ritu profile">
+          <div class="fb-body"><strong>Ritu N.</strong><p>"Small daily tips made a big difference."</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- REMEDIES SHORT -->
+  <section id="remedies" class="section">
+    <div class="container">
+      <h2 class="section-title">Home Remedies & Practical Care</h2>
+      <div class="grid remedies-grid">
+        <div class="rem-card">Warm compress & gentle massage</div>
+        <div class="rem-card">Chamomile tea for relaxation</div>
+        <div class="rem-card">Short walks & light stretching</div>
+        <div class="rem-card">Iron-rich foods when needed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section alt">
+    <div class="container">
+      <h2 class="section-title">About Saheli</h2>
+      <p class="lead">Saheli is built by designers, health educators and engineers who believe in compassionate tools that respect privacy and context.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© <span id="year">2025</span> Saheli</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING -->
+  <button id="backTop" class="backTop" aria-label="Back to top">↑</button>
+<button id="sakhi" aria-label="Open Sakhi">💬</button>
+
+<script src="sakhi.js"></script>
+
+</body>
+</html>
